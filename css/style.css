@@ -1,0 +1,22 @@
+body {
+    background-color: rgb(52, 58, 64);
+    color: rgb(241, 250, 238);
+    margin: 0;
+}
+
+#logo img {
+    height: 100%;
+    width: 40%;
+}
+
+header {
+    color: #404040;
+    display: flex;
+    background-color: rgb(42, 157, 143);
+    justify-content: space-between;
+    padding: 3px;
+}
+
+.description {
+    background-color: rgb(48, 54, 60);
+}
