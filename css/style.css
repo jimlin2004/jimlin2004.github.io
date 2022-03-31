@@ -17,6 +17,16 @@ header {
     padding: 3px;
 }
 
+.container {
+    margin: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
 .description {
     background-color: rgb(48, 54, 60);
+}
+
+#burger:hover {
+    transform: scale(1.2);
 }
