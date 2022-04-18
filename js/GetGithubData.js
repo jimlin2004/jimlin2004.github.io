@@ -3,7 +3,7 @@ var git_data;
 function log_data() {
     for (let i = 0; i < git_data.length; i++)
     {
-$("#s_github").append(new Option(git_data[i].name, i.toString()));
+        $("#s_github").append(new Option(git_data[i].name, i.toString()));
     }
 }
 
