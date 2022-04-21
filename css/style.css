@@ -23,6 +23,11 @@ header {
     justify-content: space-between;
 }
 
+.container li {
+    list-style-type:none;
+    margin-left: 10px;
+}
+
 .description {
     background-color: rgb(48, 54, 60);
 }

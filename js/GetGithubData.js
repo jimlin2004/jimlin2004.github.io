@@ -28,7 +28,7 @@ $(document).ready(function(){
             alert("Error");
         }
     });
-    $("#b_selected").click(function (){
+    $("#b_selected").on("click", function (){
         print_description();
     });
 });
