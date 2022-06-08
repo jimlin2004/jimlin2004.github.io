@@ -1,37 +1,101 @@
-body {
-    background-color: rgb(52, 58, 64);
-    color: rgb(241, 250, 238);
+* {
     margin: 0;
+    padding: 0;
+    font-family: Microsoft JhengHei;
+    list-style: none;
 }
 
-#logo img {
-    height: 100%;
-    width: 40%;
+body {
+    background-color: #343a40;
+    color: #f1faee;
 }
 
 header {
     color: #404040;
-    display: flex;
-    background-color: rgb(42, 157, 143);
-    justify-content: space-between;
-    padding: 3px;
+    background-image: linear-gradient(#2a9d8f, #2a9d9068);
 }
 
-.container {
-    margin: 5px;
+header .container {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    /* padding: 20px; */
+    margin: auto;
 }
 
-.container li {
-    list-style-type:none;
-    margin-left: 10px;
+header .container #logo {
+    width: 100px;
+}
+
+header .container #logo img{
+    width: 100%;
+    vertical-align: middle;
+}
+
+header .container .header_nav {
+    margin: auto;
+}
+
+header .container .header_nav a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 120%;
+    padding: 0px 1em;
+    position: relative;
+}
+
+header .container .header_nav a:after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    bottom: -5px;
+    height: 0;
+    border-bottom: 1px solid #fff;
+    transition: 0.3s;
+}
+
+header .container .header_nav a:hover:after {
+    left: 0;
+    right: 0;
+}
+
+header .container #search_bar {
+    display: flex;
+    padding: 0px 5%;
+}
+
+header .container #search_bar input,
+header .container #search_bar button {
+    border: none;
+    background-color: #fff;
+    padding: 2% 2%;
+}
+
+header .container #search_bar input:focus,
+header .container #search_bar button:focus {
+    outline: none;
+}
+
+header .container #search_bar button {
+    border-radius: 0 100px 100px 0;
+}
+
+header .container #search_bar input {
+    border-radius: 100px 0 0 100px;
+}
+
+header .container #burger {
+    padding: 0 1%;
 }
 
 .description {
-    background-color: rgb(48, 54, 60);
+    background-color: #30363c;
 }
 
 #burger:hover {
     transform: scale(1.2);
+}
+
+#menu {
+    margin-left: 0%;
 }
