@@ -108,7 +108,7 @@ header .container #burger {
     background-color: #49d59f;
     box-shadow: -5px 0 3px hsla(177, 71%, 27%, 0.5);
     box-sizing: border-box;
-    transform: translateX(100%);
+    transform: translateX(120%);
     transition: 0.3s;
 }
 
@@ -121,6 +121,8 @@ header .container #burger {
     justify-content: center;
     align-items: center;
     padding: 10px;
+    border-bottom-style: dotted;
+	border-bottom-color: rgba(0, 0, 0, 0.626); 
 }
 
 #side_menu #user_info i {
