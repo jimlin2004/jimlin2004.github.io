@@ -5,25 +5,29 @@
     list-style: none;
 }
 
-body {
-    background-color: #343a40;
-    color: #f1faee;
+html, body {
+    /* background-color: #343a40; */
+    background-color: #e9ecef;
+    color: #404040;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 header {
     color: #404040;
-    background-image: linear-gradient(#2a9d8f, #2a9d9068);
+    background-image: linear-gradient(#2a9d8f, #5d9b92);
 }
 
 header .container {
     display: flex;
     align-items: center;
-    /* padding: 20px; */
     margin: auto;
 }
 
 header .container #logo {
-    width: 100px;
+    width: 7%;
 }
 
 header .container #logo img{
@@ -78,6 +82,7 @@ header .container #search_bar button:focus {
 
 header .container #search_bar button {
     border-radius: 0 100px 100px 0;
+    background-color: goldenrod;
 }
 
 header .container #search_bar input {
@@ -88,14 +93,66 @@ header .container #burger {
     padding: 0 1%;
 }
 
+#content {
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+}
+
+#side_menu {
+    width: 15%;
+    height: 100%;
+    right: 0%;
+    display: flex;
+    flex-direction: column;
+    background-color: #49d59f;
+    box-shadow: -5px 0 3px hsla(177, 71%, 27%, 0.5);
+    box-sizing: border-box;
+    transform: translateX(100%);
+    transition: 0.3s;
+}
+
+#side_menu.active {
+    transform: translateX(0);
+}
+
+#side_menu #user_info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+#side_menu #user_info i {
+    font-size: 150%;
+}
+
+#side_menu nav a{
+    display: block;
+    padding: 10px;
+    color: #fff;
+    text-decoration: none;
+    position: relative;
+    font-size: 100%;
+}
+
+#side_menu nav a + a::before {
+    content: "";
+    position: absolute;
+    border-top: 1px solid #fff;
+    left: 10px;
+    right: 10px;
+    top: 0;
+}
+
+#side_menu nav a:hover {
+    font-size: 120%;
+}
+
 .description {
     background-color: #30363c;
 }
 
 #burger:hover {
     transform: scale(1.2);
-}
-
-#menu {
-    margin-left: 0%;
 }
