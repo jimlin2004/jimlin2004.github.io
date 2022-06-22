@@ -4,32 +4,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="UTF-8">
         <title>jimlin2004's blog</title>
-        <link rel = "icon" href = "./img/favicon.png">
+        <link rel = "icon" href = "img/favicon.png">
+        <link rel = "stylesheet" href = "../css/base.css">
         <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
         <link rel = "stylesheet" href = "https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
+        <link rel = "stylesheet" href = "../css/header.css">
+        <link rel = "stylesheet" href = "../css/side_menu.css">
         <link rel = "stylesheet" href = "css/style.css">
-        <script src = "lib/jquery-3.6.0.min.js"></script>
+        <script src = "../lib/jquery-3.6.0.min.js"></script>
         <script src = "https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
-        <script src = "js/GetGithubData.js"></script>
-        <script src = "js/menu.js"></script>
+        <script src = "../js/base.js" defer></script>
+        <script src = "js/GetGithubData.js" defer></script>
     </head>
     <body>
-        <header>
-            <div class = "container">
-                <div id = "logo">
-                    <img src = "img/logo.png">
-                </div>
-                <nav class = "header_nav">
-                    <a href = "#">回到首頁</a>
-                    <a href = "#">關於我</a>
-                </nav>
-                <form id = "search_bar">
-                    <input type = "search" placeholder = "請輸入關鍵字">
-                    <button><i class = "fa fa-search"></i></button>
-                </form>
-                <i class = "fa fa-fw fa-navicon" style = "font-size:200%; margin-right:5px;" id = "burger"></i>
-            </div>
-        </header>
+        <header></header>
         <div id = "content">
             <div id = "main">
                 <div id = "github">
@@ -48,18 +36,7 @@
                 <div class = "swiper-button-prev"></div>
                 <div class = "swiper-button-next"></div>
             </div>
-            <div id = "side_menu">
-                <div id = "user_info">
-                    <i class="fa fa-user-circle"></i>
-                </div>
-                <nav>
-                    <a href = "#">東西</a>
-                    <a href = "#">東西</a>
-                    <a href = "#">東西</a>
-                </nav>
-            </div>
+            <div id = "side_menu"></div>
         </div>
-        
-        
     </body>
 </html>
