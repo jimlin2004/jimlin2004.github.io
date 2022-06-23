@@ -1,3 +1,22 @@
+function update_path() {
+    fetch("./path_config.json")
+        .then((res) => {
+            return res.json();
+        })
+        .then((json) => {
+            for (let obj in json)
+            {
+                for (let key in json[obj])
+                {
+                    if ($(key).attr("href") !== undefined)
+                        $(key).attr("href", json[obj][key]);
+                    else
+                        $(key).attr("src", json[obj][key]);
+                }
+            }
+        });
+}
+
 async function load_all() {
     await new Promise((resolve, reject) => {
         $("header").load("../header.html", () => {
@@ -16,7 +35,7 @@ async function load_all() {
             resolve("ok");
         });
     });
-    await console.log("end");
+    update_path();
 }
 
 load_all();
