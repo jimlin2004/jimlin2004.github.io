@@ -3,10 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>jimlin2004's blog</title>
+    <link rel = "icon" href = "../img/favicon.png">
+    <link rel = "stylesheet" href = "../css/base.css">
+    <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel = "stylesheet" href = "../css/header.css">
+    <link rel = "stylesheet" href = "../css/side_menu.css">
+    <script src = "../lib/jquery-3.6.0.min.js"></script>
+    <script src = "../js/base.js" defer></script>
+    <script src = "js/image_converter.js" defer></script>
 </head>
 <body>
-    <input type="file" id="image_files" multiple>
-    <button id = "submit"></button>
+    
+    <header></header>
+    <div id = "content">
+        <div id = "main">
+            <div>
+                <input type="file" id="image_files" accept="image/*" multiple>
+                <button id = "submit">提交</button>
+            </div>
+        </div>
+        <div id = "side_menu"></div>
+    </div>
 </body>
 </html>
