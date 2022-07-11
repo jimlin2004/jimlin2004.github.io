@@ -1,0 +1,10 @@
+{
+    "header": {
+        "#logo img": "../img/logo.png",
+        "#home": "../index/index.html",
+        "about_me": "#"
+    },
+    "side_menu": {
+        "#a_image_converter": "#"
+    }
+}
