@@ -1,4 +1,4 @@
-export class Node
+class Node
 {
     constructor(val)
     {
@@ -8,7 +8,7 @@ export class Node
     }
 };
 
-export class BinarySearchTree
+class BinarySearchTree
 {
     constructor()
     {
@@ -47,4 +47,6 @@ export class BinarySearchTree
                 return false;
         }
     }
-}
+};
+
+export {BinarySearchTree};
