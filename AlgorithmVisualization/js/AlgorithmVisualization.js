@@ -10,9 +10,33 @@ class Circle
         this.val = val;
     }
 
+    measureActualSize()
+    {
+        let num = 0;
+        let reg = /^[\d|a-zA-Z]+$/;
+        for (let char of this.val)
+        {
+            if (reg.test(char))
+                num += 1;
+            else
+                num += 2;
+        }
+        return num;
+    }
+
     resizeFontSize(ctx)
     {
-
+        let reg = /^[\d|a-zA-Z]+$/;
+        if (reg.test(this.val))
+        {
+            let font_size = (this.r * 2) / this.val.length * 2;
+            ctx.font = `${font_size}px Silver`;
+        }
+        else
+        {
+            let font_size = (this.r * 2) / this.measureActualSize() * 2;
+            ctx.font = `${font_size}px Silver`;
+        }
     }
 
     draw(ctx)
@@ -24,10 +48,13 @@ class Circle
         ctx.fill();
         ctx.stroke();
         ctx.fillStyle = "#000000";
-        let font_material = ctx.measureText(this.val);
-        let t_h = font_material.actualBoundingBoxAscent + font_material.actualBoundingBoxDescent;
         if (this.val !== undefined)
+        {
+            this.resizeFontSize(ctx);
+            let font_material = ctx.measureText(this.val);
+            let t_h = font_material.actualBoundingBoxAscent + font_material.actualBoundingBoxDescent;
             ctx.fillText(this.val, this.x - (font_material.width / 2), this.y + (t_h / 2));
+        }
     }
 };
 
@@ -58,8 +85,8 @@ $(function() {
     let algorithmVisualizationSystem = new AlgorithmVisualizationSystem("");
     fontface.load().then((font) => {
         document.fonts.add(font);
-        ctx.font = `${canvas.width * 0.08}px Silver`;
-        let circle1 = new Circle(100, 100, 30, "Hallo");
+        // ctx.font = `${canvas.width * 0.08}px Silver`;
+        let circle1 = new Circle(100, 100, 30, "1234");
         let circle2 = new Circle(200, 200, 30, "嗨");
         algorithmVisualizationSystem.connect(ctx, circle1, circle2);
         circle1.draw(ctx);
