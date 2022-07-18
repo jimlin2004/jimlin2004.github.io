@@ -1,3 +1,4 @@
 #main_canvas {
-    border: 5px black;
+    padding: 2%;
+    border: #000000 5px solid;
 }

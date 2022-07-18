@@ -16,9 +16,7 @@ html, body {
 }
 
 #content {
-    position: relative;
-    /* height: 100%; */
-    /* display: flex; */
+    display: flex;
     flex-grow: 1;
-    /* justify-content: space-between; */
+    justify-content: space-between;
 }

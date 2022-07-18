@@ -76,13 +76,21 @@ class AlgorithmVisualizationSystem
     }
 };
 
+function resizeCanvasSize(canvas)
+{
+    canvas.width = $("#content").width();
+    canvas.height = $("#content").height() * 0.6;
+}
+
 $(function() {
     let fontface = new FontFace("Silver", "url(../../font/Silver.ttf)");
     const canvas = document.getElementById("main_canvas");
     const ctx = canvas.getContext("2d");
-    canvas.width = $("#content").width() - $("#side_menu").width() - 5;
-    canvas.height = $("#content").height() * 0.6;
+    resizeCanvasSize(canvas);
     let algorithmVisualizationSystem = new AlgorithmVisualizationSystem("");
+    window.addEventListener("resize", () => {
+        resizeCanvasSize(canvas);
+    });
     fontface.load().then((font) => {
         document.fonts.add(font);
         // ctx.font = `${canvas.width * 0.08}px Silver`;
