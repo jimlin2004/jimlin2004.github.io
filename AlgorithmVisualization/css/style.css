@@ -2,3 +2,7 @@
     padding: 2%;
     border: #000000 5px solid;
 }
+
+.HorizontalArrangement {
+    display: flex;
+}

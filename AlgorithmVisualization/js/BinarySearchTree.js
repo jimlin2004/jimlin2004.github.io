@@ -47,6 +47,27 @@ class BinarySearchTree
                 return false;
         }
     }
+
+    dfs(root)
+    {
+        console.log(root.val);
+        this.dfs(root.left);
+        this.dfs(root.right);
+    }
+
+    print()
+    {
+        this.dfs(this.root);
+        return;
+    }
+
+    parse(data)
+    {
+        for (let val of data)
+        {
+            this.insert(val);
+        }
+    }
 };
 
 export {BinarySearchTree};

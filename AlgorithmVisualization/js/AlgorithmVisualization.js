@@ -1,4 +1,4 @@
-import {BinarySearchTree} from "./BinarySearchTree.js"
+import {Parser} from "./Parser.js"
 
 class Circle
 {
@@ -65,6 +65,20 @@ class AlgorithmVisualizationSystem
         this.data = [];
         this.elements = [];
         this.type = type;
+        this.parser = new Parser(this.type);
+    }
+
+    setType(type)
+    {
+        this.type = type;
+        this.parser.setType(type);
+    }
+
+    addTosection()
+    {
+        let keys = Object.keys(this.parser.dataStruct)
+        for (let i = 0; i < keys.length; i++)
+            $("#s_type").append(new Option(keys[i], i.toString()));
     }
     
     connect(ctx, ele1, ele2)
@@ -88,8 +102,20 @@ $(function() {
     const ctx = canvas.getContext("2d");
     resizeCanvasSize(canvas);
     let algorithmVisualizationSystem = new AlgorithmVisualizationSystem("");
+    algorithmVisualizationSystem.addTosection();
     window.addEventListener("resize", () => {
         resizeCanvasSize(canvas);
+    });
+    const b_check = document.getElementById("b_check");
+    b_check.addEventListener("click", () => {
+        if ($("#i_data").val().length === 0)
+            return;
+        else
+        {
+            algorithmVisualizationSystem.setType($("#s_type").val());
+            
+            algorithmVisualizationSystem.parser.parse($("#i_data").val());
+        }
     });
     fontface.load().then((font) => {
         document.fonts.add(font);
