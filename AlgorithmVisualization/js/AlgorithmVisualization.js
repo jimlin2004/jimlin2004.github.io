@@ -74,7 +74,7 @@ class AlgorithmVisualizationSystem
         this.parser.setType(type);
     }
 
-    addTosection()
+    addToSelect()
     {
         let keys = Object.keys(this.parser.dataStruct)
         for (let i = 0; i < keys.length; i++)
@@ -102,7 +102,7 @@ $(function() {
     const ctx = canvas.getContext("2d");
     resizeCanvasSize(canvas);
     let algorithmVisualizationSystem = new AlgorithmVisualizationSystem("");
-    algorithmVisualizationSystem.addTosection();
+    algorithmVisualizationSystem.addToSelect();
     window.addEventListener("resize", () => {
         resizeCanvasSize(canvas);
     });
@@ -112,8 +112,8 @@ $(function() {
             return;
         else
         {
-            algorithmVisualizationSystem.setType($("#s_type").val());
-            
+            algorithmVisualizationSystem.parser.clear();
+            algorithmVisualizationSystem.setType($("#s_type").text());
             algorithmVisualizationSystem.parser.parse($("#i_data").val());
         }
     });

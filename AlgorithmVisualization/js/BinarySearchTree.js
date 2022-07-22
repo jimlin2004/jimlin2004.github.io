@@ -15,11 +15,21 @@ class BinarySearchTree
         this.root = null;
     }
 
+    getHead()
+    {
+        return this.root;
+    }
+
+    clear()
+    {
+        this.root = null;
+    }
+
     insert(val)
     {
         if (this.root === null)
         {
-            this.root = new Node(value)
+            this.root = new Node(val)
             return this;
         }
         let current = this.root;
@@ -50,6 +60,11 @@ class BinarySearchTree
 
     dfs(root)
     {
+        if (root === null)
+        {
+            console.log(null);
+            return;
+        }
         console.log(root.val);
         this.dfs(root.left);
         this.dfs(root.right);

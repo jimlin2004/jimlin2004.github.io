@@ -1,6 +1,7 @@
 #main_canvas {
     padding: 2%;
-    border: #000000 5px solid;
+    border-top: #000000 5px solid;
+    border-bottom: #000000 5px solid;
 }
 
 .HorizontalArrangement {
