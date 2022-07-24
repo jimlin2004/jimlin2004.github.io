@@ -58,6 +58,14 @@ class BinarySearchTree
         }
     }
 
+    getChild() //return child->type: array
+    {
+        let _arr = [];
+        _arr.push(this.left);
+        _arr.push(this.right);
+        return _arr;
+    }
+
     dfs(root)
     {
         if (root === null)

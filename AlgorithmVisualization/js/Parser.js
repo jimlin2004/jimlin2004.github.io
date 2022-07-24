@@ -1,6 +1,15 @@
 import {BinarySearchTree} from "./BinarySearchTree.js"
 import {Queue} from "../../js/DataStructure.js"
 
+class Node
+{
+    constructor(parent, child)
+    {
+        this.parent = parent;
+        this.child = child;
+    }
+};
+
 class Parser
 {
     constructor(type)
@@ -36,20 +45,16 @@ class Parser
         this.currentDataStruct.print()
     }
 
-    getNextLevel()
+    getLevels()
     {
-        if (this.queue.empty())
-            this.queue.push(this.currentDataStruct.getHead());
-        else
+        this.queue.push(this.currentDataStruct.getHead());
+        let levels = [];
+        let currentNode = null;
+        while (!this.queue.empty())
         {
-            let newQueue = new Queue();
-            let currentNode = null;
-            while (!this.queue.empty())
-            {
-                currentNode = this.queue.front();
-                this.queue.pop();
-                
-            }
+            currentNode = this.queue.front();
+            this.queue.pop();
+            
         }
     }
 };
