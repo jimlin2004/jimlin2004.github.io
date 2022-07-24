@@ -1,10 +1,17 @@
-class Node
+class Node_BST
 {
     constructor(val)
     {
         this.val = val;
         this.left = null;
         this.right = null;
+    }
+    getChild() //return child->type: array
+    {
+        let _arr = [];
+        _arr.push(this.left);
+        _arr.push(this.right);
+        return _arr;
     }
 };
 
@@ -29,7 +36,7 @@ class BinarySearchTree
     {
         if (this.root === null)
         {
-            this.root = new Node(val)
+            this.root = new Node_BST(val)
             return this;
         }
         let current = this.root;
@@ -39,7 +46,7 @@ class BinarySearchTree
             {
                 if (current.left === null)
                 {
-                    current.left = new Node(val);
+                    current.left = new Node_BST(val);
                     return this;
                 }
                 current = current.left;
@@ -48,7 +55,7 @@ class BinarySearchTree
             {
                 if (current.right === null)
                 {
-                    current.right = new Node(val);
+                    current.right = new Node_BST(val);
                     return this;
                 }
                 current = current.right;
@@ -58,22 +65,14 @@ class BinarySearchTree
         }
     }
 
-    getChild() //return child->type: array
-    {
-        let _arr = [];
-        _arr.push(this.left);
-        _arr.push(this.right);
-        return _arr;
-    }
-
     dfs(root)
     {
         if (root === null)
         {
-            console.log(null);
+            // console.log(null);
             return;
         }
-        console.log(root.val);
+        // console.log(root.val);
         this.dfs(root.left);
         this.dfs(root.right);
     }

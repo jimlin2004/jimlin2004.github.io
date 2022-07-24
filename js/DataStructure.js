@@ -16,6 +16,13 @@ class Queue
         this.size = 0;
     }
 
+    clear()
+    {
+        this._first = null;
+        this._last = null;
+        this.size = 0;
+    }
+
     push(val)
     {
         let newNode = new QueueNode(val);

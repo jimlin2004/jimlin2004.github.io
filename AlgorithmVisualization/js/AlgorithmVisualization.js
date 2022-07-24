@@ -88,6 +88,24 @@ class AlgorithmVisualizationSystem
         ctx.lineTo(ele2.x, ele2.y);
         ctx.stroke();
     }
+
+    getMaxLevelWidth(levels)
+    {
+        let _max = 0;
+        for (let level of levels)
+        {
+            if (level.sizeWithoutNull !== 0)
+            {
+                _max = Math.max(_max, level.getSizeIncludingNull());
+            }
+        }
+        return _max;
+    }
+
+    drawWithNull()
+    {
+
+    }
 };
 
 function resizeCanvasSize(canvas)
@@ -115,6 +133,8 @@ $(function() {
             algorithmVisualizationSystem.parser.clear();
             algorithmVisualizationSystem.setType($("#s_type").text());
             algorithmVisualizationSystem.parser.parse($("#i_data").val());
+            let levels = algorithmVisualizationSystem.parser.getLevels();
+            console.log(algorithmVisualizationSystem.getMaxLevelWidth(levels));
         }
     });
     fontface.load().then((font) => {
