@@ -68,6 +68,11 @@ class AlgorithmVisualizationSystem
         this.parser = new Parser(this.type);
     }
 
+    clear()
+    {
+        this.elements = [];
+    }
+
     setType(type)
     {
         this.type = type;
@@ -89,10 +94,10 @@ class AlgorithmVisualizationSystem
         ctx.stroke();
     }
 
-    getMaxLevelWidth(levels)
+    getMaxLevelWidth()
     {
         let _max = 0;
-        for (let level of levels)
+        for (let level of this.parser.levels)
         {
             if (level.sizeWithoutNull !== 0)
             {
@@ -102,9 +107,44 @@ class AlgorithmVisualizationSystem
         return _max;
     }
 
+    getMaxElementNum_binary()
+    {
+        //適用於二元樹狀結構
+        let depth = this.parser.levels.length - 1; //去尾
+        return Math.pow(2, depth - 1);
+    }
+
+    splitCanvas(canvas)
+    {
+        let maxElementNum = this.getMaxElementNum_binary();
+        let depth = this.parser.levels.length - 1; //去尾
+        let unitWidth = parseInt(canvas.width / maxElementNum);
+        let unitHeight = parseInt(canvas.height / depth);
+        return {"unitWidth": unitWidth, "unitHeight": unitHeight,
+                "maxElementNum": maxElementNum, "depth": depth};
+    }
+
+    drawSplitCanvas(canvas)
+    {
+        let specification = this.splitCanvas(canvas);
+        let mid = parseInt(canvas.height / 2);
+        for (let i = 0; i < specification["maxElementNum"]; i++)
+        {
+            this.elements.push(new Circle(specification["unitWidth"] * i + parseInt(specification["unitWidth"] / 2), mid, parseInt(specification["unitWidth"] / 2), "100"));
+        }
+    }
+
     drawWithNull()
     {
+        
+    }
 
+    drawAllElement(ctx)
+    {
+        for (let element of this.elements)
+        {
+            element.draw(ctx);
+        }
     }
 };
 
@@ -131,19 +171,21 @@ $(function() {
         else
         {
             algorithmVisualizationSystem.parser.clear();
+            algorithmVisualizationSystem.clear();
             algorithmVisualizationSystem.setType($("#s_type").text());
             algorithmVisualizationSystem.parser.parse($("#i_data").val());
-            let levels = algorithmVisualizationSystem.parser.getLevels();
-            console.log(algorithmVisualizationSystem.getMaxLevelWidth(levels));
+            algorithmVisualizationSystem.parser.getLevels();
+            algorithmVisualizationSystem.drawSplitCanvas(canvas);
+            algorithmVisualizationSystem.drawAllElement(ctx);
         }
     });
     fontface.load().then((font) => {
         document.fonts.add(font);
         // ctx.font = `${canvas.width * 0.08}px Silver`;
-        let circle1 = new Circle(100, 100, 30, "1234");
-        let circle2 = new Circle(200, 200, 30, "嗨");
-        algorithmVisualizationSystem.connect(ctx, circle1, circle2);
-        circle1.draw(ctx);
-        circle2.draw(ctx);
+        // let circle1 = new Circle(100, 100, 30, "1234");
+        // let circle2 = new Circle(200, 200, 30, "嗨");
+        // algorithmVisualizationSystem.connect(ctx, circle1, circle2);
+        // circle1.draw(ctx);
+        // circle2.draw(ctx);
     });
 });

@@ -33,7 +33,7 @@ class Queue
         }
         else
         {
-            console.log(newNode);
+            // console.log(newNode);
             this._last.next = newNode;
             this._last = newNode;
         }

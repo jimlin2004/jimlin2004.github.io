@@ -56,6 +56,7 @@ class Parser
         {
             if (this.currentDataStruct.clear !== undefined)
                 this.currentDataStruct.clear();
+            this.levels = [];
         }
     }
 
@@ -75,14 +76,13 @@ class Parser
     getLevels()
     {
         this.queue.push(this.currentDataStruct.getHead());
-        let levels = [];
         let currentNode = null;
         let level = new Level();
         let child = [];
         let levelWidth = this.queue.size;
         let elementID = 1;
         level.push(new Node(-1, this.queue.front()))
-        levels.push(level); //將第一層加入levels
+        this.levels.push(level); //將第一層加入levels
         while (!this.queue.empty())
         {
             level = new Level(); //clear
@@ -102,9 +102,9 @@ class Parser
             }
             // console.log(level);
             levelWidth = this.queue.size;
-            levels.push(level);
+            this.levels.push(level);
         }
-        return levels;
+        return;
     }
 };
 
