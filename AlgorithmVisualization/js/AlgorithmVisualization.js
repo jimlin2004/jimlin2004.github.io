@@ -1,4 +1,5 @@
 import {Parser} from "./Parser.js"
+import {RenderSystem} from "./RenderSystem.js"
 
 class Circle
 {
@@ -39,20 +40,21 @@ class Circle
         }
     }
 
-    draw(ctx)
+    draw(ctx, color = "#000000")
     {
         ctx.beginPath();
         ctx.lineWidth = 3;
         ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
         ctx.fillStyle = "#FFFFFF";
         ctx.fill();
+        ctx.strokeStyle = color;
         ctx.stroke();
-        ctx.fillStyle = "#000000";
         if (this.val !== undefined)
         {
             this.resizeFontSize(ctx);
             let font_material = ctx.measureText(this.val);
             let t_h = font_material.actualBoundingBoxAscent + font_material.actualBoundingBoxDescent;
+            ctx.fillStyle = "#000000";
             ctx.fillText(this.val, this.x - (font_material.width / 2), this.y + (t_h / 2));
         }
     }
@@ -68,9 +70,10 @@ class AlgorithmVisualizationSystem
         this.parser = new Parser(this.type);
     }
 
-    clear()
+    clear(canvas, ctx)
     {
         this.elements = [];
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
     setType(type)
@@ -114,23 +117,43 @@ class AlgorithmVisualizationSystem
         return Math.pow(2, depth - 1);
     }
 
-    splitCanvas(canvas)
+    splitCanvas_binary(canvas)
     {
         let maxElementNum = this.getMaxElementNum_binary();
         let depth = this.parser.levels.length - 1; //去尾
-        let unitWidth = parseInt(canvas.width / maxElementNum);
-        let unitHeight = parseInt(canvas.height / depth);
+        let unitWidth = canvas.width / maxElementNum;
+        let unitHeight = canvas.height / depth;
         return {"unitWidth": unitWidth, "unitHeight": unitHeight,
                 "maxElementNum": maxElementNum, "depth": depth};
     }
 
-    drawSplitCanvas(canvas)
+    drawBinary(canvas)
     {
-        let specification = this.splitCanvas(canvas);
-        let mid = parseInt(canvas.height / 2);
+        let specification = this.splitCanvas_binary(canvas);
+        let y = canvas.height - specification["unitHeight"];
+        let r = Math.min(specification["unitWidth"] / 2, specification["unitHeight"] / 2);
+        let x = specification["unitWidth"] / 2;
         for (let i = 0; i < specification["maxElementNum"]; i++)
         {
-            this.elements.push(new Circle(specification["unitWidth"] * i + parseInt(specification["unitWidth"] / 2), mid, parseInt(specification["unitWidth"] / 2), "100"));
+            this.elements.push(new Circle(x, y, r, "100"));
+            x += specification["unitWidth"];
+        }
+    }
+
+    drawSplitCanvas(canvas, ctx)
+    {
+        let num = 4;
+        let unitWidth = canvas.width / num;
+        let x = 0;
+        let x2 = unitWidth / 2;
+        let mid = canvas.width / 2;
+        RenderSystem.line(ctx, mid, 0, mid, canvas.height, 6, "#CDC673");
+        for (let i = 0; i < num; i++)
+        {
+            x += unitWidth;
+            RenderSystem.line(ctx, x, 0, x, canvas.height);
+            RenderSystem.line(ctx, x2, 0, x2, canvas.height, 3, "#B22222");
+            x2 += unitWidth;
         }
     }
 
@@ -171,12 +194,13 @@ $(function() {
         else
         {
             algorithmVisualizationSystem.parser.clear();
-            algorithmVisualizationSystem.clear();
+            algorithmVisualizationSystem.clear(canvas, ctx);
             algorithmVisualizationSystem.setType($("#s_type").text());
             algorithmVisualizationSystem.parser.parse($("#i_data").val());
             algorithmVisualizationSystem.parser.getLevels();
-            algorithmVisualizationSystem.drawSplitCanvas(canvas);
+            algorithmVisualizationSystem.drawBinary(canvas);
             algorithmVisualizationSystem.drawAllElement(ctx);
+            algorithmVisualizationSystem.drawSplitCanvas(canvas, ctx);
         }
     });
     fontface.load().then((font) => {
