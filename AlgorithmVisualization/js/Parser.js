@@ -3,9 +3,9 @@ import {Queue} from "../../js/DataStructure.js"
 
 class Node
 {
-    constructor(parentID, child)
+    constructor(elementID, child)
     {
-        this.parentID = parentID;//上一個level的元素編號
+        this.elementID = elementID; //上一個level的元素編號
         this.child = child;
     }
 };
@@ -34,6 +34,15 @@ class Level
             this.sizeWithoutNull++;
         this.nodes.push(node);
         return;
+    }
+};
+
+class ElementID
+{
+    constructor(parentID, index)
+    {
+        this.parentID = parentID;
+        this.index = index;
     }
 };
 
@@ -80,30 +89,38 @@ class Parser
         let level = new Level();
         let child = [];
         let levelWidth = this.queue.size;
-        let elementID = 1;
-        level.push(new Node(-1, this.queue.front()))
+        let parentID = 1;
+        let elementID = new ElementID(-1, 1);
+        level.push(new Node(elementID, this.queue.front()))
         this.levels.push(level); //將第一層加入levels
+        let index = 0;
         while (!this.queue.empty())
         {
             level = new Level(); //clear
-            elementID = 1; //init
+            parentID = 1; //init
             for (let i = 0; i < levelWidth; i++)
             {
                 currentNode = this.queue.front();
                 this.queue.pop();
                 child = currentNode.getChild();
+                index = 1;
                 for (let node of child)
                 {
                     if (node !== null)
+                    {
                         this.queue.push(node);
-                    level.push(new Node(elementID, node));
+                    }
+                    level.push(new Node(new ElementID(parentID, index), node));
+                    index++;
                 }
-                elementID++;
+                parentID++;
+                index = 1;
             }
             // console.log(level);
             levelWidth = this.queue.size;
             this.levels.push(level);
         }
+        console.log(this.levels);
         return;
     }
 };

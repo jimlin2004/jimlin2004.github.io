@@ -91,10 +91,7 @@ class AlgorithmVisualizationSystem
     
     connect(ctx, ele1, ele2)
     {
-        ctx.beginPath();
-        ctx.moveTo(ele1.x, ele1.y);
-        ctx.lineTo(ele2.x, ele2.y);
-        ctx.stroke();
+        RenderSystem.line(ctx, ele1.x, ele1.y, ele2.x, ele2.y);
     }
 
     getMaxLevelWidth()
@@ -117,6 +114,16 @@ class AlgorithmVisualizationSystem
         return Math.pow(2, depth - 1);
     }
 
+    getLevelMaxElementNum_binary(levelNum)
+    {
+        return Math.pow(2, levelNum);
+    }
+
+    getLevelUnitWidth_binary(canvas, levelNum)
+    {
+        return canvas.width / this.getLevelMaxElementNum_binary(levelNum);
+    }
+
     splitCanvas_binary(canvas)
     {
         let maxElementNum = this.getMaxElementNum_binary();
@@ -130,14 +137,28 @@ class AlgorithmVisualizationSystem
     drawBinary(canvas)
     {
         let specification = this.splitCanvas_binary(canvas);
-        let y = canvas.height - specification["unitHeight"];
+        // let x = specification["unitWidth"] / 2;
+        let x = 0;
+        let y = specification["unitHeight"] / 2;
         let r = Math.min(specification["unitWidth"] / 2, specification["unitHeight"] / 2);
-        let x = specification["unitWidth"] / 2;
-        for (let i = 0; i < specification["maxElementNum"]; i++)
+        let unitWidth = 0;
+        let levelElementNum = 0;
+        for (let levelNum = 0; levelNum < specification["depth"]; levelNum++)
         {
-            this.elements.push(new Circle(x, y, r, "100"));
-            x += specification["unitWidth"];
+            unitWidth = this.getLevelUnitWidth_binary(canvas, levelNum);
+            x = unitWidth / 2;
+            levelElementNum = this.getLevelMaxElementNum_binary(levelNum);
+            for (let i = 0; i < levelElementNum; i++)
+            {
+                console.log(this.parser.levels[levelNum].nodes[i]);
+            }
         }
+        // for (let i = 0; i < specification["maxElementNum"]; i++)
+        // {
+        //     this.elements.push(new Circle(x, y, r, "100"));
+        //     x += specification["unitWidth"];
+        // }
+        return;
     }
 
     drawSplitCanvas(canvas, ctx)
