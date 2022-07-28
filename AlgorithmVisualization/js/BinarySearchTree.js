@@ -85,8 +85,11 @@ class BinarySearchTree
 
     parse(data)
     {
+        let reg = /^[\d]+$/;
         for (let val of data)
         {
+            if (reg.test(val))
+                val = parseInt(val);
             this.insert(val);
         }
     }

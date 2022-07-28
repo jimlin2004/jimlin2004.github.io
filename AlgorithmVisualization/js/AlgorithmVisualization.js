@@ -25,17 +25,21 @@ class Circle
         return num;
     }
 
-    resizeFontSize(ctx)
+    resizeFontSize(ctx, val)
     {
         let reg = /^[\d|a-zA-Z]+$/;
-        if (reg.test(this.val))
+        if (reg.test(val))
         {
-            let font_size = (this.r * 2) / this.val.length * 2;
+            let font_size = (this.r * 2) / val.length * 2;
+            if (val.length === 1)
+                font_size *= 0.8;
             ctx.font = `${font_size}px Silver`;
         }
         else
         {
             let font_size = (this.r * 2) / this.measureActualSize() * 2;
+            if (val.length === 1)
+                font_size *= 0.8;
             ctx.font = `${font_size}px Silver`;
         }
     }
@@ -49,13 +53,14 @@ class Circle
         ctx.fill();
         ctx.strokeStyle = color;
         ctx.stroke();
+        let text = this.val.toString();
         if (this.val !== undefined)
         {
-            this.resizeFontSize(ctx);
-            let font_material = ctx.measureText(this.val);
+            this.resizeFontSize(ctx, text);
+            let font_material = ctx.measureText(text);
             let t_h = font_material.actualBoundingBoxAscent + font_material.actualBoundingBoxDescent;
             ctx.fillStyle = "#000000";
-            ctx.fillText(this.val, this.x - (font_material.width / 2), this.y + (t_h / 2));
+            ctx.fillText(text, this.x - (font_material.width / 2), this.y + (t_h / 2));
         }
     }
 };
@@ -134,24 +139,47 @@ class AlgorithmVisualizationSystem
                 "maxElementNum": maxElementNum, "depth": depth};
     }
 
-    drawBinary(canvas)
+    drawBinary(canvas, ctx)
     {
         let specification = this.splitCanvas_binary(canvas);
         // let x = specification["unitWidth"] / 2;
         let x = 0;
         let y = specification["unitHeight"] / 2;
         let r = Math.min(specification["unitWidth"] / 2, specification["unitHeight"] / 2);
-        let unitWidth = 0;
-        let levelElementNum = 0;
-        for (let levelNum = 0; levelNum < specification["depth"]; levelNum++)
+        let previousLevel = [];
+        let currentLevel = [];
+        // let levelElementNum = 0;
+        
+        //<第一層>
+        let unitWidth = this.getLevelUnitWidth_binary(canvas, 0);
+        x = unitWidth / 2;
+        let circle = new Circle(x, y, r, this.parser.levels[0].nodes[0].data.val);
+        this.elements.push(circle);
+        previousLevel.push(circle);
+        //</第一層>
+
+        for (let levelNum = 1; levelNum < specification["depth"]; levelNum++)
         {
+            currentLevel = [];
             unitWidth = this.getLevelUnitWidth_binary(canvas, levelNum);
-            x = unitWidth / 2;
-            levelElementNum = this.getLevelMaxElementNum_binary(levelNum);
-            for (let i = 0; i < levelElementNum; i++)
+            // x = unitWidth / 2;
+            y += specification["unitHeight"];
+            for (let node of this.parser.levels[levelNum].nodes)
             {
-                console.log(this.parser.levels[levelNum].nodes[i]);
+                if (node.data !== null)
+                {
+                    x = previousLevel[node.elementID.parentID - 1].x;
+                    if (node.elementID.index === 1)
+                        x -= unitWidth / 2;
+                    else if (node.elementID.index === 2)
+                        x += unitWidth / 2;
+                    circle = new Circle(x, y, r, node.data.val);
+                    this.elements.push(circle);
+                    currentLevel.push(circle);
+                    this.connect(ctx, previousLevel[node.elementID.parentID - 1], circle);
+                }
             }
+            previousLevel = Array.from(currentLevel);
         }
         // for (let i = 0; i < specification["maxElementNum"]; i++)
         // {
@@ -219,9 +247,9 @@ $(function() {
             algorithmVisualizationSystem.setType($("#s_type").text());
             algorithmVisualizationSystem.parser.parse($("#i_data").val());
             algorithmVisualizationSystem.parser.getLevels();
-            algorithmVisualizationSystem.drawBinary(canvas);
+            algorithmVisualizationSystem.drawBinary(canvas, ctx);
             algorithmVisualizationSystem.drawAllElement(ctx);
-            algorithmVisualizationSystem.drawSplitCanvas(canvas, ctx);
+            // algorithmVisualizationSystem.drawSplitCanvas(canvas, ctx);
         }
     });
     fontface.load().then((font) => {

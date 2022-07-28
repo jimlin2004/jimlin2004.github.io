@@ -3,10 +3,10 @@ import {Queue} from "../../js/DataStructure.js"
 
 class Node
 {
-    constructor(elementID, child)
+    constructor(elementID, data)
     {
         this.elementID = elementID; //上一個level的元素編號
-        this.child = child;
+        this.data = data;
     }
 };
 
@@ -120,7 +120,7 @@ class Parser
             levelWidth = this.queue.size;
             this.levels.push(level);
         }
-        console.log(this.levels);
+        // console.log(this.levels);
         return;
     }
 };
