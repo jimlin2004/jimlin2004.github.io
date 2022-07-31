@@ -1,0 +1,89 @@
+#main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+}
+
+#login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    height: 40%;
+    border-radius: 10px;
+    border: 5px solid #000;
+}
+
+#login h2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#login #login_form
+{
+    width: 90%;
+}
+
+#login #login_form .group {
+    display: flex;
+    flex-direction: column;
+}
+
+#login #login_form .group label {
+    line-height: 2;
+    font-weight: bold;
+}
+
+#login #login_form .group input {
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#login #login_form .a_group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#login #login_form .a_group div {
+    width: 45%;
+    line-height: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#login #login_form .a_group div + div {
+    margin-left: 10%;
+}
+
+#login #login_form .a_group div a {
+    color: rgb(101, 101, 101);
+    font-size: 16px;
+    text-decoration: none;
+}
+
+#login #login_form .a_group div a:hover {
+    color: #000000;
+}
+
+#login #login_form .btn_group {
+    font-size: 0;
+    margin-top: 3%;
+}
+
+#login #login_form .btn_group button {
+    font-size: 16px;
+    width: 45%;
+    border: none;
+    border-radius: 10px;
+    background-color: goldenrod;
+    font-weight: bold;
+}
+
+#login #login_form .btn_group button + button {
+    margin-left: 10%;
+}

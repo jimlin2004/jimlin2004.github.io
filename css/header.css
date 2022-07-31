@@ -88,3 +88,19 @@ header .container #burger {
 header .container #burger:hover {
     transform: scale(1.2);
 }
+
+@media all and (max-width: 580px) {
+    header .container .header_nav {
+        display: none;
+    }
+
+    header .container #burger {
+        position: absolute;
+        right: 0;
+    }
+
+    header .container #burger + #search_bar {
+        position: absolute;
+        right: 0;
+    }
+}

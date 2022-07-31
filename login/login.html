@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang = "zh-TW">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
+        <title>jimlin2004's blog</title>
+        <link rel = "icon" href = "../img/favicon.png">
+        <link rel = "stylesheet" href = "../css/base.css">
+        <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+        <link rel = "stylesheet" href = "../css/header.css">
+        <link rel = "stylesheet" href = "../css/side_menu.css">
+        <link rel = "stylesheet" href = "css/style.css">
+        <script src = "../lib/jquery-3.6.0.min.js"></script>
+        <script src = "../js/base.js" defer></script>
+    </head>
+    <body>
+        <header></header>
+        <div id = "content">
+            <div id = "main">
+                <div id = "login">
+                    <p></p>
+                    <form action = "http://localhost/xampp/jimlin2004.github.io_api/php/api.php" method = "POST" id = "login_form">
+                        <h2><i class="fa fa-user-circle"></i>會員登錄</h2>
+                        <div class = "group">
+                            <label for = "input_account">帳號</label>
+                            <input type = "text" id = "input_account" required>
+                        </div>
+                        <div class = "group">
+                            <label for = "input_password">密碼</label>
+                            <input type = "password" id = "input_password" required>
+                        </div>
+                        <div class = "a_group">
+                            <div>
+                                <a href = "#" id = "a_forgot_password">忘記密碼</a>
+                            </div>
+                            <div>
+                                <a href = "#" id = "a_register">註冊</a>
+                            </div>
+                        </div>
+                        <div class = "btn_group">
+                            <button type = "submit" id = "submit">確定</button>
+                            <button id = "cancel">取消</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div id = "side_menu"></div>
+        </div>
+    </body>
+</html>
