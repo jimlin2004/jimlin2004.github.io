@@ -8,8 +8,9 @@ header {
 header .container {
     display: flex;
     align-items: center;
-    margin: auto;
+    /* margin: auto; */
     height: 100%;
+    justify-content: space-between;
 }
 
 header .container #logo {
@@ -55,37 +56,47 @@ header .container .header_nav a:hover:after {
     right: 0;
 }
 
-header .container #search_bar {
+header .container #tools {
     display: flex;
-    padding: 0px 5%;
+    padding-right: 3%;
+    /* margin-right: 2%; */
+    /* padding: 2%; */
 }
 
-header .container #search_bar input,
-header .container #search_bar button {
+header .container #tools #search_bar {
+    display: flex;
+    padding: 0px 5%;
+    margin-right: 5%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+
+header .container #tools #search_bar input,
+header .container #tools #search_bar button {
     border: none;
     background-color: #fff;
     padding: 2% 2%;
 }
 
-header .container #search_bar input:focus,
-header .container #search_bar button:focus {
+header .container #tools #search_bar input:focus,
+header .container #tools #search_bar button:focus {
     outline: none;
 }
 
-header .container #search_bar button {
+header .container #tools #search_bar button {
     border-radius: 0 100px 100px 0;
     background-color: goldenrod;
 }
 
-header .container #search_bar input {
+header .container #tools #search_bar input {
     border-radius: 100px 0 0 100px;
 }
 
-header .container #burger {
+header .container #tools #burger {
     padding: 0 1%;
 }
 
-header .container #burger:hover {
+header .container #tools #burger:hover {
     transform: scale(1.2);
 }
 
@@ -94,13 +105,8 @@ header .container #burger:hover {
         display: none;
     }
 
-    header .container #burger {
+    /* header .container #tools {
         position: absolute;
         right: 0;
-    }
-
-    header .container #burger + #search_bar {
-        position: absolute;
-        right: 0;
-    }
+    } */
 }
