@@ -1,0 +1,12 @@
+{
+    "labels": [
+        {
+            "title": {
+                "title": "演算法視覺化",
+                "color": "#daa520"
+            },
+            "href": "../AlgorithmVisualization/AlgorithmVisualization.html",
+            "description": "將常見的資料結構視覺化\n(目前僅支援二元樹狀結構)"
+        }
+    ]
+}
