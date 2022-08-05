@@ -82,6 +82,7 @@ header .container #tools #search_bar button:focus {
 header .container #tools #search_bar button {
     border-radius: 0 5px 5px 0;
     background-color: #daa520;
+    cursor: pointer;
 }
 
 header .container #tools #search_bar input {

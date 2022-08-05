@@ -1,12 +1,34 @@
 {
     "labels": [
         {
+            "id": "label_algorithmVisualization",
             "title": {
                 "title": "演算法視覺化",
                 "color": "#daa520"
             },
             "href": "../AlgorithmVisualization/AlgorithmVisualization.html",
+            "img": "./img/AlgorithmVisualization.png",
             "description": "將常見的資料結構視覺化\n(目前僅支援二元樹狀結構)"
+        },
+        {
+            "id": "label_self-drivingCar",
+            "title": {
+                "title": "模擬自駕車",
+                "color": "#daa520"
+            },
+            "href": "../AlgorithmVisualization/AlgorithmVisualization.html",
+            "img": "./img/self-drivingCar.png",
+            "description": "利用Arduino與rpi v4結合\ntensorflow模擬自駕環境"
+        },
+        {
+            "id": "label_gameEngine",
+            "title": {
+                "title": "GameEngine",
+                "color": "#daa520"
+            },
+            "href": "#",
+            "img": "./img/GameEngine.png",
+            "description": "利用SDL2與OpenGL\n編寫的2D GameEngine\n(尚在開發中)"
         }
     ]
 }

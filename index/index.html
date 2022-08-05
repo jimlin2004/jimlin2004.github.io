@@ -12,19 +12,24 @@
         <link rel = "stylesheet" href = "css/style.css">
         <script src = "../lib/jquery-3.6.0.min.js"></script>
         <script src = "../js/base.js" defer></script>
+        <script type = "module" src = "js/SwiperSystem.js" defer></script>
         <script type = "module" src = "js/DisplayMenu.js" defer></script>
     </head>
     <body>
         <header></header>
         <div id = "content">
             <div id = "main">
-                <div id = "labels">
-                    <!-- <div class = "labels_item">
-                        <p id = "label_title"></p>
-                        <div id = "label_content"></div>
-                    </div> -->
+                <div id = "board">
+                    <div id = "board_title">公佈欄</div>
+                    <div id = "labels">
+                        <!-- <div class = "labels_item">
+                            <p id = "label_title"></p>
+                            <div id = "label_content"></div>
+                            <img id = "label_img">
+                        </div> -->
+                    </div>
                 </div>
-                <canvas id = "display_canvas"></canvas>
+                <div id = "swiper_container"></div>
             </div>
             <div id = "side_menu"></div>
         </div>
