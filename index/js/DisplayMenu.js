@@ -25,6 +25,7 @@ class DisplayMenu
     {
         let labels_div = document.getElementById("labels");
         let labels_item_div = null;
+        let label_pushpin = null;
         let label_title_p = null;
         let label_content_div = null;
         let label_img = null;
@@ -33,6 +34,9 @@ class DisplayMenu
             labels_item_div = document.createElement("div");
             labels_item_div.className = "labels_item";
             labels_item_div.id = item["id"];
+            label_pushpin = document.createElement("img");
+            label_pushpin.src = "./img/pushpin.png";
+            label_pushpin.className = "pushpin";
             label_title_p = document.createElement("p");
             label_title_p.id = "label_title";
             label_title_p.innerHTML = item["title"]["title"];
@@ -44,6 +48,8 @@ class DisplayMenu
             label_img = document.createElement("img");
             label_img.id = "label_img";
             label_img.src = item["img"];
+
+            label_title_p.appendChild(label_pushpin);
             labels_item_div.appendChild(label_title_p);
             labels_item_div.appendChild(label_content_div);
             labels_div.appendChild(labels_item_div);
