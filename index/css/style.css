@@ -65,3 +65,42 @@
     /* margin-bottom: 0; */
     /* max-height: 100%; */
 }
+
+#cat {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    right: 0;
+    bottom: 0;
+    width: 20%;
+    height: auto;
+}
+
+#cat #cat_said {
+    position: relative;
+}
+
+#cat #cat_said #content {
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    padding: 10px;
+    background-color: aquamarine;
+    border-radius: 10px 10px 10px 10px;
+}
+
+#cat #cat_said #triangle {
+    /* 三角形 */
+    content: "";
+    width: 0;
+    height: 0;
+    position: relative;
+    border: 10px solid;
+    margin-left: 10%;
+    border-color: aquamarine transparent transparent;
+}
+
+#cat img {
+    display: block;
+    max-width: 100%;
+}
