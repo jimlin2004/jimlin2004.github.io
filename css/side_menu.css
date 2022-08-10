@@ -19,8 +19,10 @@
 
 #side_menu #user_info {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
     padding: 10px;
     border-bottom-style: dotted;
 	border-bottom-color: rgba(0, 0, 0, 0.626); 
@@ -28,6 +30,16 @@
 
 #side_menu #user_info i {
     font-size: 150%;
+}
+#side_menu #user_info a {
+    text-decoration: none;
+    color: #fff;
+    transition: 0.3s;
+}
+
+#side_menu #user_info a:hover {
+    color: #daa520;
+    font-weight: bold;
 }
 
 #side_menu nav a{
@@ -37,6 +49,7 @@
     text-decoration: none;
     position: relative;
     font-size: 100%;
+    transition: 0.3s;
 }
 
 #side_menu nav a + a::before {
@@ -49,5 +62,7 @@
 }
 
 #side_menu nav a:hover {
-    font-size: 120%;
+    /* font-size: 120%; */
+    color: #daa520;
+    font-weight: bold;
 }

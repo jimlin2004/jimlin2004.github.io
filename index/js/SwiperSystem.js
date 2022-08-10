@@ -1,8 +1,11 @@
+import {Cat} from "./Cat.js"
+
 class Label
 {
-    constructor(div, content)
+    constructor(div, title, content)
     {
         this.div = div;
+        this.title = title;
         this.content = content;
     }
 };
@@ -14,11 +17,12 @@ class SwiperSystem
         this.labels = new Map();
         this.currentIndex = 0;
         this.swiperContainer = document.getElementById("swiper_container");
+        this.cat = new Cat();
     }
 
-    pushNewLabel(label_div, content)
+    pushNewLabel(label_div, title, content)
     {
-        this.labels.set(label_div.id, new Label(label_div, content));
+        this.labels.set(label_div.id, new Label(label_div, title, content));
         return;
     }
 
@@ -40,6 +44,8 @@ class SwiperSystem
     {
         let label = this.labels.get(label_id);
         this.swiperContainer.innerHTML = label.content;
+        this.cat.setSaid(label.title);
+        this.cat.updateSaid(document.getElementById("cat_said_content"));
     }
 
     update()

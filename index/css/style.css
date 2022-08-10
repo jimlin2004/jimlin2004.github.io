@@ -80,7 +80,7 @@
     position: relative;
 }
 
-#cat #cat_said #content {
+#cat #cat_said #cat_said_content {
     /* display: flex; */
     /* justify-content: center; */
     /* align-items: center; */

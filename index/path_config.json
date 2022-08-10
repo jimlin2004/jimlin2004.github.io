@@ -5,7 +5,9 @@
         "about_me": "#"
     },
     "side_menu": {
+        "#a_login": "../login/login.html",
         "#a_image_converter": "../image_converter/image_converter.html",
-        "#a_AlgorithmVisualization": "../AlgorithmVisualization/AlgorithmVisualization.html"
+        "#a_AlgorithmVisualization": "../AlgorithmVisualization/AlgorithmVisualization.html",
+        "#a_home": "#"
     }
 }

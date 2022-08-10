@@ -58,13 +58,18 @@ class DisplayMenu
             // label_img.height = label_content_div.offsetHeight;            
             labels_item_div.appendChild(label_img);
             //</改變照片大小>
-            this.swiper.pushNewLabel(labels_item_div, "<div>hi</div>");
+            this.swiper.pushNewLabel(labels_item_div, item["title"]["title"], "<div>hi</div>");
         }
     }
 };
 
 $(function() {
-    let displayMenu = new DisplayMenu("displayMenu.json");
+    let displayMenu = new DisplayMenu();
     displayMenu.addToHTML();
     displayMenu.swiper.handleEvent(document.getElementById("labels"));
+    console.log("hi");
+    // let tmp = document.createElement("button");
+    // tmp.innerHTML = "Hi";
+    // document.getElementById("swiper_container").appendChild(tmp);
+    // console.log(data);
 });
