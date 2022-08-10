@@ -25,9 +25,9 @@
     border: 1px solid #000;
     /* align-items: center; */
     justify-content: space-between;
-    /* background-color: #e9ecef; */
-    background-image: url("../img/old_paper.jpg");
-    background-size: cover;
+    background-color: #ffe6a7;
+    /* background-image: url("../img/old_paper.jpg");
+    background-size: cover; */
 }
 
 #labels .labels_item:hover {
@@ -61,7 +61,7 @@
     display: block;
     border: none;
     max-width: 100%;
-    margin: auto;
+    /* margin: auto; */
     /* margin-bottom: 0; */
     /* max-height: 100%; */
 }
@@ -84,7 +84,7 @@
     /* display: flex; */
     /* justify-content: center; */
     /* align-items: center; */
-    padding: 10px;
+    padding: 5px;
     background-color: aquamarine;
     border-radius: 10px 10px 10px 10px;
 }
@@ -95,7 +95,7 @@
     width: 0;
     height: 0;
     position: relative;
-    border: 10px solid;
+    border: 8px solid;
     margin-left: 10%;
     border-color: aquamarine transparent transparent;
 }
