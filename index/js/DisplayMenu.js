@@ -1,12 +1,20 @@
-import data from "../displayMenu.json" assert {type: "json"}
+// import data from "../displayMenu.json" assert {type: "json"}
+//上條ios safari 不支援
 import { SwiperSystem } from "./SwiperSystem.js"
 
 class DisplayMenu
 {
     constructor()
     {
-        this.data = data;
+        this.data = null;
         this.swiper = new SwiperSystem();
+    }
+
+    async loadJson()
+    {
+        let res = await fetch("displayMenu.json");
+        this.data = await res.json();
+        return;
     }
 
     splitTextToP(div, text)
@@ -65,9 +73,12 @@ class DisplayMenu
 
 $(function() {
     let displayMenu = new DisplayMenu();
-    displayMenu.addToHTML();
-    displayMenu.swiper.handleEvent(document.getElementById("labels"));
-    console.log("hi");
+    displayMenu.loadJson()
+        .then(() => {
+            displayMenu.addToHTML();
+            displayMenu.swiper.handleEvent(document.getElementById("labels"));
+            // console.log("hi");
+        });
     // let tmp = document.createElement("button");
     // tmp.innerHTML = "Hi";
     // document.getElementById("swiper_container").appendChild(tmp);

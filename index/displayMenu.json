@@ -17,7 +17,7 @@
                 "color": "#daa520"
             },
             "href": "../AlgorithmVisualization/AlgorithmVisualization.html",
-            "img": "./img/self-drivingCar.png",
+            "img": "./img/self-drivingCar.webp",
             "description": "利用Arduino與rpi v4結合\ntensorflow模擬自駕環境"
         },
         {

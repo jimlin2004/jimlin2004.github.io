@@ -50,7 +50,7 @@ class SwiperSystem
 
     update()
     {
-
+        
     }
 };
 
