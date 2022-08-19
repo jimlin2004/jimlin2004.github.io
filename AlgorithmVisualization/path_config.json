@@ -6,7 +6,6 @@
     },
     "side_menu": {
         "#a_login": "../login/login.html",
-        "#a_image_converter": "#",
         "#a_AlgorithmVisualization": "#",
         "#a_home": "../index/index.html"
     }

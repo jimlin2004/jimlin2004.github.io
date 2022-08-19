@@ -6,7 +6,6 @@
     },
     "side_menu": {
         "#a_login": "#",
-        "#a_image_converter": "../image_converter/image_converter.html",
         "#a_AlgorithmVisualization": "../AlgorithmVisualization/AlgorithmVisualization.html",
         "#a_home": "../index/index.html"
     }
