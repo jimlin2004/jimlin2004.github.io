@@ -7,7 +7,7 @@
                 "color": "#daa520"
             },
             "href": "../AlgorithmVisualization/AlgorithmVisualization.html",
-            "img": "./img/AlgorithmVisualization.png",
+            "img": "./img/AlgorithmVisualization_resized.png",
             "description": "將常見的資料結構視覺化\n(目前僅支援二元搜尋樹)"
         },
         {
@@ -17,7 +17,7 @@
                 "color": "#daa520"
             },
             "href": "../AlgorithmVisualization/AlgorithmVisualization.html",
-            "img": "./img/self-drivingCar.webp",
+            "img": "./img/self-drivingCar_resized.webp",
             "description": "利用Arduino與rpi v4結合\ntensorflow模擬自駕環境"
         },
         {
@@ -27,7 +27,7 @@
                 "color": "#daa520"
             },
             "href": "#",
-            "img": "./img/GameEngine.png",
+            "img": "./img/GameEngine_resized.png",
             "description": "利用SDL2與OpenGL\n編寫的2D GameEngine\n(尚在開發中)"
         },
         {
@@ -37,7 +37,7 @@
                 "color": "#daa520"
             },
             "href": "#",
-            "img": "./img/imageConverter.png",
+            "img": "./img/imageConverter_resized.png",
             "description": "利用.NET 與 C++ OpenCV\n編寫的圖片轉檔工具"
         }
     ]

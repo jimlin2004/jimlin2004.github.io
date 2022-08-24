@@ -18,6 +18,12 @@ class SwiperSystem
         this.currentIndex = 0;
         this.swiperContainer = document.getElementById("swiper_container");
         this.cat = new Cat();
+        this.labels_data = [];
+    }
+
+    async loadAllHtml()
+    {
+
     }
 
     pushNewLabel(label_div, title, content)

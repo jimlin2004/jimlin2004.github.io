@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "zpix";
+    src: url("../../font/zpix.woff2") format("woff2");
+}
+
 #board {
     background-image: url("../img/board.jpeg");
     border: 10px solid #99582a;
@@ -88,6 +93,30 @@
     width: 40px;
 }
 
+#swiper_container #swiper_container_title {
+    font-size: 0; /*去白邊*/
+}
+
+#swiper_container #swiper_container_title p {
+    display: inline;
+    padding: 0 5px 0 5px;
+    font-family: "zpix";
+    font-size: 16px;
+    background-color: #e69358;
+    border-bottom: 5px solid #99582a;
+    /* font-weight: bolder; */
+}
+
+#swiper_container #swiper_container_link {
+    margin-top: 5px; /*將上方的font-size = 0 的 5px border補回來*/
+}
+
+#swiper_container #swiper_container_link a {
+    text-decoration: none;
+    color: #000;
+    padding-top: 2px;
+}
+
 #cat {
     position: absolute;
     display: flex;
@@ -107,6 +136,7 @@
     /* justify-content: center; */
     /* align-items: center; */
     padding: 5px;
+    font-family: "zpix";
     background-color: aquamarine;
     border-radius: 10px 10px 10px 10px;
 }
