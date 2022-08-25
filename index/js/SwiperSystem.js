@@ -2,11 +2,11 @@ import {Cat} from "./Cat.js"
 
 class Label
 {
-    constructor(div, title, content)
+    constructor(div, title, completeDescription)
     {
         this.div = div;
         this.title = title;
-        this.content = content;
+        this.completeDescription = completeDescription;
     }
 };
 
@@ -16,7 +16,6 @@ class SwiperSystem
     {
         this.labels = new Map();
         this.currentIndex = 0;
-        this.swiperContainer = document.getElementById("swiper_container");
         this.cat = new Cat();
         this.labels_data = [];
     }
@@ -26,9 +25,9 @@ class SwiperSystem
 
     }
 
-    pushNewLabel(label_div, title, content)
+    pushNewLabel(label_div, title, completeDescription)
     {
-        this.labels.set(label_div.id, new Label(label_div, title, content));
+        this.labels.set(label_div.id, new Label(label_div, title, completeDescription));
         return;
     }
 
@@ -46,10 +45,27 @@ class SwiperSystem
         });
     }
 
+    updateLangTabel(label)
+    {
+        let tabel = document.querySelector("#swiper_container_lang tbody");
+        tabel.innerHTML = "";
+        let tr = null;
+        let td = null;
+        for (let lang of label.completeDescription["language"].split('/'))
+        {
+            tr = document.createElement("tr");
+            td = document.createElement("td");
+            td.innerHTML = lang;
+            tr.appendChild(td);
+            tabel.appendChild(tr);
+        }
+    }
+
     switchToLabel(label_id) 
     {
         let label = this.labels.get(label_id);
-        this.swiperContainer.innerHTML = label.content;
+        document.querySelector("#swiper_container_title p").innerHTML = label.title;
+        this.updateLangTabel(label);
         this.cat.setSaid(label.title);
         this.cat.updateSaid(document.getElementById("cat_said_content"));
     }

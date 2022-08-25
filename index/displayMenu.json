@@ -8,7 +8,11 @@
             },
             "href": "../AlgorithmVisualization/AlgorithmVisualization.html",
             "img": "./img/AlgorithmVisualization_resized.png",
-            "description": "將常見的資料結構視覺化\n(目前僅支援二元搜尋樹)"
+            "description": "將常見的資料結構視覺化\n(目前僅支援二元搜尋樹)",
+            "complete_description": {
+                "language": "js/html/css",
+                "description": ""
+            }
         },
         {
             "id": "label_self-drivingCar",
@@ -18,7 +22,11 @@
             },
             "href": "../AlgorithmVisualization/AlgorithmVisualization.html",
             "img": "./img/self-drivingCar_resized.webp",
-            "description": "利用Arduino與rpi v4結合\ntensorflow模擬自駕環境"
+            "description": "利用Arduino與rpi v4結合\ntensorflow模擬自駕環境",
+            "complete_description": {
+                "language": "c++/python/arduino",
+                "description": ""
+            }
         },
         {
             "id": "label_gameEngine",
@@ -28,7 +36,11 @@
             },
             "href": "#",
             "img": "./img/GameEngine_resized.png",
-            "description": "利用SDL2與OpenGL\n編寫的2D GameEngine\n(尚在開發中)"
+            "description": "利用SDL2與OpenGL\n編寫的2D GameEngine\n(尚在開發中)",
+            "complete_description": {
+                "language": "c++",
+                "description": ""
+            }
         },
         {
             "id": "label_imageConverter",
@@ -38,7 +50,11 @@
             },
             "href": "#",
             "img": "./img/imageConverter_resized.png",
-            "description": "利用.NET 與 C++ OpenCV\n編寫的圖片轉檔工具"
+            "description": "利用.NET 與 C++ OpenCV\n編寫的圖片轉檔工具",
+            "complete_description": {
+                "language": "c++/c#",
+                "description": ""
+            }
         }
     ]
 }

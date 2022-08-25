@@ -40,7 +40,7 @@ header .container .header_nav a {
     position: relative;
 }
 
-header .container .header_nav a:after {
+header .container .header_nav a::after {
     content: "";
     position: absolute;
     left: 50%;
@@ -51,7 +51,7 @@ header .container .header_nav a:after {
     transition: 0.3s;
 }
 
-header .container .header_nav a:hover:after {
+header .container .header_nav a:hover::after {
     left: 0;
     right: 0;
 }

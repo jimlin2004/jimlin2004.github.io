@@ -72,7 +72,7 @@ class DisplayMenu
             label_img.width = label_content_div.offsetWidth;  
             //</改變照片大小>
             // label_title_p.width = label_content_div.offsetWidth;
-            this.swiper.pushNewLabel(labels_item_div, labelData["title"]["title"], "<div>hi</div>");
+            this.swiper.pushNewLabel(labels_item_div, labelData["title"]["title"], labelData["complete_description"]);
         }
         return;
     }
