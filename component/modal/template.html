@@ -1,5 +1,3 @@
-let template = document.createElement("template");
-template.innerHTML = `
 <style>
     .wrap {
         position: fixed;
@@ -63,40 +61,3 @@ template.innerHTML = `
         </div>
     </div>
 </div>
-
-`;
-
-class Modal extends HTMLElement
-{
-    constructor()
-    {
-        super();
-
-        this._shadowRoot = this.attachShadow({mode: "open"});
-        this._shadowRoot.appendChild(template.content.cloneNode(true));
-    }
-
-    connectedCallback()
-    {
-        this.setTitle();
-    }
-
-    setTitle()
-    {
-        this.shadowRoot.querySelector(".modal-title").innerHTML = this.getAttribute("title");
-        this.handleEvent();
-    }
-
-    close()
-    {
-        this.shadowRoot.querySelector(".wrap").style.transform = "scaleX(0)";
-    }
-
-    handleEvent()
-    {
-        this.shadowRoot.querySelector(".modal-close").addEventListener("click", () => {this.close()});
-        this.shadowRoot.querySelector(".modal-footer-close").addEventListener("click", () => {this.close()});
-    }
-};
-
-customElements.define("cpt-modal", Modal);

@@ -12,11 +12,18 @@
         <link rel = "stylesheet" href = "css/style.css">
         <script src = "../lib/jquery-3.6.0.min.js"></script>
         <script src = "../js/base.js" defer></script>
+        <script src = "../component/modal/modal.js" defer></script>
     </head>
     <body>
         <header></header>
         <div id = "content">
             <div id = "main">
+                <cpt-modal title = "test">
+                    <div slot = "modal-container-slot">
+                        更新
+                    </div>
+                </cpt-modal>
+            </div>
             <div id = "side_menu"></div>
         </div>
     </body>
