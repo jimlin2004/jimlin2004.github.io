@@ -42,6 +42,7 @@ template.innerHTML = `
     .modal-container {
         padding: 5px;
         border-bottom: 1px solid #000;
+        overflow-y: auto;
     }
     .modal-footer {
         padding: 5px;
@@ -63,7 +64,6 @@ template.innerHTML = `
         </div>
     </div>
 </div>
-
 `;
 
 class Modal extends HTMLElement
