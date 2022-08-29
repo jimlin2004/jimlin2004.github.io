@@ -38,4 +38,5 @@ async function load_all() {
     update_path();
 }
 
-load_all();
+// load_all();
+update_path();
