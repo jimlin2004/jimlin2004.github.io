@@ -22,7 +22,7 @@ class Header
             }
         });
         document.getElementsByTagName("header")[0].querySelector("#warning").addEventListener("click", () => {
-            
+            document.querySelector("header cpt-modal").open();
         });
     }
 

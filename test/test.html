@@ -18,7 +18,8 @@
         <header></header>
         <div id = "content">
             <div id = "main">
-                <cpt-modal title = "test">
+                <button id = "btn">hi</button>
+                <cpt-modal title = "test" id = modal>
                     <div slot = "modal-container-slot">
                         更新<br>
                         h <br>
@@ -68,5 +69,10 @@
             </div>
             <div id = "side_menu"></div>
         </div>
+        <script>
+            document.getElementById("btn").addEventListener("click", () => {
+                document.getElementById("modal").open();
+            });
+        </script>
     </body>
 </html>

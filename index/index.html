@@ -11,6 +11,7 @@
         <link rel = "stylesheet" href = "../css/side_menu.css">
         <link rel = "stylesheet" href = "css/style.css">
         <script src = "../lib/jquery-3.6.0.min.js"></script>
+        <script src = "../component/modal/modal.js" defer></script>
         <script src = "../component/header/header.js" defer></script>
         <script src = "../component/side_menu/side_menu.js" defer></script>
         <script src = "../js/base.js" defer></script>
@@ -58,14 +59,14 @@
                     </div>
                 </div>
                 <div id = "swiper_container">
-                    <div id = "swiper_container_title">
-                        <p>title測試</p>
-                    </div>
-                    <div id = "swiper_container_link">
-                        詳細請前往:&nbsp;
-                        <a href = "#">link</a>
-                    </div>
-                    <div id = "swiper_container_description">
+                    <div id = "swiper_label_data">
+                        <div id = "swiper_container_title">
+                            <p>title測試</p>
+                        </div>
+                        <div id = "swiper_container_link">
+                            詳細請前往:&nbsp;
+                            <a href = "#">link</a>
+                        </div>
                         <table id = "swiper_container_lang">
                             <thead>
                                 <tr>
@@ -82,15 +83,31 @@
                             </tbody>
                         </table>
                     </div>
+                    <div id = "swiper_container_description">
+                        <div class = "scroll">
+                            <div class = "scroll-left"></div>
+                            <div class = "scroll-middle"></div>
+                            <div class = "scroll-right"></div>
+                        </div>
+                        <div class = "scroll-body">
+                            <div class = scroll-body-wrap></div>
+                        </div>
+                        <div class = "scroll">
+                            <div class = "scroll-left"></div>
+                            <div class = "scroll-middle"></div>
+                            <div class = "scroll-right"></div>
+                        </div>
+                    </div>
+                    <div id = "cat">
+                        <div id = "cat_said">
+                            <div id = "cat_said_content">Hello user</div>
+                            <div id = "triangle"></div>
+                        </div>
+                        <img src = "img/cat_520x520.png">
+                    </div>
                 </div>
             </div>
-            <div id = "cat">
-                <div id = "cat_said">
-                    <div id = "cat_said_content">Hello user</div>
-                    <div id = "triangle"></div>
-                </div>
-                <img src = "img/cat_520x520.png">
-            </div>
+            
             <div id = "side_menu"></div>
         </div>
     </body>

@@ -3,6 +3,13 @@
     src: url("../../font/zpix.woff2") format("woff2");
 }
 
+#main {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
 #board {
     background-image: url("../img/board.jpeg");
     border: 10px solid #99582a;
@@ -93,11 +100,22 @@
     width: 40px;
 }
 
-#swiper_container #swiper_container_title {
+#swiper_container {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+}
+
+#swiper_container #swiper_label_data {
+    display: flex;
+    flex-direction: column;
+}
+
+#swiper_container #swiper_label_data #swiper_container_title {
     font-size: 0; /*去白邊*/
 }
 
-#swiper_container #swiper_container_title p {
+#swiper_container #swiper_label_data #swiper_container_title p {
     display: inline;
     padding: 0 5px 0 5px;
     font-family: "zpix";
@@ -107,56 +125,113 @@
     /* font-weight: bolder; */
 }
 
-#swiper_container #swiper_container_link {
+#swiper_container #swiper_label_data #swiper_container_link {
     margin-top: 5px; /*將上方的font-size = 0 的 5px border補回來*/
 }
 
-#swiper_container #swiper_container_link a {
+#swiper_container #swiper_label_data #swiper_container_link a {
     position: relative;
     text-decoration: none;
     color: #000;
     padding-top: 2px;
 }
 
-#swiper_container_lang {
+#swiper_label_data #swiper_container_lang {
     border-collapse: collapse;
 }
 
-#swiper_container_lang thead {
+#swiper_label_data #swiper_container_lang thead {
     background-color: #14213d;
     color: #fff;
 }
 
-#swiper_container_lang thead th {
+#swiper_label_data #swiper_container_lang thead th {
     padding: 5px;
     border: 1px solid #000;
 }
 
-#swiper_container_lang tbody tr:nth-child(even) {
+#swiper_label_data #swiper_container_lang tbody tr:nth-child(even) {
     padding: 5px;
     border: 1px solid #000;
     background-color: #8d99ae;
 }
 
-#swiper_container_lang tbody tr:nth-child(odd) {
+#swiper_label_data #swiper_container_lang tbody tr:nth-child(odd) {
     padding: 5px;
     border: 1px solid #000;
     background-color: #edf2f4;
 }
 
-#swiper_container_lang td {
+#swiper_label_data #swiper_container_lang td {
     padding: 5px;
     border: 1px solid #000;
 }
 
-#cat {
-    position: absolute;
+#swiper_container_description {
+    position: relative;
     display: flex;
     flex-direction: column;
-    right: 0;
-    bottom: 0;
+    justify-content: flex-start;
+    align-items: center;
+    /* background-color: #14213d; */
+    width: 50%
+}
+
+#swiper_container_description .scroll {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 20px;
+    /* background-color: #ffe6a7; */
+}
+
+#swiper_container_description .scroll .scroll-left, .scroll-right {
+    position: relative;
+    width: 5%;
+    height: 50%;
+    background-color: #99582a;
+    box-shadow: inset 0 0 0 1px #000;
+}
+
+#swiper_container_description .scroll .scroll-middle {
+    position: relative;
+    width: 90%;
+    height: 100%;
+    background-color: #ffe6a7;
+    box-shadow: inset 0 0 0 1px #000;
+}
+
+#swiper_container_description .scroll-body {
+    position: relative;
+    box-sizing: border-box;
+    width: 90%;
+    height: 100%;
+    padding: 10px;
+    /* border-top: 1px solid #000;
+    border-bottom: 1px solid #000; */
+    background-color: #ffe6a7;
+    box-shadow: inset 0 0 0 1px #000;
+    /* transform: scaleY(0); */
+    transition: 0.3s;
+}
+
+#swiper_container_description .scroll-body .scroll-body-wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+#cat {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    /* right: 0; */
+    /* margin-bottom: 0; */
     width: 20%;
-    height: auto;
+    height: 100%;
 }
 
 #cat #cat_said {

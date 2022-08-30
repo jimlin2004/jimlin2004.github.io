@@ -4,8 +4,11 @@ template.innerHTML = `
     .wrap {
         position: fixed;
         display: flex;
+        z-index: 4;
         width: 100%;
         height: 100%;
+        top: 0;
+        left: 0;
         background-color: rgba(0, 0, 0, 0.3);
         justify-content: center;
         align-items: center;
@@ -18,6 +21,7 @@ template.innerHTML = `
         background-color: #fff;
         min-width: 20%;
         max-height: 80%;
+        transition: all 0.3s;
     }
     .modal-header {
         display: flex;
@@ -79,6 +83,8 @@ class Modal extends HTMLElement
     connectedCallback()
     {
         this.setTitle();
+        this.shadowRoot.querySelector(".modal").style.transform = "scale(0)";
+        this.shadowRoot.querySelector(".wrap").style.display = "none";
     }
 
     setTitle()
@@ -87,9 +93,22 @@ class Modal extends HTMLElement
         this.handleEvent();
     }
 
+    open()
+    {
+        this.shadowRoot.querySelector(".wrap").style.display = "flex";
+        let modal = this.shadowRoot.querySelector(".modal");
+        modal.style.transform = "scale(0)";
+        setTimeout(() => {
+            modal.style.transform = "scale(1)";
+        }, 0);
+    }
+
     close()
     {
-        this.shadowRoot.querySelector(".wrap").style.transform = "scaleX(0)";
+        this.shadowRoot.querySelector(".modal").style.transform = "scale(0)";
+        setTimeout(() => {
+            this.shadowRoot.querySelector(".wrap").style.display = "none";
+        }, 300);
     }
 
     handleEvent()

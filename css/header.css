@@ -98,7 +98,11 @@ header .container #tools #burger:hover {
     cursor: pointer;
 }
 
-@media all and (max-width: 580px) {
+@media all and (max-width: 620px) {
+    * {
+        font-size: 12px;
+    }
+
     header .container .header_nav {
         display: none;
     }
