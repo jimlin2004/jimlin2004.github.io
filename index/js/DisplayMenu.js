@@ -47,7 +47,8 @@ class DisplayMenu
         let labels_item_div = null;
         let label_title_p = null;
         let label_pushpin = null;
-        let label_content_div = null;
+        // let label_content_div = null;
+        let label_content_text_div = null;
         let label_img = null;
         for (let i = 0; i < 3; i++)
         {
@@ -63,13 +64,13 @@ class DisplayMenu
             label_pushpin.src = "./img/pushpin.png";
             label_pushpin.className = "pushpin";
             label_title_p.appendChild(label_pushpin);
-            label_content_div = labels_item_div.querySelector(".label_content");
-            label_content_div.innerHTML = "";
-            this.splitTextToP(label_content_div, labelData["description"]);
+            label_content_text_div = labels_item_div.querySelector(".label_content_text");
+            label_content_text_div.innerHTML = "";
+            this.splitTextToP(label_content_text_div, labelData["description"]);
             label_img = labels_item_div.querySelector(".label_img");
             label_img.src = labelData["img"];
             //<改變照片大小>
-            label_img.width = label_content_div.offsetWidth;  
+            // label_img.width = label_content_div.offsetWidth;  
             //</改變照片大小>
             // label_title_p.width = label_content_div.offsetWidth;
             this.swiper.pushNewLabel(labels_item_div, labelData["title"]["title"], labelData["complete_description"]);
