@@ -16,10 +16,16 @@
     border: 5px solid #000;
 }
 
-#login h2 {
+#login .title {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#login .title i {
+    font-size: 24px;
 }
 
 #login #login_form
@@ -87,4 +93,22 @@
 
 #login #login_form .btn_group button + button {
     margin-left: 10%;
+}
+
+@media screen and (max-width: 400px) {
+    #login #login_form .a_group div a {
+        font-size: 12px;
+    }
+
+    #login #login_form .btn_group button {
+        font-size: 12px;
+    }
+
+    #login .title {
+        font-size: 20px;
+    }
+    
+    #login .title i {
+        font-size: 20px;
+    }
 }

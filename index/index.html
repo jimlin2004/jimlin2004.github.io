@@ -94,6 +94,7 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <button id = "btn_test">hi</button>
                     </div>
                     <div id = "swiper_container_description">
                         <div class = "scroll">
@@ -125,5 +126,10 @@
             </div>
             <div id = "side_menu"></div>
         </div>
+        <script>
+            document.getElementById("btn_test").addEventListener("click", () => {
+                document.querySelector(".scroll-body").classList.toggle("active");
+            });
+        </script>
     </body>
 </html>
