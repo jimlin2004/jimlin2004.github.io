@@ -7,11 +7,11 @@
                 "color": "#daa520"
             },
             "href": "../AlgorithmVisualization/AlgorithmVisualization.html",
-            "img": "./img/AlgorithmVisualization_resized.png",
+            "img": "./img/AlgorithmVisualization_resized.webp",
             "description": "將常見的資料結構視覺化\n(目前僅支援二元搜尋樹)",
             "complete_description": {
                 "language": "js/html/css",
-                "description": ""
+                "description": "(目前僅支援BST)\n[說明]: \n可以於下方輸入資料後，將於上方區域顯示該資料依序放入資料結構後的可視化。\n[資源出處]: \n這個網站"
             }
         },
         {
@@ -20,12 +20,12 @@
                 "title": "模擬自駕車",
                 "color": "#daa520"
             },
-            "href": "../AlgorithmVisualization/AlgorithmVisualization.html",
+            "href": "https://drive.google.com/file/d/1kBJyjc3OpjI34Wr8yberp4uTsWaI-H8H/view?usp=sharing",
             "img": "./img/self-drivingCar_resized.webp",
             "description": "利用Arduino與rpi v4結合\ntensorflow模擬自駕環境",
             "complete_description": {
                 "language": "c++/python/arduino",
-                "description": ""
+                "description": "[說明]:\n這是一篇我高中時的研究文章，利用Arduino與樹梅派v4所製的小型自駕車，透過Socket與電腦連結，一端運算神經網路，一端上傳道路畫面，在自製的道路上成功自動駕駛。\n[資源出處]:\ngoogle 雲端"
             }
         },
         {
@@ -34,12 +34,12 @@
                 "title": "GameEngine",
                 "color": "#daa520"
             },
-            "href": "#",
-            "img": "./img/GameEngine_resized.png",
+            "href": "https://github.com/jimlin2004/GameEngine",
+            "img": "./img/GameEngine_resized.webp",
             "description": "利用SDL2與OpenGL\n編寫的2D GameEngine\n(尚在開發中)",
             "complete_description": {
-                "language": "c++",
-                "description": ""
+                "language": "c/c++",
+                "description": "(尚在開發中)\n[說明]:\n這是利用SDL2與OpenGL編寫的簡易GameEngine，可用於幫助編寫復古風格的2D遊戲，由於是C++編寫的lib，努力兼容跨平台。\n[資源出處]:\nGithub"
             }
         },
         {
@@ -48,12 +48,12 @@
                 "title": "圖片轉換器",
                 "color": "#daa520"
             },
-            "href": "#",
-            "img": "./img/imageConverter_resized.png",
+            "href": "https://github.com/jimlin2004/imageConverter",
+            "img": "./img/imageConverter_resized.webp",
             "description": "利用.NET 與 C++ OpenCV\n編寫的圖片轉檔工具",
             "complete_description": {
                 "language": "c++/c#",
-                "description": ""
+                "description": "[說明]:\n利用.NET編寫UI以及C++運算的圖片轉檔工具，由於.NET目前僅支援Windows，因此暫不支援ios與Linux，經過測試可於win7與win10正常使用。\n[資源出處]:\nGithub"
             }
         }
     ]

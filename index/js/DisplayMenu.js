@@ -67,7 +67,7 @@ class DisplayMenu
             this.splitTextToP(label_content_text_div, labelData["description"]);
             label_img = labels_item_div.querySelector(".label_img");
             label_img.src = labelData["img"];
-            this.swiper.pushNewLabel(labels_item_div, labelData["title"]["title"], labelData["complete_description"]);
+            this.swiper.pushNewLabel(labels_item_div, labelData["title"]["title"], labelData["href"], labelData["complete_description"]);
         }
         return;
     }

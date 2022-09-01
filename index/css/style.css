@@ -145,6 +145,7 @@
 }
 
 #swiper_label_data #swiper_container_lang {
+    display: inline;
     border-collapse: collapse;
 }
 
@@ -215,14 +216,14 @@
     flex-direction: column;
     /* box-sizing: border-box; */
     width: 90%;
-    height: 100%;
+    height: 0;
     background-color: #ffe6a7;
     box-shadow: inset 0 0 0 1px #000;
     transition: 0.3s;
 }
 
 #swiper_container_description .scroll-body.active {
-    height: 0;
+    height: 100%;
 }
 
 #swiper_container_description .scroll-body .scroll-body-wrap {
@@ -264,6 +265,10 @@
     border-radius: 10px 10px 10px 10px;
 }
 
+#cat #cat_said #cat_said_content p {
+    font-family: "zpix";
+}
+
 #cat #cat_said #triangle {
     /* 三角形 */
     content: "";
@@ -286,8 +291,12 @@
     }
 }
 
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 450px) {
     #labels .labels_item:nth-child(3) {
         display: none;
+    }
+
+    #swiper_container #swiper_label_data #swiper_container_title p {
+        writing-mode: vertical-rl;
     }
 }

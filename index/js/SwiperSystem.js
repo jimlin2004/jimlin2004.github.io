@@ -2,10 +2,11 @@ import {Cat} from "./Cat.js"
 
 class Label
 {
-    constructor(div, title, completeDescription)
+    constructor(div, title, link, completeDescription)
     {
         this.div = div;
         this.title = title;
+        this.link = link;
         this.completeDescription = completeDescription;
     }
 };
@@ -20,14 +21,9 @@ class SwiperSystem
         this.labels_data = [];
     }
 
-    async loadAllHtml()
+    pushNewLabel(label_div, title, link, completeDescription)
     {
-
-    }
-
-    pushNewLabel(label_div, title, completeDescription)
-    {
-        this.labels.set(label_div.id, new Label(label_div, title, completeDescription));
+        this.labels.set(label_div.id, new Label(label_div, title, link, completeDescription));
         return;
     }
 
@@ -61,13 +57,42 @@ class SwiperSystem
         }
     }
 
+    updateScroll (label)
+    {
+        let scroll_body = document.querySelector("#swiper_container_description .scroll-body");
+        if (scroll_body.classList.contains("active"))
+        {
+            scroll_body.classList.toggle("active");
+        }
+        setTimeout(() => {
+            this.splitTextToP(document.querySelector("#swiper_container_description .scroll-body .scroll-body-content"), label.completeDescription["description"]);
+            scroll_body.classList.toggle("active");
+        }, 300);
+        
+    }
+
+    splitTextToP(div, text)
+    {
+        div.innerHTML = ""; //清空
+        let splitText = text.split('\n');
+        let p = null;
+        for (let line of splitText)
+        {
+            p = document.createElement("p");
+            p.innerHTML = line;
+            div.appendChild(p);
+        }
+    }
+
     switchToLabel(label_id) 
     {
         let label = this.labels.get(label_id);
         document.querySelector("#swiper_container_title p").innerHTML = label.title;
         this.updateLangTabel(label);
+        document.querySelector("#swiper_container #swiper_container_link a").href = label.link;
         this.cat.setSaid(label.title);
         this.cat.updateSaid(document.getElementById("cat_said_content"));
+        this.updateScroll(label);
     }
 
     update()
