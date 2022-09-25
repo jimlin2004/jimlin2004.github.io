@@ -1,0 +1,13 @@
+{
+    "header": {
+        "#logo img": "../img/logo.png",
+        "#home": "../index/index.html",
+        "about_me": "#"
+    },
+    "side_menu": {
+        "#a_login": "../login/login.html",
+        "#a_AlgorithmVisualization": "../AlgorithmVisualization/AlgorithmVisualization.html",
+        "#a_BaseConverter": "../baseConverter/baseConverter.html",
+        "#a_home": "../index/index.html"
+    }
+}

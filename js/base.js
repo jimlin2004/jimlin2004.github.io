@@ -1,5 +1,5 @@
 function update_path() {
-    fetch("./path_config.json")
+    fetch("../component/side_menu/path_config.json")
         .then((res) => {
             return res.json();
         })

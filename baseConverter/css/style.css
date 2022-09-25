@@ -1,0 +1,25 @@
+.info_warp {
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+    box-shadow: 0 0 0 1px #000;
+    border-radius: 20px;
+    background-color: #fff;
+}
+
+.base_warp {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.base_warp .base_input {
+    border-radius: 5px;
+    padding: 1px;
+}
+
+.base_warp .text_group {
+    display: flex;
+    justify-content: space-between;
+}
