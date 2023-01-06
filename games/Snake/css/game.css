@@ -36,10 +36,14 @@ header {
 }
 
 .arrow-keys button {
-    width: 100px;
-    height: 100px;
+    width: 64px;
+    height: 64px;
     background-color: transparent;
     border: none;
+    /* background-image: url("../asset/arrow_keys_all_sheet.png"); */
+    /* background-size: calc(64px * 64 / 32) auto;  */
+    /* background-size: cover; */
+                        /*總寬度 x 目標寬度 x 原寬度*/
 }
 
 .arrow-keys-firstlevel {
@@ -53,26 +57,39 @@ header {
 }
 
 .arrow-keys-firstlevel #up-key {
-    background-image: url("../asset/arrow_key.png");
-    background-size: cover;
+    background-image: url("../asset/arrow_keys_all_sheet.png");
+    /* background-size: calc(64px * 64 / 32) auto;  */
+    background-size: 100% auto;
+    background-position: 0 0;
 }
 
-.arrow-keys-secondlevel #left-key {
-    background-image: url("../asset/arrow_key.png");
-    transform: rotate(270deg);
-    background-size: cover;
-}
-
-.arrow-keys-secondlevel #down-key {
-    background-image: url("../asset/arrow_key.png");
-    transform: rotate(180deg);
-    background-size: cover;
+.arrow-keys-firstlevel #up-key:active {
+    /* background-position: calc(-32px * (64 / 32)) 0; */
 }
 
 .arrow-keys-secondlevel #right-key {
-    background-image: url("../asset/arrow_key.png");
-    transform: rotate(90deg);
-    background-size: cover;
+    /* background-position: 0 calc(-32px * 1 * (64 / 32)); */
+                                /*負的原長度 x index(從0開始) x (目標長度 / 原長度)*/
+}
+
+.arrow-keys-secondlevel #right-key:active {
+    /* background-position: calc(-32px * (64 / 32)) calc(-32px * 1 * (64 / 32)); */
+}
+
+.arrow-keys-secondlevel #down-key {
+    /* background-position: 0 calc(-32px * 2 * (64 / 32)); */
+}
+
+.arrow-keys-secondlevel #down-key:active {
+    /* background-position: calc(-32px * (64 / 32)) calc(-32px * 2 * (64 / 32)); */
+}
+
+.arrow-keys-secondlevel #left-key {
+    /* background-position: 0 calc(-32px * 3 * (64 / 32)); */
+}
+
+.arrow-keys-secondlevel #left-key:active {
+    /* background-position: calc(-32px * (64 / 32)) calc(-32px * 3 * (64 / 32)); */
 }
 
 .input-btn {
@@ -83,18 +100,26 @@ header {
 }
 
 .input-btn button {
-    width: 100px;
-    height: 100px;
+    width: 69px;
+    height: 69px;
     background-color: transparent;
     border: none;
 }
 
 .input-btn #A-btn {
-    background-image: url("../asset/A_btn.png");
+    background-image: url("../asset/A_btn_all_sheet.png");
     background-size: cover;
 }
 
+.input-btn #A-btn:active {
+    background-position: 100% 0;
+}
+
 .input-btn #B-btn {
-    background-image: url("../asset/B_btn.png");
+    background-image: url("../asset/B_btn_all_sheet.png");
     background-size: cover;
+}
+
+.input-btn #B-btn:active {
+    background-position: 100% 0;
 }
