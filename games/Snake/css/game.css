@@ -28,8 +28,8 @@ header {
 
 #window canvas {
     background-color: rgb(75, 128, 116);
-    width: 90%;
-    height: 95%;
+    /* width: 90%;
+    height: 95%; */
 }
 
 #panel {
@@ -63,6 +63,10 @@ header {
     background-size: calc(64px * 64 / 32) auto; 
 }
 
+.arrow-keys-firstlevel #up-key.active {
+    background-position: calc(-32px * (64 / 32)) 0;
+}
+
 .arrow-keys-firstlevel #up-key:active {
     background-position: calc(-32px * (64 / 32)) 0;
 }
@@ -70,6 +74,10 @@ header {
 .arrow-keys-secondlevel #right-key {
     background-position: 0 calc(-32px * 1 * (64 / 32));
                                 /*負的原長度 x index(從0開始) x (目標長度 / 原長度)*/
+}
+
+.arrow-keys-secondlevel #right-key.active {
+    background-position: calc(-32px * (64 / 32)) calc(-32px * 1 * (64 / 32));
 }
 
 .arrow-keys-secondlevel #right-key:active {
@@ -80,12 +88,20 @@ header {
     background-position: 0 calc(-32px * 2 * (64 / 32));
 }
 
+.arrow-keys-secondlevel #down-key.active {
+    background-position: calc(-32px * (64 / 32)) calc(-32px * 2 * (64 / 32));
+}
+
 .arrow-keys-secondlevel #down-key:active {
     background-position: calc(-32px * (64 / 32)) calc(-32px * 2 * (64 / 32));
 }
 
 .arrow-keys-secondlevel #left-key {
     background-position: 0 calc(-32px * 3 * (64 / 32));
+}
+
+.arrow-keys-secondlevel #left-key.active {
+    background-position: calc(-32px * (64 / 32)) calc(-32px * 3 * (64 / 32));
 }
 
 .arrow-keys-secondlevel #left-key:active {
@@ -111,6 +127,10 @@ header {
     background-size: cover;
 }
 
+.input-btn #A-btn.active {
+    background-position: 100% 0;
+}
+
 .input-btn #A-btn:active {
     background-position: 100% 0;
 }
@@ -118,6 +138,10 @@ header {
 .input-btn #B-btn {
     background-image: url("../asset/B_btn_all_sheet.png");
     background-size: cover;
+}
+
+.input-btn #B-btn.active {
+    background-position: 100% 0;
 }
 
 .input-btn #B-btn:active {

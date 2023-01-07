@@ -1,3 +1,15 @@
+class Grid
+{
+    constructor(canvasWidth, canvasHeight)
+    {   
+        this.size = 8;
+        //2D array and fill 0
+        this.cells = new Array(this.size).fill(0).map((row) => new Array(this.size).fill(0));
+        this.cellWidth = Math.min(canvasWidth, canvasHeight) / this.size;
+        this.cellHeight = this.cellWidth;
+    }
+};
+
 class SnakeNode
 {
     constructor(w, h)
@@ -15,18 +27,17 @@ class SnakeNode
     }
     render(ctx)
     {
-        ctx.rect(this.x, this.y, this.w, this.h);
-        ctx.fill();
+        ctx.fillRect(this.x, this.y, this.w, this.h);
     }
 }
 
 class Snake
 {
-    constructor()
+    constructor(w, h)
     {
         this.x = 0;
         this.y = 0;
-        this.head = new SnakeNode(50, 50);
+        this.head = new SnakeNode(w, h);
     }
     move(x, y)
     {
@@ -40,34 +51,90 @@ class Snake
     }
 }
 
-//canvas
 let canvas = document.getElementById("window-canvas");
+canvas.width = document.getElementById("window").offsetWidth * 0.9;
+canvas.height = document.getElementById("window").offsetHeight * 0.95;
 let ctx = canvas.getContext("2d");
-let snake = new Snake();
+let grid = new Grid(canvas.width, canvas.height);
+let snake = new Snake(grid.cellWidth, grid.cellHeight);
 snake.render(ctx);
+let upKey = document.getElementById("up-key");
+let rightKey = document.getElementById("right-key");
+let downKey = document.getElementById("down-key");
+let leftKey = document.getElementById("left-key");
+let ABtn = document.getElementById("A-btn");
+let BBtn = document.getElementById("B-btn");
 
 function upKeyEvent()
 {
-    console.log("Up");
     snake.move(0, -1);
+}
+
+function upKeyDownEvent()
+{
+    console.log("Up");
+    upKey.classList.add("active");
+    upKeyEvent();
+}
+
+function upKeyUpEvent()
+{
+    console.log("Up");
+    upKey.classList.remove("active");
 }
 
 function leftKeyEvent()
 {
-    console.log("Left");
     snake.move(-1, 0);
+}
+
+function leftKeyDownEvent()
+{
+    console.log("Left");
+    leftKey.classList.add("active");
+    leftKeyEvent();
+}
+
+function leftKeyUpEvent()
+{
+    console.log("Left");
+    leftKey.classList.remove("active");
 }
 
 function downKeyEvent()
 {
-    console.log("Down");
     snake.move(0, 1);
+}
+
+function downKeyDownEvent()
+{
+    console.log("Down");
+    downKey.classList.add("active");
+    downKeyEvent();
+}
+
+function downKeyUpEvent()
+{
+    console.log("Down");
+    downKey.classList.remove("active");
 }
 
 function rightKeyEvent()
 {
-    console.log("Right");
     snake.move(1, 0);
+}
+
+function rightKeyDownEvent()
+{
+    console.log("Right");
+    rightKey.classList.add("active");
+    rightKeyEvent();
+}
+
+function rightKeyUpEvent()
+{
+    console.log("Right");
+    rightKey.classList.remove("active");
 }
 
 function ABtnEvent()
@@ -75,9 +142,33 @@ function ABtnEvent()
     console.log("A");
 }
 
+function ABtnDownEvent()
+{
+    console.log("A");
+    ABtn.classList.add("active");
+}
+
+function ABtnUpEvent()
+{
+    console.log("A");
+    ABtn.classList.remove("active");
+}
+
 function BBtnEvent()
 {
     console.log("B");
+}
+
+function BBtnDownEvent()
+{
+    console.log("B");
+    BBtn.classList.add("active");
+}
+
+function BBtnUpEvent()
+{
+    console.log("B");
+    BBtn.classList.remove("active");
 }
 
 document.getElementById("up-key").addEventListener("click", upKeyEvent);
@@ -98,32 +189,64 @@ document.addEventListener("keydown", (e) => {
         case "Down":
         case "ArrowDown":
         case "s":
-            downKeyEvent();
+            downKeyDownEvent();
             break;
         case "Up":
         case "ArrowUp":
         case "w":
-            upKeyEvent();
+            upKeyDownEvent();
             break;
         case "Left":
         case "ArrowLeft":
         case "a":
-            leftKeyEvent();
+            leftKeyDownEvent();
             break;
         case "Right": 
         case "ArrowRight":
         case "d":
-            rightKeyEvent();
+            rightKeyDownEvent();
             break;
         case "o":
-            ABtnEvent();
+            ABtnDownEvent();
             break;
         case "p":
-            BBtnEvent();
+            BBtnDownEvent();
             break;
         default:
             return;
     }
 });
 
-
+document.addEventListener("keyup", (e) => {
+    switch (e.key)
+    {
+        case "Down":
+        case "ArrowDown":
+        case "s":
+            downKeyUpEvent();
+            break;
+        case "Up":
+        case "ArrowUp":
+        case "w":
+            upKeyUpEvent();
+            break;
+        case "Left":
+        case "ArrowLeft":
+        case "a":
+            leftKeyUpEvent();
+            break;
+        case "Right": 
+        case "ArrowRight":
+        case "d":
+            rightKeyUpEvent();
+            break;
+        case "o":
+            ABtnUpEvent();
+            break;
+        case "p":
+            BBtnUpEvent();
+            break;
+        default:
+            return;
+    }
+});
