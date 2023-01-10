@@ -1,4 +1,5 @@
-import {Deque} from "../../../js/datastructure/deque.js";
+import { Deque } from "../../../js/datastructure/deque.js";
+import { FSMState, FSM } from "../../../js/FSM.js";
 
 //常數
 const GRID_SIZE = 20;
@@ -22,27 +23,29 @@ class Grid
         this.cells = new Array(this.size).fill(0).map((row) => new Array(this.size).fill(0));
         this.cellWidth = Math.min(canvasWidth, canvasHeight) / this.size;
         this.cellHeight = this.cellWidth;
-        this.origin = new Point((canvasWidth / 2) - (this.size / 2 * this.cellWidth), 0);
+        this.origin = new Point((canvasWidth / 2) - (this.size / 2 * this.cellWidth), (canvasHeight / 2) - (this.size / 2 * this.cellHeight));
         this.endPoint = new Point((canvasWidth / 2) + (this.size / 2 * this.cellWidth), (canvasHeight / 2) + (this.size / 2 * this.cellHeight));
     }
     resize(canvasWidth, canvasHeight)
     {
         this.cellWidth = Math.min(canvasWidth, canvasHeight) / this.size;
         this.cellHeight = this.cellWidth;
-        this.origin = new Point((canvasWidth / 2) - (this.size / 2 * this.cellWidth), 0);
+        this.origin = new Point((canvasWidth / 2) - (this.size / 2 * this.cellWidth), (canvasHeight / 2) - (this.size / 2 * this.cellHeight));
         this.endPoint = new Point((canvasWidth / 2) + (this.size / 2 * this.cellWidth), (canvasHeight / 2) + (this.size / 2 * this.cellHeight));
     }
     renderGrid(ctx)
     {
-        // ctx.beginPath();
+        ctx.beginPath();
+        ctx.strokeStyle = "white";
         for (let i = 0; i <= this.size; ++i)
         {
-            ctx.moveTo(this.origin.x + (i * this.cellWidth), 0);
+            ctx.moveTo(this.origin.x + (i * this.cellWidth), this.origin.y);
             ctx.lineTo(this.origin.x + (i * this.cellWidth), this.endPoint.y);
             ctx.moveTo(this.origin.x, this.origin.y + (i * this.cellHeight));
             ctx.lineTo(this.endPoint.x, this.origin.y + (i * this.cellHeight));
         }
-        // ctx.stroke();
+        ctx.stroke();
+        ctx.closePath();
     }
     renderCell(ctx, x, y)
     {
@@ -51,7 +54,6 @@ class Grid
     }
     clearCell(x, y)
     {
-        // ctx.clearRect(this.origin.x + (x * this.cellWidth), this.origin.y + (y * this.cellHeight), this.cellWidth, this.cellHeight);
         this.cells[y][x] = 0;
     }
     isCollision(x, y)
@@ -114,6 +116,8 @@ class Snake
         this.tail = null; //紀錄尾巴
         this.ateFood = false;
         this.changDirection(1, 0); //開始移動
+        this.speed = 200;
+        this.bodyLength = 1;
     }
     changDirection(x, y)
     {
@@ -122,9 +126,10 @@ class Snake
         this.directionVec.x = x;
         this.directionVec.y = y;
     }
-    creatTail()
+    createTail()
     {
         this.ateFood = true;
+        this.bodyLength++;
     }
     move()
     {
@@ -163,8 +168,12 @@ let downKey = document.getElementById("down-key");
 let leftKey = document.getElementById("left-key");
 let ABtn = document.getElementById("A-btn");
 let BBtn = document.getElementById("B-btn");
+let ABtnFSM = new FSM();
+let BBtnFSM = new FSM();
 let resizeTimer = null; //用於resize end event
 let food = new Food();
+//gameInterval
+let gameInterval = null;
 
 function resize()
 {
@@ -173,8 +182,8 @@ function resize()
     canvas.height = document.getElementById("window").offsetHeight * 0.95;
     ctx = canvas.getContext("2d");
     grid.resize(canvas.width, canvas.height);
-    grid.renderGrid(ctx, canvas.width, canvas.height);
-    snake.render(ctx, grid);
+    if (!RUNNING)
+        return;
 }
 
 function upKeyEvent()
@@ -243,7 +252,7 @@ function rightKeyUpEvent()
 
 function ABtnEvent()
 {
-    RUNNING = true;
+    ABtnFSM.triggerEvent(ABtnFSM.current);
 }
 
 function ABtnDownEvent()
@@ -259,7 +268,7 @@ function ABtnUpEvent()
 
 function BBtnEvent()
 {
-    console.log(grid.cells);
+    BBtnFSM.triggerEvent(BBtnFSM.current);
 }
 
 function BBtnDownEvent()
@@ -358,20 +367,22 @@ document.addEventListener("keyup", (e) => {
     }
 });
 
-//game
-let gameInterval;
+function showScore(ctx)
+{
+    ctx.font = "20px Arial";
+    ctx.fillText("Score: " + snake.bodyLength.toString(),10,50);
+}
 
 function gameLoop()
 {
     if (RUNNING)
     {
-        ctx.beginPath();
         ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
-        grid.renderGrid(ctx);
+        
         snake.move();
         if (grid.cells[snake.head.y][snake.head.x] == 2)
         {
-            snake.creatTail();
+            snake.createTail();
             food.createFood(grid);
         }
         else if(grid.cells[snake.head.y][snake.head.x] == 1)
@@ -381,8 +392,8 @@ function gameLoop()
         }
         snake.render(ctx, grid);
         food.render(ctx, grid);
-        ctx.stroke();
-        ctx.closePath();
+        grid.renderGrid(ctx);
+        showScore(ctx);
     }
 }
 
@@ -392,5 +403,29 @@ function gameBegin()
     gameInterval = setInterval(gameLoop, 200);
 }
 
-gameLoop();
-gameBegin();
+//ABnt FSM
+ABtnFSM.create(new FSMState("startMenu", "startMenu", "gameRunning", () => {
+    document.getElementById("start-menu").classList.add("active");
+    gameBegin();
+    ABtnFSM.to("gameRunning");
+    ABtnFSM.triggerEvent();
+}));
+ABtnFSM.create(new FSMState("gameRunning", "startMenu", "gameRunning", () => {
+    RUNNING = true;
+}));
+ABtnFSM.setInit("startMenu");
+//BBnt FSM
+BBtnFSM.create(new FSMState("gameRunning", "gameRunning", "pause", () => {
+    if (!RUNNING)
+        return;
+    document.getElementById("pause-menu").classList.add("active");
+    if (gameInterval)
+        clearInterval(gameInterval);
+    BBtnFSM.to("pause");
+}));
+BBtnFSM.create(new FSMState("pause", "gameRunning", "gameRunning", () => {
+    document.getElementById("pause-menu").classList.remove("active");
+    gameInterval = setInterval(gameLoop, 200);
+    BBtnFSM.to("gameRunning");
+}));
+BBtnFSM.setInit("gameRunning");

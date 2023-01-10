@@ -9,16 +9,32 @@
     <link rel = "stylesheet" href = "../css/gameBase.css">
     <link rel = "stylesheet" href = "css/game.css">
     <script type = "module" src = "../../js/datastructure/deque.js" defer></script>
+    <script type = "module" src = "../../js/FSM.js" defer></script>
     <script type = "module" src = "js/game.js" defer></script>
 </head>
 <body>
     <header></header>
     <div id = "content">
         <div id = "main">
-            <div id = "window">
-                <canvas id = "window-canvas">
-                    
-                </canvas>
+            <div class = "window-wrap">
+                <div id = "window">
+                    <div id = "start-menu">
+                        <div class = "start-menu-title">
+                            Snake
+                        </div>
+                        <button class = "A-btn-class"></button>
+                    </div>
+                    <div id = "pause-menu">
+                        <div class = "pause-menu-title">
+                            Pause
+                        </div>
+                        <button class = "B-btn-class"></button>
+                    </div>
+                    <canvas id = "window-canvas"></canvas>
+                </div>
+                <div id = "score-table">
+                    Score: 1
+                </div>
             </div>
             <div id = "panel">
                 <div class = "arrow-keys">
