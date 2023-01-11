@@ -7,6 +7,8 @@
     "side_menu": {
         "#a_login": "../login/login.html",
         "#a_AlgorithmVisualization": "../AlgorithmVisualization/AlgorithmVisualization.html",
+        "#a_BaseConverter": "../baseConverter/baseConverter.html",
+        "#a_snake": "../games/Snake/Snake.html",
         "#a_home": "../index/index.html"
     }
 }

@@ -4,6 +4,7 @@ import { FSMState, FSM } from "../../../js/FSM.js";
 //常數
 const GRID_SIZE = 20;
 let RUNNING = false;
+let END = false;
 
 class Point
 {
@@ -36,7 +37,7 @@ class Grid
     renderGrid(ctx)
     {
         ctx.beginPath();
-        ctx.strokeStyle = "white";
+        ctx.strokeStyle = "#f4f3ee";
         for (let i = 0; i <= this.size; ++i)
         {
             ctx.moveTo(this.origin.x + (i * this.cellWidth), this.origin.y);
@@ -83,9 +84,9 @@ class Food
     }
     render(ctx, grid)
     {
-        ctx.fillStyle = "red";
+        ctx.fillStyle = "#ef233c";
         grid.renderFood(ctx, this.x, this.y);
-        ctx.fillStyle = "black";
+        ctx.fillStyle = "#293241";
     }
 };
 
@@ -118,6 +119,7 @@ class Snake
         this.changDirection(1, 0); //開始移動
         this.speed = 200;
         this.bodyLength = 1;
+        this.speedCount = 1;
     }
     changDirection(x, y)
     {
@@ -157,8 +159,8 @@ class Snake
 };
 
 let canvas = document.getElementById("window-canvas");
-canvas.width = document.getElementById("window").offsetWidth * 0.9;
-canvas.height = document.getElementById("window").offsetHeight * 0.95;
+canvas.width = document.getElementById("window").getBoundingClientRect().width;
+canvas.height = document.getElementById("window").getBoundingClientRect().height;
 let ctx = canvas.getContext("2d");
 let grid = new Grid(canvas.width, canvas.height);
 let snake = new Snake();
@@ -174,12 +176,13 @@ let resizeTimer = null; //用於resize end event
 let food = new Food();
 //gameInterval
 let gameInterval = null;
+let scoreTable = document.getElementById("score-table");
 
 function resize()
 {
     canvas = document.getElementById("window-canvas");
-    canvas.width = document.getElementById("window").offsetWidth * 0.9;
-    canvas.height = document.getElementById("window").offsetHeight * 0.95;
+    canvas.width = document.getElementById("window").getBoundingClientRect().width;
+    canvas.height = document.getElementById("window").getBoundingClientRect().height;
     ctx = canvas.getContext("2d");
     grid.resize(canvas.width, canvas.height);
     if (!RUNNING)
@@ -367,10 +370,15 @@ document.addEventListener("keyup", (e) => {
     }
 });
 
-function showScore(ctx)
+function updateScore()
 {
-    ctx.font = "20px Arial";
-    ctx.fillText("Score: " + snake.bodyLength.toString(),10,50);
+    scoreTable.innerHTML = "Score: " + snake.bodyLength.toString();
+}
+
+function changeSpeed()
+{
+    clearInterval(gameInterval);
+    gameInterval = setInterval(gameLoop, snake.speed);
 }
 
 function gameLoop()
@@ -378,29 +386,49 @@ function gameLoop()
     if (RUNNING)
     {
         ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
-        
         snake.move();
         if (grid.cells[snake.head.y][snake.head.x] == 2)
         {
             snake.createTail();
+            snake.speedCount++;
             food.createFood(grid);
+            updateScore();
         }
         else if(grid.cells[snake.head.y][snake.head.x] == 1)
         {
             RUNNING = false;
             clearInterval(gameInterval);
+            ABtnFSM.to("end");
+            ABtnFSM.triggerEvent();
         }
         snake.render(ctx, grid);
         food.render(ctx, grid);
         grid.renderGrid(ctx);
-        showScore(ctx);
+        if (snake.speedCount == 5)
+        {
+            snake.speedCount = 0;
+            snake.speed -= 10;
+            if (snake.speed < 50)
+                snake.speed = 50;
+            changeSpeed();
+            return;
+        }
     }
 }
 
 function gameBegin()
 {
     food.createFood(grid);
-    gameInterval = setInterval(gameLoop, 200);
+    gameInterval = setInterval(gameLoop, snake.speed);
+}
+
+function reset()
+{
+    ctx = canvas.getContext("2d");
+    grid = new Grid(canvas.width, canvas.height);
+    snake = new Snake();
+    food = new Food();
+    updateScore();
 }
 
 //ABnt FSM
@@ -410,8 +438,24 @@ ABtnFSM.create(new FSMState("startMenu", "startMenu", "gameRunning", () => {
     ABtnFSM.to("gameRunning");
     ABtnFSM.triggerEvent();
 }));
-ABtnFSM.create(new FSMState("gameRunning", "startMenu", "gameRunning", () => {
+ABtnFSM.create(new FSMState("gameRunning", "startMenu", "end", () => {
     RUNNING = true;
+}));
+ABtnFSM.create(new FSMState("end", "gameRunning", "gameRunning", () => {
+    if (!END)
+    {
+        END = true;
+        document.getElementById("end-menu").classList.add("active");
+    }
+    else
+    {
+        END = false;
+        ABtnFSM.to("gameRunning");
+        ABtnFSM.triggerEvent();
+        reset();
+        document.getElementById("end-menu").classList.remove("active");
+        gameBegin();
+    }
 }));
 ABtnFSM.setInit("startMenu");
 //BBnt FSM
@@ -425,7 +469,9 @@ BBtnFSM.create(new FSMState("gameRunning", "gameRunning", "pause", () => {
 }));
 BBtnFSM.create(new FSMState("pause", "gameRunning", "gameRunning", () => {
     document.getElementById("pause-menu").classList.remove("active");
-    gameInterval = setInterval(gameLoop, 200);
+    gameInterval = setInterval(gameLoop, snake.speed);
     BBtnFSM.to("gameRunning");
 }));
 BBtnFSM.setInit("gameRunning");
+
+document.querySelector("cpt-modal").open();
