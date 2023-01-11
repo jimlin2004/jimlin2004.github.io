@@ -419,6 +419,7 @@ function gameLoop()
 function gameBegin()
 {
     food.createFood(grid);
+    updateScore();
     gameInterval = setInterval(gameLoop, snake.speed);
 }
 
