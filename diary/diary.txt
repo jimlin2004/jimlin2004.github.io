@@ -1,3 +1,5 @@
 2023/03/23
     1. 改變login.js的後端網址為vercel的
     存檔紀錄version 1.0dev
+    2. login.js fetch 增加header(CORS)
+    存檔紀錄version 1.1dev

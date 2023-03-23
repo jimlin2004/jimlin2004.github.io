@@ -8,10 +8,13 @@ function parseFormData()
 //向後端傳送資料並接收資料
 function uploadData(formData)
 {
+    // "https://api-steel-sigma.vercel.app/api/login.php"
     fetch("https://api-steel-sigma.vercel.app/api/login.php", {
         method: "POST",
         body: formData,
-        headers: {"Content-Type": "multipart/form-data"}
+        headers: {
+            "Methods": "POST"
+        }
     })
     .then((res) => res.json())
     .then((json) => {
