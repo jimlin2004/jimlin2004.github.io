@@ -1,6 +1,6 @@
 {
     "header": {
-        "#logo img": "../img/logo.png",
+        "#logo img": "../img/favicon.png",
         "#home": "../index/index.html",
         "about_me": "#"
     },
