@@ -38,7 +38,7 @@
 }
 
 #side_menu #user_info a:hover {
-    color: #daa520;
+    color: #ff9500;
     font-weight: bold;
 }
 
@@ -63,6 +63,7 @@
 
 #side_menu nav a:hover {
     /* font-size: 120%; */
-    color: #daa520;
+    color: #ff9500;
     font-weight: bold;
+    background-color: #2d3142;
 }

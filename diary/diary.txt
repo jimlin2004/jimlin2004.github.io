@@ -7,3 +7,10 @@
     1. 新增git branch develop
     2. 改變header配色(黑色)
     存檔紀錄version 1.0-alpha
+2023/04/05
+    1. 改變base.css 中的body background-color
+       (所有頁面都變咖啡、黃色系)
+    2. index.html 的board改底圖為顏色印象代表
+    3. 改變side_menu的hover效果
+    存檔紀錄version 1.0-dev
+    存檔紀錄version 1.0-alpha
