@@ -1,5 +1,5 @@
-let template = document.createElement("template");
-template.innerHTML = `
+let modal_template = document.createElement("template");
+modal_template.innerHTML = `
 <style>
     .wrap {
         position: fixed;
@@ -77,7 +77,7 @@ class Modal extends HTMLElement
         super();
 
         this._shadowRoot = this.attachShadow({mode: "open"});
-        this._shadowRoot.appendChild(template.content.cloneNode(true));
+        this._shadowRoot.appendChild(modal_template.content.cloneNode(true));
     }
 
     connectedCallback()

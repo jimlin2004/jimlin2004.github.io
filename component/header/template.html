@@ -1,5 +1,3 @@
-let header_template = document.createElement("template");
-header_template.innerHTML = `
 <style>
     header {
         color: #404040;
@@ -160,36 +158,3 @@ header_template.innerHTML = `
         </div>
     </cpt-modal>
 </header>
-`;
-
-class CPT_Header extends HTMLElement
-{
-    constructor()
-    {
-        super();
-
-        this._shadowRoot = this.attachShadow({mode: "open"});
-        this._shadowRoot.appendChild(header_template.content.cloneNode(true));
-    }
-
-    handleEvent()
-    {
-        this.shadowRoot.querySelector("#burger").addEventListener("click", () => {
-            let burger = this.shadowRoot.querySelector("#burger span");
-            document.querySelector("#side_menu").classList.toggle("active");
-            if (burger.textContent === "☰")
-                burger.innerHTML = "✖";
-            else
-            burger.innerHTML = "☰";
-        });
-        this.shadowRoot.querySelector("header").querySelector("#warning").addEventListener("click", () => {
-            this.shadowRoot.querySelector("header cpt-modal").open();
-        });
-    }
-    connectedCallback()
-    {
-        this.handleEvent();
-    }
-};
-
-customElements.define("cpt-header", CPT_Header);

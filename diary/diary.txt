@@ -13,4 +13,6 @@
     2. index.html 的board改底圖為顏色印象代表
     3. 改變side_menu的hover效果
     存檔紀錄version 1.0-dev
+2023/04/06
+    1. 改變header為web component(樣式稍微改變)
     存檔紀錄version 1.0-alpha
