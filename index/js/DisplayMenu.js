@@ -95,19 +95,19 @@ class DisplayMenu
     }
 };
 
-$(function() {
-    let displayMenu = new DisplayMenu();
-    let bnt_previous = document.getElementById("bnt_previous");
-    let bnt_next = document.getElementById("bnt_next");
-    bnt_previous.addEventListener("click", () => {
-        displayMenu.ToPreviousLabel();
-    })
-    bnt_next.addEventListener("click", () => {
-        displayMenu.ToNextLabel();
-    })
-    displayMenu.loadJson()
-        .then(() => {
-            displayMenu.updateLabel();
-            displayMenu.swiper.handleEvent(document.getElementById("labels"));
-        });
-});
+//<execute>
+let displayMenu = new DisplayMenu();
+let bnt_previous = document.getElementById("bnt_previous");
+let bnt_next = document.getElementById("bnt_next");
+bnt_previous.addEventListener("click", () => {
+    displayMenu.ToPreviousLabel();
+})
+bnt_next.addEventListener("click", () => {
+    displayMenu.ToNextLabel();
+})
+displayMenu.loadJson()
+    .then(() => {
+        displayMenu.updateLabel();
+        displayMenu.swiper.handleEvent(document.getElementById("labels"));
+    });
+//</execute>

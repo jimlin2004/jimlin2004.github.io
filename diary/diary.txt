@@ -16,3 +16,10 @@
 2023/04/06
     1. 改變header為web component(樣式稍微改變)
     存檔紀錄version 1.0-alpha
+2023/04/07
+    1. 新增cookie(登入)，新增Cookie(class)
+    2. 改變SideMenu為 web component
+    3. 將base.js棄用(如果需要改連結再特別引用(todo))
+    4. jquery棄用
+    5. 新增register page，完成register 功能
+    存檔紀錄version 1.0-alpha

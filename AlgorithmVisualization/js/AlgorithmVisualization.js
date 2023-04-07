@@ -90,8 +90,9 @@ class AlgorithmVisualizationSystem
     addToSelect()
     {
         let keys = Object.keys(this.parser.dataStruct)
+        let s_type = document.getElementById("s_type");
         for (let i = 0; i < keys.length; i++)
-            $("#s_type").append(new Option(keys[i], i.toString()));
+            s_type.appendChild(new Option(keys[i], i.toString()));
     }
     
     connect(ctx, ele1, ele2)
@@ -142,13 +143,11 @@ class AlgorithmVisualizationSystem
     drawBinary(canvas, ctx)
     {
         let specification = this.splitCanvas_binary(canvas);
-        // let x = specification["unitWidth"] / 2;
         let x = 0;
         let y = specification["unitHeight"] / 2;
         let r = Math.min(specification["unitWidth"] / 2, specification["unitHeight"] / 2);
         let previousLevel = [];
         let currentLevel = [];
-        // let levelElementNum = 0;
         
         //<第一層>
         let unitWidth = this.getLevelUnitWidth_binary(canvas, 0);
@@ -162,7 +161,6 @@ class AlgorithmVisualizationSystem
         {
             currentLevel = [];
             unitWidth = this.getLevelUnitWidth_binary(canvas, levelNum);
-            // x = unitWidth / 2;
             y += specification["unitHeight"];
             for (let node of this.parser.levels[levelNum].nodes)
             {
@@ -181,11 +179,6 @@ class AlgorithmVisualizationSystem
             }
             previousLevel = Array.from(currentLevel);
         }
-        // for (let i = 0; i < specification["maxElementNum"]; i++)
-        // {
-        //     this.elements.push(new Circle(x, y, r, "100"));
-        //     x += specification["unitWidth"];
-        // }
         return;
     }
 
@@ -222,43 +215,36 @@ class AlgorithmVisualizationSystem
 
 function resizeCanvasSize(canvas)
 {
-    canvas.width = $("#content").width();
-    canvas.height = $("#content").height() * 0.6;
+    canvas.width = document.getElementById("content").offsetWidth;
+    canvas.height = document.getElementById("content").offsetHeight * 0.6;
 }
 
-$(function() {
-    let fontface = new FontFace("Silver", "url(../../font/Silver.ttf)");
-    const canvas = document.getElementById("main_canvas");
-    const ctx = canvas.getContext("2d");
+//<execute>
+let fontface = new FontFace("Silver", "url(../../font/Silver.ttf)");
+const canvas = document.getElementById("main_canvas");
+const ctx = canvas.getContext("2d");
+resizeCanvasSize(canvas);
+let algorithmVisualizationSystem = new AlgorithmVisualizationSystem("");
+algorithmVisualizationSystem.addToSelect();
+window.addEventListener("resize", () => {
     resizeCanvasSize(canvas);
-    let algorithmVisualizationSystem = new AlgorithmVisualizationSystem("");
-    algorithmVisualizationSystem.addToSelect();
-    window.addEventListener("resize", () => {
-        resizeCanvasSize(canvas);
-    });
-    const b_check = document.getElementById("b_check");
-    b_check.addEventListener("click", () => {
-        if ($("#i_data").val().length === 0)
-            return;
-        else
-        {
-            algorithmVisualizationSystem.parser.clear();
-            algorithmVisualizationSystem.clear(canvas, ctx);
-            algorithmVisualizationSystem.setType($("#s_type").text());
-            algorithmVisualizationSystem.parser.parse($("#i_data").val());
-            algorithmVisualizationSystem.parser.getLevels();
-            algorithmVisualizationSystem.drawBinary(canvas, ctx);
-            algorithmVisualizationSystem.drawAllElement(ctx);
-            // algorithmVisualizationSystem.drawSplitCanvas(canvas, ctx);
-        }
-    });
-    fontface.load().then((font) => {
-        document.fonts.add(font);
-        // ctx.font = `${canvas.width * 0.08}px Silver`;
-        // let circle1 = new Circle(100, 100, 30, "1234");
-        // let circle2 = new Circle(200, 200, 30, "嗨");
-        // algorithmVisualizationSystem.connect(ctx, circle1, circle2);
-        // circle1.draw(ctx);
-        // circle2.draw(ctx);
-    });
 });
+const b_check = document.getElementById("b_check");
+b_check.addEventListener("click", () => {
+    if (document.getElementById("i_data").value.length === 0)
+        return;
+    else
+    {
+        algorithmVisualizationSystem.parser.clear();
+        algorithmVisualizationSystem.clear(canvas, ctx);
+        algorithmVisualizationSystem.setType(document.getElementById("s_type").options[document.getElementById("s_type").selectedIndex].text);
+        algorithmVisualizationSystem.parser.parse(document.getElementById("i_data").value);
+        algorithmVisualizationSystem.parser.getLevels();
+        algorithmVisualizationSystem.drawBinary(canvas, ctx);
+        algorithmVisualizationSystem.drawAllElement(ctx);
+    }
+});
+fontface.load().then((font) => {
+    document.fonts.add(font);
+});
+//</execute>

@@ -140,7 +140,7 @@ header_template.innerHTML = `
             </slot>
         </div>
         <nav class = "header_nav">
-            <a href = "#" id = "home">回到首頁</a>
+            <a href = "../index/index.html" id = "home">回到首頁</a>
             <a href = "#" id = "about_me">關於我</a>
             <a href = "#" id = "warning">注意事項</a>
         </nav>
@@ -176,7 +176,7 @@ class CPT_Header extends HTMLElement
     {
         this.shadowRoot.querySelector("#burger").addEventListener("click", () => {
             let burger = this.shadowRoot.querySelector("#burger span");
-            document.querySelector("#side_menu").classList.toggle("active");
+            document.querySelector("cpt-sidemenu").update();
             if (burger.textContent === "☰")
                 burger.innerHTML = "✖";
             else

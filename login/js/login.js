@@ -1,3 +1,5 @@
+import { Cookie } from "../../js/Cookie.js";
+
 //解析login form的資料
 function parseFormData() 
 {
@@ -8,6 +10,7 @@ function parseFormData()
 //向後端傳送資料並接收資料
 function uploadData(formData)
 {
+    // "http://localhost:8000/api/login.php"
     // "https://api-steel-sigma.vercel.app/api/login.php"
     fetch("https://api-steel-sigma.vercel.app/api/login.php", {
         method: "POST",
@@ -18,7 +21,10 @@ function uploadData(formData)
     })
     .then((res) => res.json())
     .then((json) => {
-        console.log(json);
+        Cookie.set("username", json["username"]);
+        Cookie.set("email", json["email"]);
+
+        window.location.replace(`${window.location.protocol}//${window.location.host}/index/index.html`);
     })
 }
 

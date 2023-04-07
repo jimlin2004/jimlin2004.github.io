@@ -11,7 +11,7 @@
         <script src = "../component/modal/modal.js" defer></script>
         <script src = "../component/header/header.js" defer></script>
         <script type = "module" src = "../component/side_menu/side_menu.js" defer></script>
-        <script type = "module" src = "./js/login.js" defer></script>
+        <script type = "module" src = "./js/register.js" defer></script>
     </head>
     <body>
         <cpt-header style = "height: 5%;">
@@ -19,10 +19,14 @@
         </cpt-header>
         <div id = "content">
             <div id = "main">
-                <div id = "login">
+                <div id = "register">
                     <p></p>
-                    <form id = "login_form">
-                        <div class = "title"><i class="fa fa-user-circle"></i>會員登入</div>
+                    <form id = "register_form">
+                        <div class = "title"><i class="fa fa-user-circle"></i>註冊新會員</div>
+                        <div class = "group">
+                            <label for = "input_username">使用者名稱</label>
+                            <input type = "text" id = "input_username" name = "username" required>
+                        </div>
                         <div class = "group">
                             <label for = "input_account">帳號</label>
                             <input type = "email" id = "input_account" name = "email" required>
@@ -31,13 +35,9 @@
                             <label for = "input_password">密碼</label>
                             <input type = "password" id = "input_password" name = "password" required>
                         </div>
-                        <div class = "a_group">
-                            <div>
-                                <a href = "#" id = "a_forgot_password">忘記密碼</a>
-                            </div>
-                            <div>
-                                <a href = "../register/register.html" id = "a_register">註冊</a>
-                            </div>
+                        <div class = "group">
+                            <label for = "input_password_again">再輸入一次密碼</label>
+                            <input type = "password" id = "input_password_again" name = "password_again" required>
                         </div>
                         <div class = "btn_group">
                             <button type = "submit" id = "submit">確定</button>

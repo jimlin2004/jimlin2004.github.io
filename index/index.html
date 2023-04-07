@@ -7,14 +7,12 @@
         <link rel = "icon" href = "img/favicon.png">
         <link rel = "stylesheet" href = "../css/base.css">
         <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-        <!-- <link rel = "stylesheet" href = "../css/header.css"> -->
-        <link rel = "stylesheet" href = "../css/side_menu.css">
         <link rel = "stylesheet" href = "css/style.css">
-        <script src = "../lib/jquery-3.6.0.min.js"></script>
+        <!-- <script src = "../lib/jquery-3.6.0.min.js"></script> -->
         <script src = "../component/modal/modal.js" defer></script>
         <script src = "../component/header/header.js" defer></script>
-        <script src = "../component/side_menu/side_menu.js" defer></script>
-        <script src = "../js/base.js" defer></script>
+        <script type = "module" src = "../component/side_menu/side_menu.js" defer></script>
+        <!-- <script src = "../js/base.js" defer></script> -->
         <script type = "module" src = "js/Cat.js" defer></script>
         <script type = "module" src = "js/SwiperSystem.js" defer></script>
         <script type = "module" src = "js/DisplayMenu.js" defer></script>
@@ -128,7 +126,7 @@
                     </div>
                 </div>
             </div>
-            <div id = "side_menu"></div>
+            <cpt-sidemenu></cpt-sidemenu>
         </div>
     </body>
 </html>

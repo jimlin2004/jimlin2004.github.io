@@ -6,7 +6,7 @@
     height: 100%;
 }
 
-#login {
+#register {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,7 +16,7 @@
     border: 5px solid #000;
 }
 
-#login .title {
+#register .title {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,65 +24,37 @@
     font-weight: bold;
 }
 
-#login .title i {
+#register .title i {
     font-size: 24px;
 }
 
-#login #login_form
+#register #register_form
 {
     width: 90%;
 }
 
-#login #login_form .group {
+#register #register_form .group {
     display: flex;
     flex-direction: column;
 }
 
-#login #login_form .group label {
+#register #register_form .group label {
     line-height: 2;
     font-weight: bold;
     cursor: pointer;
 }
 
-#login #login_form .group input {
+#register #register_form .group input {
     border-radius: 5px;
     padding: 5px;
 }
 
-#login #login_form .a_group {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#login #login_form .a_group div {
-    width: 45%;
-    line-height: 2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#login #login_form .a_group div + div {
-    margin-left: 10%;
-}
-
-#login #login_form .a_group div a {
-    color: rgb(101, 101, 101);
-    font-size: 16px;
-    text-decoration: none;
-}
-
-#login #login_form .a_group div a:hover {
-    color: #000000;
-}
-
-#login #login_form .btn_group {
+#register #register_form .btn_group {
     font-size: 0;
-    margin-top: 3%;
+    margin-top: 20px;
 }
 
-#login #login_form .btn_group button {
+#register #register_form .btn_group button {
     font-size: 16px;
     width: 45%;
     border: none;
@@ -93,24 +65,20 @@
     cursor: pointer;
 }
 
-#login #login_form .btn_group button + button {
+#register #register_form .btn_group button + button {
     margin-left: 10%;
 }
 
 @media screen and (max-width: 400px) {
-    #login #login_form .a_group div a {
+    #register #register_form .btn_group button {
         font-size: 12px;
     }
 
-    #login #login_form .btn_group button {
-        font-size: 12px;
-    }
-
-    #login .title {
+    #register .title {
         font-size: 20px;
     }
     
-    #login .title i {
+    #register .title i {
         font-size: 20px;
     }
 }
