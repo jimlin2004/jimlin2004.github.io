@@ -23,3 +23,6 @@
     4. jquery棄用
     5. 新增register page，完成register 功能
     存檔紀錄version 1.0-alpha
+2023/04/08
+    1. 修復手機版header顯示問題(header樣式恢復font awesome)
+    存檔紀錄version 1.0-alpha

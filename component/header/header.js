@@ -1,5 +1,7 @@
 let header_template = document.createElement("template");
 header_template.innerHTML = `
+<link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
 <style>
     header {
         color: #404040;
@@ -73,8 +75,10 @@ header_template.innerHTML = `
 
     header .container #tools #search_bar input,
     header .container #tools #search_bar button {
+        display: flex;
         border: none;
         background-color: #f0f6fc;
+        align-items: center;
     }
 
     header .container #tools #search_bar input:focus,
@@ -85,6 +89,7 @@ header_template.innerHTML = `
     header .container #tools #search_bar button {
         border-radius: 0 5px 5px 0;
         background-color: #daa520;
+        color: #404040;
         cursor: pointer;
     }
 
@@ -101,15 +106,6 @@ header_template.innerHTML = `
         border: none;
         justify-content: center;
         align-items: center;
-    }
-
-    header .container #tools #burger span {
-        position: relative;
-        height: 100%;
-        font-size: 200%;
-        width: 30px;
-        cursor: pointer;
-        text-align: center;
     }
     
     header .container #tools #burger:hover {
@@ -135,9 +131,7 @@ header_template.innerHTML = `
 <header>
     <div class = "container">
         <div id = "logo">
-            <slot name = "logo-slot">
-                
-            </slot>
+            <img src = "../img/favicon.png">
         </div>
         <nav class = "header_nav">
             <a href = "../index/index.html" id = "home">回到首頁</a>
@@ -147,10 +141,9 @@ header_template.innerHTML = `
         <div id = "tools">
             <form id = "search_bar">
                 <input type = "search" placeholder = "請輸入關鍵字">
-                <button>🔍︎</button>
+                <button><i class = "fa fa-search"></i></button>
             </form>
-            <!-- span是因為unicode的width不同 -->
-            <button id = "burger"><span>☰</span></button>
+            <i class = "fa fa-fw fa-navicon" style = "font-size:200%" id = "burger"></i>
         </div>
     </div>
     <cpt-modal title = "注意事項">
@@ -175,12 +168,18 @@ class CPT_Header extends HTMLElement
     handleEvent()
     {
         this.shadowRoot.querySelector("#burger").addEventListener("click", () => {
-            let burger = this.shadowRoot.querySelector("#burger span");
+            let burger = this.shadowRoot.querySelector("#burger");
             document.querySelector("cpt-sidemenu").update();
-            if (burger.textContent === "☰")
-                burger.innerHTML = "✖";
+            if (burger.classList.contains("fa-navicon"))
+            {
+                burger.classList.remove("fa", "fa-fw", "fa-navicon");
+                burger.classList.add("fa-solid", "fa-fw", "fa-xmark");
+            }
             else
-            burger.innerHTML = "☰";
+            {
+                burger.classList.remove("fa-solid", "fa-fw", "fa-xmark");
+                burger.classList.add("fa", "fa-fw", "fa-navicon");
+            }
         });
         this.shadowRoot.querySelector("header").querySelector("#warning").addEventListener("click", () => {
             this.shadowRoot.querySelector("header cpt-modal").open();
