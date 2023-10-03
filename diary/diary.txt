@@ -26,3 +26,7 @@
 2023/04/08
     1. 修復手機版header顯示問題(header樣式恢復font awesome)
     存檔紀錄version 1.0-alpha
+2023/10/03
+    1. 修復首頁的公佈欄切換時會抖動的問題
+    (透過預先將公布欄的height調成label中最大的height，使高度一定裝得下所有label)
+    存檔紀錄version 1.0-alpha

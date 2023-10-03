@@ -27,8 +27,9 @@
     justify-content: space-around;
 }
 
-#labels .labels_item {
+.labels_item {
     position: relative;
+    width: fit-content;
     display: flex;
     flex-direction: column;
     /* border: 1px solid #000; */
@@ -39,12 +40,12 @@
     transition: 0.3s;
 }
 
-#labels .labels_item:hover {
+.labels_item:hover {
     box-shadow: 0 0 0 3px rgba(43, 45, 66, 0.8);
     cursor: pointer;
 }
 
-#labels .labels_item .label_title {
+.labels_item .label_title {
     position: relative;
     border-bottom: 1px solid #000;
     text-align: center;
@@ -53,14 +54,14 @@
     font-weight: bold;
 }
 
-#labels .labels_item .label_title .pushpin {
+.labels_item .label_title .pushpin {
     position: absolute;
     right: 0;
     top: 0;
     height: 100%;
 }
 
-#labels .labels_item .label_content {
+.labels_item .label_content {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -71,14 +72,14 @@
     /* padding: 2px;去掉border(微軟正黑)造成的1px白邊 */
 }
 
-#labels .labels_item .label_content .label_img_wrap {
+.labels_item .label_content .label_img_wrap {
     position: relative;
     display: flex;
     max-width: 100%;
     padding-bottom: 100%; /*參考width成正方形*/
 }
 
-#labels .labels_item .label_content .label_img_wrap .label_img {
+.labels_item .label_content .label_img_wrap .label_img {
     position: absolute;
     border: none;
     box-sizing: border-box;

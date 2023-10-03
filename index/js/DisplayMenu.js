@@ -67,7 +67,7 @@ class DisplayMenu
             this.splitTextToP(label_content_text_div, labelData["description"]);
             label_img = labels_item_div.querySelector(".label_img");
             label_img.src = labelData["img"];
-            this.swiper.pushNewLabel(labels_item_div, labelData["title"]["title"], labelData["href"], labelData["complete_description"]);
+            this.swiper.pushNewLabel(labels_item_div, labelData["title"]["title"], labelData["title"]["color"], labelData["href"], labelData["description"], labelData["complete_description"], labelData["img"]);
         }
         return;
     }
@@ -107,6 +107,8 @@ bnt_next.addEventListener("click", () => {
 })
 displayMenu.loadJson()
     .then(() => {
+        displayMenu.swiper.getLabelsMaxHeight(displayMenu.data["labels"]);
+        displayMenu.swiper.setLabelsHeight();
         displayMenu.updateLabel();
         displayMenu.swiper.handleEvent(document.getElementById("labels"));
     });
