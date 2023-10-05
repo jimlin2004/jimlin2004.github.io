@@ -26,6 +26,10 @@ function uploadData(formData)
 
         window.location.replace(`${window.location.protocol}//${window.location.host}/index/index.html`);
     })
+    .catch((error) => {
+        // Todo: 後端的帳號或密碼不對的ErrorCode
+        alert("帳號或密碼錯誤");
+    });
 }
 
 const loginForm = document.getElementById("login_form");

@@ -30,3 +30,12 @@
     1. 修復首頁的公佈欄切換時會抖動的問題
     (透過預先將公布欄的height調成label中最大的height，使高度一定裝得下所有label)
     存檔紀錄version 1.0-alpha
+2023/10/05
+    1. login的功能缺少帳號或密碼錯誤的處理，需要改後端ErrorCode及其他功能
+       目前先用catch + alert緊急處理
+    2. 發現後端的密碼hash算法需要改
+    Todo list
+        -後端的帳號密碼錯誤處理(Error)
+        -後端密碼hash算法需更改
+        -前端的帳號密碼錯誤處理
+    存檔紀錄version 1.0-alpha
