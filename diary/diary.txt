@@ -39,3 +39,10 @@
         -後端密碼hash算法需更改
         -前端的帳號密碼錯誤處理
     存檔紀錄version 1.0-alpha
+
+2023/10/19
+    1. 開始做weather小工具
+    2. 經測試中央氣象局開發平台可抓到資料(目前先改成用本地的json用於開發時測試)
+    Todo list
+        -繼續做weather小工具
+    存檔紀錄version 1.0-alpha
