@@ -46,3 +46,10 @@
     Todo list
         -繼續做weather小工具
     存檔紀錄version 1.0-alpha
+2023/11/04
+    1. 將臺灣地圖引入設計
+    2. 研究tooltip
+    Todo list
+        -經緯度轉行政區
+        -weather的tooltip
+    存檔紀錄version 1.0-alpha
