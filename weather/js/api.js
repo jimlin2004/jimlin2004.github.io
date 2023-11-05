@@ -18,6 +18,7 @@ class WeatherSystem
     }
 
     static selectedLocation = null;
+    static weatherData = null;
 
     static setSelectedLocation(location)
     {
@@ -36,18 +37,23 @@ class WeatherSystem
     
     getRecords()
     {
-        if (weatherData === null)
+        if (WeatherSystem.weatherData === null)
         {
             throw new Error("氣象資料為空");
         }
         this.weatherMap = new Map();
-        for (let weather of weatherData["records"]["location"])
+        for (let weather of WeatherSystem.weatherData["records"]["location"])
         {
             this.weatherMap.set(weather["locationName"], new Weather(weather["weatherElement"][0], weather["weatherElement"][1], 
                 weather["weatherElement"][2], weather["weatherElement"][3], weather["weatherElement"][4]));
         }
 
         console.log(this.weatherMap);
+    }
+
+    getRecord(location)
+    {
+        return this.weatherMap.get(location);
     }
 
     setupTooltips()
@@ -62,7 +68,7 @@ class WeatherSystem
     parameter
         location: 地區名 string
     */
-    drawData(location)
+    showLocationData(location)
     {
         let weatherData = this.weatherMap.get(location);
         
@@ -105,7 +111,7 @@ $.ajax({
     method: "GET",
     dataType: "json",
     success: (res) => {
-        weatherData = res;
+        WeatherSystem.weatherData = res;
         main();
     }
 });
@@ -121,7 +127,7 @@ let locationTranslate = {
     "苗栗縣": "Miaoli",
     "臺北市": "Taipei City",
     "新北市": "New Taipei City",
-    "桃園縣": "Taoyuan",
+    "桃園市": "Taoyuan",
     "彰化縣": "Changhua",
     "嘉義縣": "Chiayi",
     "嘉義市": "Chiayi City",
@@ -144,7 +150,7 @@ let locationTranslate = {
     "Miaoli": "苗栗縣",
     "Taipei City": "臺北市",
     "New Taipei City": "新北市",
-    "Taoyuan": "桃園縣",
+    "Taoyuan": "桃園市",
     "Changhua": "彰化縣",
     "Chiayi": "嘉義縣",
     "Chiayi City": "嘉義市",
@@ -158,14 +164,50 @@ let locationTranslate = {
     "Lienchiang": "連江縣"
 };
 
+function tooltipFactory(node, mouseX, mouseY, weatherData)
+{
+    let tooltipDiv = document.createElement("div");
+        tooltipDiv.innerHTML = `
+            <p>${locationTranslate[node.dataset.tooltip]}</p>
+            <p>溫度: ${weatherData.minTData.time[1].parameter.parameterName} ~ ${weatherData.maxTData.time[1].parameter.parameterName}°C</p>
+            <p>${weatherData.wxData.time[1].parameter.parameterName}</p>
+            <p>降雨機率: ${weatherData.popData.time[1].parameter.parameterName}%</p>
+            <p>6:00 ~ 18:00</p>
+        `;
+        tooltipDiv.id = "tooltip";
+        tooltipDiv.style = `
+            background-color: #ffffff;
+            border: 2px solid #000;
+            border-radius: 5px;
+            box-shadow: 0 0 3px;
+            padding: 2px;
+        `;
+
+        tooltipDiv.style.position = "absolute";
+        tooltipDiv.style.top = `${mouseY}px`;
+        tooltipDiv.style.left = `${mouseX}px`;
+        tooltipDiv.style.userSelect = "none";
+        tooltipDiv.style.pointerEvents = "none";
+    $("body").append(tooltipDiv);
+}
+
 async function main()
 {
     let weatherSystem = new WeatherSystem();
-    let user = new User();
-    await user.init();
+    // let user = new User();
+    // await user.init();
     weatherSystem.setupTooltips();
-    console.log(user.location);
+    // console.log(user.location);
     weatherSystem.getRecords();
+
+    $(".Taiwan path").on("mouseenter", (e) => {
+        tooltipFactory(e.target, e.clientX, e.clientY, weatherSystem.getRecord(locationTranslate[e.target.dataset.tooltip]));
+    });
+
+    $(".Taiwan path").on("mouseleave", (e) => {
+        $("#tooltip").remove();
+    });
+
     $(".Taiwan path").on("click", (e) => {
         WeatherSystem.setSelectedLocation(e.target);
     });
