@@ -62,4 +62,18 @@ header #logo #logo_text .minor{
 
 #content {
     display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 20px;
+}
+
+#info-cards {
+    display: flex;
+    justify-content: space-around;
+}
+
+#info-cards .info-card {
+    text-align: center;
+    background-color: #e5e2e2;
+    border-radius: 8px;
+    padding: 5px;
 }

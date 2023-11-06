@@ -1,3 +1,5 @@
+import { InfoCard } from "./InfoCard.js";
+
 class Weather
 {
     constructor(_wxData, _popData, _minTData, _CIData, _maxTData)
@@ -211,4 +213,9 @@ async function main()
     $(".Taiwan path").on("click", (e) => {
         WeatherSystem.setSelectedLocation(e.target);
     });
+
+    for (let i = 0; i < 3; ++i)
+    {
+        $("#info-cards").append(InfoCard.create());
+    }
 }
