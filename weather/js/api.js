@@ -214,8 +214,11 @@ async function main()
         WeatherSystem.setSelectedLocation(e.target);
     });
 
+    document.querySelector(`.Taiwan path[name="New Taipei City"]`).dispatchEvent(new Event("click"));
+
     for (let i = 0; i < 3; ++i)
     {
-        $("#info-cards").append(InfoCard.create());
+        let weatherData = weatherSystem.getRecord("新北市");
+        $("#info-cards").append(InfoCard.create(weatherData.wxData.time[i].parameter.parameterName, weatherData.minTData.time[i].parameter.parameterName, weatherData.maxTData.time[i].parameter.parameterName));
     }
 }
