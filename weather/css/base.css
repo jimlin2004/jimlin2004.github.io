@@ -53,11 +53,13 @@ header #logo #logo_text .minor{
 }
 
 .Taiwan path:hover {
+    transition: .3s;
     fill: gold;
 }
 
 .selectedLocation {
-    fill: rgb(13, 74, 230);
+    transition: .3s;
+    fill: rgb(13, 74, 230) !important;
 }
 
 #content {
@@ -67,8 +69,9 @@ header #logo #logo_text .minor{
 }
 
 #info-cards {
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 30px;
 }
 
 #info-cards .info-card {
@@ -84,7 +87,44 @@ header #logo #logo_text .minor{
     font-size: 20px;
 }
 
-#info-cards .info-card img {
+#info-cards .info-card .weatherIcon {
     width: 60px;
     height: 60px;
+}
+
+.popDiv {
+    display: flex;
+    position: relative;
+    width: 100%;
+}
+
+.popDiv .column:nth-child(1) {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: end;
+}
+
+.popDiv .column:nth-child(2) {
+    flex: 1;
+    position: relative;
+}
+
+.popDiv .column .popIcon {
+    height: 100%;
+    position: absolute;
+}
+
+@media screen and (max-width: 800px) {
+
+.Taiwan {
+    display: none;
+}
+
+#content {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-column-gap: 20px;
+}
+
 }

@@ -36,6 +36,11 @@ class WeatherSystem
     {
         return WeatherSystem.selectedLocation;
     }
+
+    static getSelectedLocationName()
+    {
+        return WeatherSystem.selectedLocation.getAttribute("name");
+    }
     
     getRecords()
     {
@@ -80,6 +85,20 @@ class WeatherSystem
         div.appendChild(locationNameDiv);
     
         $("body").append(div);
+    }
+
+    static get36hrTimeDescription(startTime)
+    {
+        if (startTime === "06:00:00")
+        {
+            return ["今日白天", "今夜明晨", "明日白天"];
+        }
+        else if (startTime == "18:00:00")
+        {
+            return ["今夜明晨", "明日白天", "明日晚上"];
+        }
+
+        throw new Error("unknow startTime");
     }
 };
 
@@ -212,13 +231,32 @@ async function main()
 
     $(".Taiwan path").on("click", (e) => {
         WeatherSystem.setSelectedLocation(e.target);
+
+        let weatherData = weatherSystem.getRecord(locationTranslate[WeatherSystem.getSelectedLocationName()]);
+        let timeDescriptions = WeatherSystem.get36hrTimeDescription(weatherData.minTData.time[0].startTime.split(" ")[1]);
+        
+        let infoCards = document.querySelectorAll(".info-card");
+
+        for (let i = 0; i < 3; ++i)
+        {
+            InfoCard.updateInfoCard(
+                infoCards[i], 
+                timeDescriptions[i],
+                weatherData.wxData.time[i].parameter.parameterName,
+                weatherData.minTData.time[i].parameter.parameterName,
+                weatherData.maxTData.time[i].parameter.parameterName,
+                weatherData.popData.time[i].parameter.parameterName
+            );
+            // $("#info-cards").append(
+            //     InfoCard.create(timeDescriptions[i],
+            //         weatherData.wxData.time[i].parameter.parameterName,
+            //         weatherData.minTData.time[i].parameter.parameterName,
+            //         weatherData.maxTData.time[i].parameter.parameterName,
+            //         weatherData.popData.time[i].parameter.parameterName
+            //     )
+            // );
+        }
     });
 
     document.querySelector(`.Taiwan path[name="New Taipei City"]`).dispatchEvent(new Event("click"));
-
-    for (let i = 0; i < 3; ++i)
-    {
-        let weatherData = weatherSystem.getRecord("新北市");
-        $("#info-cards").append(InfoCard.create(weatherData.wxData.time[i].parameter.parameterName, weatherData.minTData.time[i].parameter.parameterName, weatherData.maxTData.time[i].parameter.parameterName));
-    }
 }

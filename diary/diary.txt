@@ -73,3 +73,6 @@
         -經緯度轉行政區
         -網頁的功能需完善(html未完工)
     存檔紀錄version 1.0-alpha
+2023/11/10
+    1. 完成infoCard
+    存檔紀錄version 1.0-alpha

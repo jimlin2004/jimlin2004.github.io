@@ -2,25 +2,22 @@ import { Converter } from "./Converter.js";
 
 class InfoCard
 {
-    static create(weatherDescription, temperatureMin, temperatureMax)
+    /*
+        parameter
+            infoCard: html infoCard本身
+            timeDescription: 時間描述 string
+            weatherDescription: 天氣描述 string
+            temperatureMin: 最低溫(華氏) string
+            temperatureMax: 最高溫(華氏) string
+            pop: 降雨機率(%) string
+    */
+    static updateInfoCard(infoCard, timeDescription, weatherDescription, temperatureMin, temperatureMax, pop)
     {
-        let infoCardDiv = document.createElement("div");
-        infoCardDiv.classList.add("info-card");
-
-        let timeP = document.createElement("p");
-        timeP.textContent = "今夜明晨";
-        timeP.classList.add("time-title");
-        infoCardDiv.appendChild(timeP);
-
-        let weatherIcon = document.createElement("img");
-        weatherIcon.src = `./assets/svg/weatherDescription/${Converter.getWeatherIcon(weatherDescription)[0]}`;
-        infoCardDiv.appendChild(weatherIcon);
-
-        let temperatureP = document.createElement("p");
-        temperatureP.textContent = `${temperatureMin} ~ ${temperatureMax} °C`;
-        infoCardDiv.appendChild(temperatureP);
-
-        return infoCardDiv;
+        infoCard.querySelector(".time-title").textContent = timeDescription;
+        infoCard.querySelector(".weatherIcon").src = `./assets/svg/weatherDescription/${Converter.getWeatherIcon(weatherDescription)[0]}`;
+        infoCard.querySelector(".temperature").textContent = `${temperatureMin} ~ ${temperatureMax} °C`;
+        infoCard.querySelector(".popDiv .pop-text").textContent = `${pop}%`;
+        infoCard.querySelector(".weatherDescription").textContent = weatherDescription;
     }
 };
 
