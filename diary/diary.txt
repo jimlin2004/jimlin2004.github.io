@@ -76,3 +76,12 @@
 2023/11/10
     1. 完成infoCard
     存檔紀錄version 1.0-alpha
+2023/11/11
+    1. 完成input-panel
+    2. 開始建構tab-widget
+    Todo list
+        -tab-widget功能完善
+        -chart.js
+        -經緯度轉行政區
+        -網頁的功能需完善(html未完工)
+    存檔紀錄version 1.0-alpha

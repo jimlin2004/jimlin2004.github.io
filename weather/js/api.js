@@ -140,7 +140,7 @@ $.ajax({
 let locationTranslate = {
     "高雄市": "Kaohsiung City",
     "屏東縣": "Pingtung",
-    "台南市": "Tainan City",
+    "臺南市": "Tainan City",
     "新竹市": "Hsinchu City",
     "新竹縣": "Hsinchu",
     "宜蘭縣": "Yilan",
@@ -237,6 +237,8 @@ async function main()
         
         let infoCards = document.querySelectorAll(".info-card");
 
+        document.getElementById("city-select").value = locationTranslate[WeatherSystem.getSelectedLocationName()];
+
         for (let i = 0; i < 3; ++i)
         {
             InfoCard.updateInfoCard(
@@ -247,16 +249,12 @@ async function main()
                 weatherData.maxTData.time[i].parameter.parameterName,
                 weatherData.popData.time[i].parameter.parameterName
             );
-            // $("#info-cards").append(
-            //     InfoCard.create(timeDescriptions[i],
-            //         weatherData.wxData.time[i].parameter.parameterName,
-            //         weatherData.minTData.time[i].parameter.parameterName,
-            //         weatherData.maxTData.time[i].parameter.parameterName,
-            //         weatherData.popData.time[i].parameter.parameterName
-            //     )
-            // );
         }
     });
+
+    document.getElementById("city-select").addEventListener("change", (e) => {
+        document.querySelector(`.Taiwan path[name="${locationTranslate[e.target.value]}"]`).dispatchEvent(new Event("click"));
+    })
 
     document.querySelector(`.Taiwan path[name="New Taipei City"]`).dispatchEvent(new Event("click"));
 }
