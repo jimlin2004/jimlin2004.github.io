@@ -85,3 +85,11 @@
         -經緯度轉行政區
         -網頁的功能需完善(html未完工)
     存檔紀錄version 1.0-alpha
+2023/11/12
+    1. 改成利用d3.js
+    2. 實驗d3.js
+    Todo list
+        -tab-widget功能完善
+        -經緯度轉行政區
+        -網頁的功能需完善(html未完工)
+    存檔紀錄version 1.0-alpha

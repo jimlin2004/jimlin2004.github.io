@@ -1,4 +1,6 @@
 import { InfoCard } from "./InfoCard.js";
+import { Dataset } from "./Chart.js";
+import { LineChart } from "./LineChart.js";
 
 class Weather
 {
@@ -16,11 +18,12 @@ class WeatherSystem
 {
     constructor()
     {
-        this.weatherMap = null;
+        this.weather36hrMap = null;
+        this.weatherOneWeekMap = null;
     }
 
     static selectedLocation = null;
-    static weatherData = null;
+    static weatherData36hr = null;
 
     static setSelectedLocation(location)
     {
@@ -42,25 +45,58 @@ class WeatherSystem
         return WeatherSystem.selectedLocation.getAttribute("name");
     }
     
-    getRecords()
+    get36hrRecords()
     {
-        if (WeatherSystem.weatherData === null)
+        if (WeatherSystem.weatherData36hr === null)
         {
             throw new Error("氣象資料為空");
         }
-        this.weatherMap = new Map();
-        for (let weather of WeatherSystem.weatherData["records"]["location"])
+        this.weather36hrMap = new Map();
+        for (let weather of WeatherSystem.weatherData36hr["records"]["location"])
         {
-            this.weatherMap.set(weather["locationName"], new Weather(weather["weatherElement"][0], weather["weatherElement"][1], 
+            this.weather36hrMap.set(weather["locationName"], new Weather(weather["weatherElement"][0], weather["weatherElement"][1], 
                 weather["weatherElement"][2], weather["weatherElement"][3], weather["weatherElement"][4]));
         }
 
-        console.log(this.weatherMap);
+        console.log(this.weather36hrMap);
     }
 
-    getRecord(location)
+    get36hrRecord(location)
     {
-        return this.weatherMap.get(location);
+        return this.weather36hrMap.get(location);
+    }
+
+    static ajax(args)
+    {
+        return new Promise((resolve, reject) => {
+            $.ajax(args)
+                .done(resolve)
+                .fail(reject);
+        });
+    }
+
+    async getOneWeekRecords()
+    {
+        WeatherSystem.ajax({
+            // url: "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWA-EA6E5A12-B52C-4D2A-A0C9-A91BC237056C&format=JSON",
+            url: "../weather/assets/F-D0047-091.json",
+            method: "GET",
+            dataType: "json",
+        })
+        .then((res) => {
+            if (res === null)
+            {
+                throw new Error("氣象資料為空");
+            }
+            
+            this.weatherOneWeekMap = new Map();
+            for (let weather of res["records"]["locations"][0]["location"])
+            {
+                this.weatherOneWeekMap.set(weather["locationName"], new Weather(weather["weatherElement"][1], weather["weatherElement"][0], 
+                    weather["weatherElement"][2], null, weather["weatherElement"][3]));
+            }
+            console.log(this.weatherOneWeekMap);
+        });
     }
 
     setupTooltips()
@@ -69,22 +105,6 @@ class WeatherSystem
         {
             location.setAttribute("data-tooltip", location.getAttribute("name"));
         }
-    }
-
-    /*
-    parameter
-        location: 地區名 string
-    */
-    showLocationData(location)
-    {
-        let weatherData = this.weatherMap.get(location);
-        
-        let div = document.createElement("div");
-            let locationNameDiv = document.createElement("div");
-            locationNameDiv.innerText = location;
-        div.appendChild(locationNameDiv);
-    
-        $("body").append(div);
     }
 
     static get36hrTimeDescription(startTime)
@@ -132,7 +152,7 @@ $.ajax({
     method: "GET",
     dataType: "json",
     success: (res) => {
-        WeatherSystem.weatherData = res;
+        WeatherSystem.weatherData36hr = res;
         main();
     }
 });
@@ -219,10 +239,11 @@ async function main()
     // await user.init();
     weatherSystem.setupTooltips();
     // console.log(user.location);
-    weatherSystem.getRecords();
+    weatherSystem.get36hrRecords();
+    weatherSystem.getOneWeekRecords();
 
     $(".Taiwan path").on("mouseenter", (e) => {
-        tooltipFactory(e.target, e.clientX, e.clientY, weatherSystem.getRecord(locationTranslate[e.target.dataset.tooltip]));
+        tooltipFactory(e.target, e.clientX, e.clientY, weatherSystem.get36hrRecord(locationTranslate[e.target.dataset.tooltip]));
     });
 
     $(".Taiwan path").on("mouseleave", (e) => {
@@ -232,7 +253,7 @@ async function main()
     $(".Taiwan path").on("click", (e) => {
         WeatherSystem.setSelectedLocation(e.target);
 
-        let weatherData = weatherSystem.getRecord(locationTranslate[WeatherSystem.getSelectedLocationName()]);
+        let weatherData = weatherSystem.get36hrRecord(locationTranslate[WeatherSystem.getSelectedLocationName()]);
         let timeDescriptions = WeatherSystem.get36hrTimeDescription(weatherData.minTData.time[0].startTime.split(" ")[1]);
         
         let infoCards = document.querySelectorAll(".info-card");
@@ -254,7 +275,26 @@ async function main()
 
     document.getElementById("city-select").addEventListener("change", (e) => {
         document.querySelector(`.Taiwan path[name="${locationTranslate[e.target.value]}"]`).dispatchEvent(new Event("click"));
-    })
+    });
 
     document.querySelector(`.Taiwan path[name="New Taipei City"]`).dispatchEvent(new Event("click"));
+
+    let tabWidgetContent = document.querySelector(".tab-widget .tab-widget-contents");
+
+    console.log(document.querySelector(".tab-widget .tab-widget-contents").offsetWidth);
+
+    let lineChart = new LineChart(Math.round(tabWidgetContent.getBoundingClientRect().width), Math.round(tabWidgetContent.getBoundingClientRect().height));
+    lineChart.setContainer(".tab-widget .temperature-chart");
+    lineChart.setData([[1, 1], [2, 3], [5, 1], [8, 9]]);
+    lineChart.draw();
+
+    // window.addEventListener("resize", (e) => {
+    //     d3.select(".tab-widget svg").remove();
+    //     lineChart.setWidth(tabWidgetContent.getBoundingClientRect().width);
+    //     lineChart.setHeight(tabWidgetContent.getBoundingClientRect().height);
+
+    //     lineChart.setContainer(".tab-widget .temperature-chart");
+    //     lineChart.setData(new Dataset([0, 1, 2, 4, 5], [1, 2, 3, 4, 5]));
+    //     lineChart.draw();
+    // });
 }

@@ -11,8 +11,14 @@
     list-style: none;
 }
 
+html,
 body {
     height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
 }
 
 header {
@@ -54,9 +60,18 @@ header #logo #logo_text .minor{
     font-weight: 500;
 }
 
+#content {
+    position: relative;
+    display: grid;
+    flex: 1;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: var(--content-gap);
+}
+
 .Taiwan {
-    width: min(500px, 100%);
-    height: auto;
+    position: relative;
+    width: 500px;
+    height: fit-content;
 }
 
 .Taiwan path:hover {
@@ -69,13 +84,9 @@ header #logo #logo_text .minor{
     fill: var(--focus-bule) !important;
 }
 
-#content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: var(--content-gap);
-}
-
 #content .right {
+    display: flex;
+    flex-direction: column;
     margin-right: var(--content-gap);
 }
 
@@ -149,8 +160,11 @@ header #logo #logo_text .minor{
 }
 
 .tab-widget {
+    position: relative;
     margin-top: 10px;
-
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .tab-widget .tab-buttons {
@@ -173,19 +187,47 @@ header #logo #logo_text .minor{
     background-color: #109a9a;
 }
 
+.tab-widget .tab-widget-contents {
+    display: flex;
+    position: relative;
+    flex: 1;
+}
+
+.tab-widget .tab-widget-contents div {
+    position: absolute;
+    flex: 1;
+    width: 100%;
+    height: 100%;
+}
+
+.tab-widget .tab-widget-contents div svg {
+    position: absolute;
+}
+
 @media screen and (max-width: 800px) {
 
 .Taiwan {
     display: none;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+}
+
 #content {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-column-gap: var(--content-gap);
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 #content .right {
+    position: relative;
     margin-left: var(--content-gap);
+    flex: 1;
+    /* height: 100%; */
 }
 }
