@@ -77,26 +77,40 @@ class WeatherSystem
 
     async getOneWeekRecords()
     {
-        WeatherSystem.ajax({
-            // url: "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWA-EA6E5A12-B52C-4D2A-A0C9-A91BC237056C&format=JSON",
-            url: "../weather/assets/F-D0047-091.json",
-            method: "GET",
-            dataType: "json",
+        return new Promise((resolve, reject) => {
+            WeatherSystem.ajax({
+                // url: "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWA-EA6E5A12-B52C-4D2A-A0C9-A91BC237056C&format=JSON",
+                url: "../weather/assets/F-D0047-091.json",
+                method: "GET",
+                dataType: "json",
+            })
+            .then((res) => {
+                if (res === null)
+                {
+                    throw new Error("氣象資料為空");
+                }
+                
+                this.weatherOneWeekMap = new Map();
+                for (let weather of res["records"]["locations"][0]["location"])
+                {
+                    this.weatherOneWeekMap.set(weather["locationName"], new Weather(weather["weatherElement"][1], weather["weatherElement"][0], 
+                        weather["weatherElement"][2], null, weather["weatherElement"][3]));
+                }
+                console.log(this.weatherOneWeekMap);
+            })
+            .then(() => {
+                resolve();
+            })
+            .catch((reason) => {
+                reject(reason);
+            })
         })
-        .then((res) => {
-            if (res === null)
-            {
-                throw new Error("氣象資料為空");
-            }
-            
-            this.weatherOneWeekMap = new Map();
-            for (let weather of res["records"]["locations"][0]["location"])
-            {
-                this.weatherOneWeekMap.set(weather["locationName"], new Weather(weather["weatherElement"][1], weather["weatherElement"][0], 
-                    weather["weatherElement"][2], null, weather["weatherElement"][3]));
-            }
-            console.log(this.weatherOneWeekMap);
-        });
+        
+    }
+
+    getOneWeekRecord(location)
+    {
+        return this.weatherOneWeekMap.get(location);
     }
 
     setupTooltips()
@@ -119,6 +133,68 @@ class WeatherSystem
         }
 
         throw new Error("unknow startTime");
+    }
+
+    createOneWeekForecastTable(tableSelector)
+    {
+        const dayNames = [
+            "星期日", "星期一", "星期二",
+            "星期三", "星期四", "星期五", "星期六"
+        ];
+
+        let data = this.getOneWeekRecord(locationTranslate[WeatherSystem.getSelectedLocationName()]);
+        let tableData = "";
+        let table_time_header = document.querySelector("#oneWeekForecastTable .table-time-header");
+        let table_time_data = "";
+        let table_daytime_t_data = "";
+        let table_night_t_data = "";
+
+        if (data.maxTData.time.length == 15)
+        {
+            table_time_data += `
+                <th>${locationTranslate[WeatherSystem.getSelectedLocationName()]}</th>
+            `;
+            for (let i = 1; i <= 14; i += 2)
+            {
+                let time_format = data.maxTData.time[i].startTime.split(" ")[0];
+                let timeyymmdd = time_format.split("-");
+                table_time_data += `
+                    <th>
+                        <p>${timeyymmdd[1]}/${timeyymmdd[2]}</p>
+                        <p>${dayNames[new Date(time_format.split(" ")[0]).getDay()]}</p>
+                    </th>
+                `;
+            }
+
+            let table_time_dayTime = document.querySelector("#oneWeekForecastTable .table-time-dayTime")
+            let table_time_dayTime_data = "<th>早上</th>";
+
+            let table_time_night = document.querySelector("#oneWeekForecastTable .table-time-night");
+            let table_time_night_data = "<th>晚上</th>";
+
+            for (let i = 1; i <= 14; ++i)
+            {
+                if (i % 2)
+                {
+                    table_time_dayTime_data += `
+                        <td>
+                            ${data.minTData.time[i].elementValue[0].value} ~ ${data.maxTData.time[i].elementValue[0].value} °C
+                        </td>`;
+                }
+                else
+                {
+                    table_time_night_data += `
+                        <td>
+                            ${data.minTData.time[i].elementValue[0].value} ~ ${data.maxTData.time[i].elementValue[0].value} °C
+                        </td>`;
+                }
+            }
+
+            table_time_dayTime.innerHTML = table_time_dayTime_data;
+            table_time_night.innerHTML = table_time_night_data;
+        }
+
+        table_time_header.innerHTML = table_time_data;
     }
 };
 
@@ -240,7 +316,8 @@ async function main()
     weatherSystem.setupTooltips();
     // console.log(user.location);
     weatherSystem.get36hrRecords();
-    weatherSystem.getOneWeekRecords();
+    
+    await weatherSystem.getOneWeekRecords();
 
     $(".Taiwan path").on("mouseenter", (e) => {
         tooltipFactory(e.target, e.clientX, e.clientY, weatherSystem.get36hrRecord(locationTranslate[e.target.dataset.tooltip]));
@@ -279,14 +356,16 @@ async function main()
 
     document.querySelector(`.Taiwan path[name="New Taipei City"]`).dispatchEvent(new Event("click"));
 
+    weatherSystem.createOneWeekForecastTable();
+
     let tabWidgetContent = document.querySelector(".tab-widget .tab-widget-contents");
 
-    console.log(document.querySelector(".tab-widget .tab-widget-contents").offsetWidth);
+    // console.log(document.querySelector(".tab-widget .tab-widget-contents").offsetWidth);
 
-    let lineChart = new LineChart(Math.round(tabWidgetContent.getBoundingClientRect().width), Math.round(tabWidgetContent.getBoundingClientRect().height));
-    lineChart.setContainer(".tab-widget .temperature-chart");
-    lineChart.setData([[1, 1], [2, 3], [5, 1], [8, 9]]);
-    lineChart.draw();
+    // let lineChart = new LineChart(Math.round(tabWidgetContent.getBoundingClientRect().width), Math.round(tabWidgetContent.getBoundingClientRect().width));
+    // lineChart.setContainer(".tab-widget .temperature-chart");
+    // lineChart.setData([[1, 1], [2, 3], [5, 1], [8, 9]]);
+    // lineChart.draw();
 
     // window.addEventListener("resize", (e) => {
     //     d3.select(".tab-widget svg").remove();

@@ -63,14 +63,16 @@ header #logo #logo_text .minor{
 #content {
     position: relative;
     display: grid;
+    margin-left: 20px;
+    margin-right: 20px;
     flex: 1;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: .4fr .6fr;
     grid-column-gap: var(--content-gap);
 }
 
 .Taiwan {
     position: relative;
-    width: 500px;
+    width: 100%;
     height: fit-content;
 }
 
@@ -82,12 +84,6 @@ header #logo #logo_text .minor{
 .selectedLocation {
     transition: .3s;
     fill: var(--focus-bule) !important;
-}
-
-#content .right {
-    display: flex;
-    flex-direction: column;
-    margin-right: var(--content-gap);
 }
 
 #panel-title {
@@ -115,7 +111,7 @@ header #logo #logo_text .minor{
 #info-cards {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 30px;
+    gap: 15px;
 }
 
 #info-cards .info-card {
@@ -162,14 +158,11 @@ header #logo #logo_text .minor{
 .tab-widget {
     position: relative;
     margin-top: 10px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
 }
 
 .tab-widget .tab-buttons {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     column-gap: 5px;
 }
 
@@ -188,23 +181,36 @@ header #logo #logo_text .minor{
 }
 
 .tab-widget .tab-widget-contents {
-    display: flex;
     position: relative;
-    flex: 1;
+    width: 100%;
 }
 
 .tab-widget .tab-widget-contents div {
-    position: absolute;
-    flex: 1;
+    position: relative;
     width: 100%;
-    height: 100%;
+    height: fit-content;
 }
 
 .tab-widget .tab-widget-contents div svg {
-    position: absolute;
+    position: relative;
 }
 
-@media screen and (max-width: 800px) {
+#oneWeekForecastTable {
+    position: relative;
+    width: 100%;
+}
+
+#oneWeekForecastTable, #oneWeekForecastTable th, #oneWeekForecastTable td {
+    border: 1px solid #000;
+    border-collapse: collapse;
+}
+
+#oneWeekForecastTable th {
+    background-color: #4fba86;
+}
+
+/* 平板以下 */
+@media screen and (max-width: 1024px) {
 
 .Taiwan {
     display: none;
@@ -226,8 +232,16 @@ body {
 
 #content .right {
     position: relative;
-    margin-left: var(--content-gap);
+    /* margin-left: var(--content-gap); */
     flex: 1;
     /* height: 100%; */
+}
+}
+
+/* 手機 */
+@media screen and (max-width: 576px) {
+#info-cards {
+    display: flex;
+    flex-direction: column;
 }
 }
