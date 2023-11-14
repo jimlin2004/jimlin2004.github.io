@@ -102,3 +102,12 @@
         -網頁的功能需完善(html未完工)
         -rwd
     存檔紀錄version 1.0-alpha
+2023/11/14
+    1. 繼續做一週預報table
+    Todo list
+        -tab-widget功能完善
+        -經緯度轉行政區
+        -rwd
+        -table rwd
+        -line chart
+    存檔紀錄version 1.0-alpha

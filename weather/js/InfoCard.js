@@ -10,11 +10,12 @@ class InfoCard
             temperatureMin: 最低溫(華氏) string
             temperatureMax: 最高溫(華氏) string
             pop: 降雨機率(%) string
+            isNight: 是否為晚上(0 or 1) int
     */
-    static updateInfoCard(infoCard, timeDescription, weatherDescription, temperatureMin, temperatureMax, pop)
+    static updateInfoCard(infoCard, timeDescription, weatherDescription, temperatureMin, temperatureMax, pop, isNight)
     {
         infoCard.querySelector(".time-title").textContent = timeDescription;
-        infoCard.querySelector(".weatherIcon").src = `./assets/svg/weatherDescription/${Converter.getWeatherIcon(weatherDescription)[0]}`;
+        infoCard.querySelector(".weatherIcon").src = `./assets/svg/weatherDescription/${Converter.getWeatherIcon(weatherDescription)[isNight]}`;
         infoCard.querySelector(".temperature").textContent = `${temperatureMin} ~ ${temperatureMax} °C`;
         infoCard.querySelector(".popDiv .pop-text").textContent = `${pop}%`;
         infoCard.querySelector(".weatherDescription").textContent = weatherDescription;

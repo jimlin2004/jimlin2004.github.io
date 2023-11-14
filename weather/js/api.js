@@ -1,16 +1,18 @@
 import { InfoCard } from "./InfoCard.js";
 import { Dataset } from "./Chart.js";
 import { LineChart } from "./LineChart.js";
+import { Converter } from "./Converter.js";
 
 class Weather
 {
-    constructor(_wxData, _popData, _minTData, _CIData, _maxTData)
+    constructor(_wxData, _popData, _minTData, _maxTData, _minATData, _maxATData)
     {
         this.wxData = _wxData;
         this.popData = _popData;
         this.minTData = _minTData;
-        this.CIData = _CIData;
         this.maxTData = _maxTData;
+        this.minATData = _minATData;
+        this.maxATData = _maxATData;
     }
 };
 
@@ -55,7 +57,7 @@ class WeatherSystem
         for (let weather of WeatherSystem.weatherData36hr["records"]["location"])
         {
             this.weather36hrMap.set(weather["locationName"], new Weather(weather["weatherElement"][0], weather["weatherElement"][1], 
-                weather["weatherElement"][2], weather["weatherElement"][3], weather["weatherElement"][4]));
+                weather["weatherElement"][2], weather["weatherElement"][4], null, null));
         }
 
         console.log(this.weather36hrMap);
@@ -79,7 +81,7 @@ class WeatherSystem
     {
         return new Promise((resolve, reject) => {
             WeatherSystem.ajax({
-                // url: "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWA-EA6E5A12-B52C-4D2A-A0C9-A91BC237056C&format=JSON",
+                // url: https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-091?Authorization=CWA-EA6E5A12-B52C-4D2A-A0C9-A91BC237056C&format=JSON&elementName=MinT,MaxT,PoP12h,Wx,MinAT,MaxAT
                 url: "../weather/assets/F-D0047-091.json",
                 method: "GET",
                 dataType: "json",
@@ -93,8 +95,8 @@ class WeatherSystem
                 this.weatherOneWeekMap = new Map();
                 for (let weather of res["records"]["locations"][0]["location"])
                 {
-                    this.weatherOneWeekMap.set(weather["locationName"], new Weather(weather["weatherElement"][1], weather["weatherElement"][0], 
-                        weather["weatherElement"][2], null, weather["weatherElement"][3]));
+                    this.weatherOneWeekMap.set(weather["locationName"], new Weather(weather["weatherElement"][2], weather["weatherElement"][0], 
+                        weather["weatherElement"][3], weather["weatherElement"][5], weather["weatherElement"][4], weather["weatherElement"][1]));
                 }
                 console.log(this.weatherOneWeekMap);
             })
@@ -104,8 +106,7 @@ class WeatherSystem
             .catch((reason) => {
                 reject(reason);
             })
-        })
-        
+        });
     }
 
     getOneWeekRecord(location)
@@ -135,7 +136,7 @@ class WeatherSystem
         throw new Error("unknow startTime");
     }
 
-    createOneWeekForecastTable(tableSelector)
+    createOneWeekForecastTable()
     {
         const dayNames = [
             "星期日", "星期一", "星期二",
@@ -171,27 +172,49 @@ class WeatherSystem
 
             let table_time_night = document.querySelector("#oneWeekForecastTable .table-time-night");
             let table_time_night_data = "<th>晚上</th>";
+            
+            //體感溫度
+            let table_AT_dayTime = document.querySelector("#oneWeekForecastTable .table-AT-dayTime")
+            let table_AT_dayTime_data = "<th><p>體感溫度</p><p>(早)</p></th>";
 
+            let table_AT_night = document.querySelector("#oneWeekForecastTable .table-AT-night");
+            let table_AT_night_data = "<th><p>體感溫度</p><p>(晚)</p></th>";
+            
             for (let i = 1; i <= 14; ++i)
             {
                 if (i % 2)
                 {
                     table_time_dayTime_data += `
                         <td>
-                            ${data.minTData.time[i].elementValue[0].value} ~ ${data.maxTData.time[i].elementValue[0].value} °C
+                            <img class = "weatherIcon" src = "./assets/svg/weatherDescription/${Converter.getWeatherIcon(data.wxData.time[i].elementValue[0].value)[0]}">
+                            <p>${data.minTData.time[i].elementValue[0].value} ~ ${data.maxTData.time[i].elementValue[0].value} °C</p>
+                        </td>`;
+                    
+                    table_AT_dayTime_data += `
+                        <td>
+                            <p>${data.minATData.time[i].elementValue[0].value} ~ ${data.maxATData.time[i].elementValue[0].value} °C</p>
                         </td>`;
                 }
                 else
                 {
                     table_time_night_data += `
                         <td>
-                            ${data.minTData.time[i].elementValue[0].value} ~ ${data.maxTData.time[i].elementValue[0].value} °C
+                            <img class = "weatherIcon" src = "./assets/svg/weatherDescription/${Converter.getWeatherIcon(data.wxData.time[i].elementValue[0].value)[1]}">
+                            <p>${data.minTData.time[i].elementValue[0].value} ~ ${data.maxTData.time[i].elementValue[0].value} °C</p>
                         </td>`;
+
+                    table_AT_night_data += `
+                    <td>
+                        <p>${data.minATData.time[i].elementValue[0].value} ~ ${data.maxATData.time[i].elementValue[0].value} °C</p>
+                    </td>`;
                 }
             }
 
             table_time_dayTime.innerHTML = table_time_dayTime_data;
             table_time_night.innerHTML = table_time_night_data;
+
+            table_AT_dayTime.innerHTML = table_AT_dayTime_data;
+            table_AT_night.innerHTML = table_AT_night_data;
         }
 
         table_time_header.innerHTML = table_time_data;
@@ -331,7 +354,15 @@ async function main()
         WeatherSystem.setSelectedLocation(e.target);
 
         let weatherData = weatherSystem.get36hrRecord(locationTranslate[WeatherSystem.getSelectedLocationName()]);
-        let timeDescriptions = WeatherSystem.get36hrTimeDescription(weatherData.minTData.time[0].startTime.split(" ")[1]);
+        
+        let startTime = weatherData.minTData.time[0].startTime.split(" ")[1];
+
+        let timeDescriptions = WeatherSystem.get36hrTimeDescription(startTime);
+        let isNight = 0;
+        if (startTime == "06:00:00")
+            isNight = 0;
+        else
+            isNight = 1;
         
         let infoCards = document.querySelectorAll(".info-card");
 
@@ -345,9 +376,13 @@ async function main()
                 weatherData.wxData.time[i].parameter.parameterName,
                 weatherData.minTData.time[i].parameter.parameterName,
                 weatherData.maxTData.time[i].parameter.parameterName,
-                weatherData.popData.time[i].parameter.parameterName
+                weatherData.popData.time[i].parameter.parameterName,
+                isNight
             );
+            isNight ^= 1; //切換白天或晚上的icon
         }
+        
+        weatherSystem.createOneWeekForecastTable();
     });
 
     document.getElementById("city-select").addEventListener("change", (e) => {
@@ -355,8 +390,6 @@ async function main()
     });
 
     document.querySelector(`.Taiwan path[name="New Taipei City"]`).dispatchEvent(new Event("click"));
-
-    weatherSystem.createOneWeekForecastTable();
 
     let tabWidgetContent = document.querySelector(".tab-widget .tab-widget-contents");
 
