@@ -276,36 +276,20 @@
 
                 <div class = "tab-widget">
                     <div class = "tab-buttons">
-                        <button id = "tab-button-oneWeekForecast">
+                        <button id = "tab-button-oneWeekForecast" class = "active" data-content = "#oneWeekForecastTable">
                             一週預報
                         </button>
-                        <button id = "tab-button-temperature">
+                        <button id = "tab-button-temperature" data-content = "#temperature-chart">
                             一週溫度曲線
                         </button>
-                        <button id = "tab-button-apparent-temperature">
+                        <button id = "tab-button-apparent-temperature" data-content = "#apparent-temperature-chart">
                             一週體感溫度曲線
                         </button>
                     </div>
 
                     <div class = "tab-widget-contents">
-                        <!-- <table id = "oneWeekForecastTable">
-                            <tr class = "table-time-header">
-                            </tr>
-                            <tr class = "table-time-dayTime">
-                            </tr>
-                            <tr class = "table-time-night">
-                            </tr>
-                            <tr class = "table-AT-dayTime">
-                            </tr>
-                            <tr class = "table-AT-night">
-                            </tr>
-                            <tr class = "table-pop-dayTime">
-                            </tr>
-                            <tr class = "table-pop-night">
-                            </tr>
-                        </table> -->
                         <!-- 一週預報表格 -->
-                        <div id = "oneWeekForecastTable">
+                        <div id = "oneWeekForecastTable" class = "tab-widget-content-div active">
                             <div class = "thead">
                                 <div class = "row-tr">
                                     <div class = "location-th cell-th">
@@ -325,13 +309,25 @@
                                         <p>體感溫度</p>
                                         <p>(晚)</p>
                                     </div>
+                                    <div class = "cell-th">
+                                        <p>天氣描述</p>
+                                        <p>(早)</p>
+                                    </div>
+                                    <div class = "cell-th">
+                                        <p>天氣描述</p>
+                                        <p>(晚)</p>
+                                    </div>
                                 </div>
                             </div>
                             <div class = "tbody">
                             </div>
                         </div>
 
-                        <div class = "temperature-chart">
+                        <div id = "temperature-chart" class = "tab-widget-content-div inactive">
+
+                        </div>
+
+                        <div id = "apparent-temperature-chart" class = "tab-widget-content-div inactive">
 
                         </div>
                     </div>

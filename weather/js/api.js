@@ -171,27 +171,47 @@ class WeatherSystem
             let timeyymmdd = time_format[0].split("-");
 
             let oneDayData = `
-                <div class = "cell-th" data-title = "時間">
+                <div class = "cell-th">
                     <p>${timeyymmdd[1]}/${timeyymmdd[2]}</p>
                     <p>${dayNames[new Date(time_format[0].split(" ")[0]).getDay()]}</p>
                 </div>
-                <div class = "cell-td" data-title = "早上">
+
+                <div class = "tr-title">
+                    溫度
+                </div>
+                <div class = "cell-td">
                     <div>
+                        <p>早上</p>
                         <img class = "weatherIcon" src = "./assets/svg/weatherDescription/${Converter.getWeatherIcon(data.wxData.time[index].elementValue[0].value)[0]}">
                         <p>${data.minTData.time[index].elementValue[0].value} ~ ${data.maxTData.time[index].elementValue[0].value} °C</p>
                     </div>
-                </div>
-                <div class = "cell-td" data-title = "晚上">
+                </div> 
+                <div class = "cell-td">
                     <div>
+                        <p>晚上</p>
                         <img class = "weatherIcon" src = "./assets/svg/weatherDescription/${Converter.getWeatherIcon(data.wxData.time[index].elementValue[0].value)[1]}">
                         <p>${data.minTData.time[index + 1].elementValue[0].value} ~ ${data.maxTData.time[index + 1].elementValue[0].value} °C</p>
                     </div>
                 </div>
-                <div class = "cell-td" data-title = "體感溫度(早)">
+            
+                <div class = "tr-title">
+                    體感溫度
+                </div>
+                <div class = "cell-td">
                     <p>${data.minATData.time[index].elementValue[0].value} ~ ${data.maxATData.time[index].elementValue[0].value} °C</p>
                 </div>
-                <div class = "cell-td" data-title = "體感溫度(晚)">
+                <div class = "cell-td">
                     <p>${data.minATData.time[index + 1].elementValue[0].value} ~ ${data.maxATData.time[index + 1].elementValue[0].value} °C</p>
+                </div>
+
+                <div class = "tr-title">
+                    天氣描述
+                </div>
+                <div class = "cell-td">
+                    ${data.wxData.time[index].elementValue[0].value}
+                </div>
+                <div class = "cell-td">
+                    ${data.wxData.time[index + 1].elementValue[0].value}
                 </div>
             `;
 
@@ -199,6 +219,45 @@ class WeatherSystem
 
             table.appendChild(oneDayTr);
         }
+    }
+};
+
+class TabWidget 
+{
+    constructor()
+    {
+        this.htmlElement = document.querySelector(".tab-widget");
+        this.registerEvents();
+    }
+
+    registerEvents()
+    {
+        $(".tab-widget button").on("click", (e) => {
+            let activedContent = this.htmlElement.querySelector(".tab-widget-content-div.active");
+            activedContent.classList.remove("active");
+            activedContent.classList.add("inactive");
+            let activedButton = this.htmlElement.querySelector(".tab-buttons button.active");
+            activedButton.classList.remove("active");
+            let targetContent = document.querySelector(`${e.target.dataset.content}`);
+            targetContent.classList.remove("inactive");
+            targetContent.classList.add("active");
+            //clicked button
+            e.target.classList.add("active");
+        });
+
+        $(".tbody .cell-th").on("click", (e) => {
+            let parentTr = e.target.closest(".row-tr");
+            if (parentTr.classList.contains("show"))
+            {
+                parentTr.classList.remove("show");
+                parentTr.classList.add("hide");
+            }
+            else
+            {
+                parentTr.classList.remove("hide");
+                parentTr.classList.add("show");
+            }
+        });
     }
 };
 
@@ -373,7 +432,8 @@ async function main()
     document.querySelector(`.Taiwan path[name="New Taipei City"]`).dispatchEvent(new Event("click"));
 
     let tabWidgetContent = document.querySelector(".tab-widget .tab-widget-contents");
-
+    
+    let tabWidget = new TabWidget();
     // console.log(document.querySelector(".tab-widget .tab-widget-contents").offsetWidth);
 
     // let lineChart = new LineChart(Math.round(tabWidgetContent.getBoundingClientRect().width), Math.round(tabWidgetContent.getBoundingClientRect().width));

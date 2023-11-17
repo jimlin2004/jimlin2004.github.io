@@ -115,3 +115,11 @@
     1. 將一週預報table變成用div display table等
     2. 研究table rwd
     存檔紀錄version 1.0
+    3. 研究table動畫
+    4. 初步完成tab-widget功能
+    Todo list
+        -經緯度轉行政區
+        -rwd
+        -table 動畫
+        -line chart
+    存檔紀錄version 1.1
