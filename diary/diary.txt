@@ -111,3 +111,7 @@
         -table rwd
         -line chart
     存檔紀錄version 1.0-alpha
+2023/11/17
+    1. 將一週預報table變成用div display table等
+    2. 研究table rwd
+    存檔紀錄version 1.0

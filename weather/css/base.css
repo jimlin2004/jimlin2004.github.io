@@ -185,7 +185,7 @@ header #logo #logo_text .minor{
     width: 100%;
 }
 
-.tab-widget .tab-widget-contents div {
+/* .tab-widget .tab-widget-contents div {
     position: relative;
     width: 100%;
     height: fit-content;
@@ -193,15 +193,15 @@ header #logo #logo_text .minor{
 
 .tab-widget .tab-widget-contents div svg {
     position: relative;
-}
+} */
 
-#oneWeekForecastTable {
+/* #oneWeekForecastTable {
     position: relative;
     width: 100%;
     font-size: 14px;
-}
+} */
 
-#oneWeekForecastTable, #oneWeekForecastTable th, #oneWeekForecastTable td {
+/* #oneWeekForecastTable, #oneWeekForecastTable th, #oneWeekForecastTable td {
     text-align: center;
     border: 1px solid #fff;
     border-collapse: collapse;
@@ -226,41 +226,129 @@ header #logo #logo_text .minor{
 
 #oneWeekForecastTable th {
     background-color: #11897f;
+} */
+
+#oneWeekForecastTable {
+    position: relative;
+    display: table;
+    width: 100%;
+}
+
+#oneWeekForecastTable .thead {
+    display: table-header-group;
+}
+
+#oneWeekForecastTable .tbody {
+    display: table-row-group;
+}
+
+#oneWeekForecastTable .tbody .row-tr:nth-child(odd) {
+    background-color: rgb(199, 250, 225);
+}
+
+#oneWeekForecastTable .tbody .row-tr:nth-child(even) {
+    background-color: rgb(235, 235, 187);
+}
+
+/* tr */
+#oneWeekForecastTable .row-tr {
+    display: table-row;
+    border: 1px solid #fff;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-top: auto;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* td */
+#oneWeekForecastTable .cell-td {
+    display: table-cell;
+    border: 1px solid #fff;
+    border-collapse: collapse;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* th */
+#oneWeekForecastTable .cell-th {
+    display: table-cell;
+    border: 1px solid #fff;
+    border-collapse: collapse;
+    background-color: #11897f;
+    color: #fff;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#oneWeekForecastTable .cell-td img {
+    width: 40px;
+    height: 40px;
 }
 
 /* 平板以下 */
 @media screen and (max-width: 1024px) {
 
-.Taiwan {
-    display: none;
+    .Taiwan {
+        display: none;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        position: relative;
+    }
+
+    #content {
+        flex: 1;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #content .right {
+        position: relative;
+        /* margin-left: var(--content-gap); */
+        flex: 1;
+        /* height: 100%; */
+    }
 }
 
-body {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    position: relative;
+/* 大手機 */
+@media screen and (max-width: 768px) {
+    #oneWeekForecastTable .thead {
+        display: none;
+    }
+
+    #oneWeekForecastTable .row-tr {
+        display: block;
+        border: none;
+    }
+
+    #oneWeekForecastTable .row-tr .cell-th {
+        display: inline-block;
+        width: 100%;
+        border: none;
+    }
+
+    #oneWeekForecastTable .row-tr .cell-td {
+        display: grid;
+        grid-template-columns: .2fr .8fr;
+        border: none;
+        padding: 5px;
+    }
+
+    #oneWeekForecastTable .row-tr .cell-td::before {
+        content: attr(data-title);
+        /* display: inline-block; */
+    }
 }
 
-#content {
-    flex: 1;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-}
-
-#content .right {
-    position: relative;
-    /* margin-left: var(--content-gap); */
-    flex: 1;
-    /* height: 100%; */
-}
-}
-
-/* 手機 */
+/* 小手機 */
 @media screen and (max-width: 576px) {
-#info-cards {
-    display: flex;
-    flex-direction: column;
-}
+    #info-cards {
+        display: flex;
+        flex-direction: column;
+    }
 }

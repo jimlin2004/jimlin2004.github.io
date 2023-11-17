@@ -144,80 +144,61 @@ class WeatherSystem
         ];
 
         let data = this.getOneWeekRecord(locationTranslate[WeatherSystem.getSelectedLocationName()]);
-        let tableData = "";
-        let table_time_header = document.querySelector("#oneWeekForecastTable .table-time-header");
-        let table_time_data = "";
-        let table_daytime_t_data = "";
-        let table_night_t_data = "";
-
+        let startIndex = 0;
         if (data.maxTData.time.length == 15)
+            startIndex = 1;
+        else if (data.maxTData.time.length == 14)
+            startIndex = 0;
+        else
+            throw new Error("unkown weather data size");
+
+        document.querySelector("#oneWeekForecastTable .location-th").textContent = locationTranslate[WeatherSystem.getSelectedLocationName()];
+
+        let table = document.querySelector("#oneWeekForecastTable .tbody");
+        
+        while (table.firstChild)
         {
-            table_time_data += `
-                <th>${locationTranslate[WeatherSystem.getSelectedLocationName()]}</th>
-            `;
-            for (let i = 1; i <= 14; i += 2)
-            {
-                let time_format = data.maxTData.time[i].startTime.split(" ")[0];
-                let timeyymmdd = time_format.split("-");
-                table_time_data += `
-                    <th>
-                        <p>${timeyymmdd[1]}/${timeyymmdd[2]}</p>
-                        <p>${dayNames[new Date(time_format.split(" ")[0]).getDay()]}</p>
-                    </th>
-                `;
-            }
-
-            let table_time_dayTime = document.querySelector("#oneWeekForecastTable .table-time-dayTime")
-            let table_time_dayTime_data = "<th>早上</th>";
-
-            let table_time_night = document.querySelector("#oneWeekForecastTable .table-time-night");
-            let table_time_night_data = "<th>晚上</th>";
-            
-            //體感溫度
-            let table_AT_dayTime = document.querySelector("#oneWeekForecastTable .table-AT-dayTime")
-            let table_AT_dayTime_data = "<th><p>體感溫度</p><p>(早)</p></th>";
-
-            let table_AT_night = document.querySelector("#oneWeekForecastTable .table-AT-night");
-            let table_AT_night_data = "<th><p>體感溫度</p><p>(晚)</p></th>";
-            
-            for (let i = 1; i <= 14; ++i)
-            {
-                if (i % 2)
-                {
-                    table_time_dayTime_data += `
-                        <td>
-                            <img class = "weatherIcon" src = "./assets/svg/weatherDescription/${Converter.getWeatherIcon(data.wxData.time[i].elementValue[0].value)[0]}">
-                            <p>${data.minTData.time[i].elementValue[0].value} ~ ${data.maxTData.time[i].elementValue[0].value} °C</p>
-                        </td>`;
-                    
-                    table_AT_dayTime_data += `
-                        <td>
-                            <p>${data.minATData.time[i].elementValue[0].value} ~ ${data.maxATData.time[i].elementValue[0].value} °C</p>
-                        </td>`;
-                }
-                else
-                {
-                    table_time_night_data += `
-                        <td>
-                            <img class = "weatherIcon" src = "./assets/svg/weatherDescription/${Converter.getWeatherIcon(data.wxData.time[i].elementValue[0].value)[1]}">
-                            <p>${data.minTData.time[i].elementValue[0].value} ~ ${data.maxTData.time[i].elementValue[0].value} °C</p>
-                        </td>`;
-
-                    table_AT_night_data += `
-                    <td>
-                        <p>${data.minATData.time[i].elementValue[0].value} ~ ${data.maxATData.time[i].elementValue[0].value} °C</p>
-                    </td>`;
-                }
-            }
-
-            table_time_dayTime.innerHTML = table_time_dayTime_data;
-            table_time_night.innerHTML = table_time_night_data;
-
-            table_AT_dayTime.innerHTML = table_AT_dayTime_data;
-            table_AT_night.innerHTML = table_AT_night_data;
+            table.removeChild(table.firstChild);
         }
 
-        table_time_header.innerHTML = table_time_data;
+        for (let i = 0; i < 14; i += 2)
+        {
+            let index = startIndex + i;
+            let oneDayTr = document.createElement("div");
+            oneDayTr.classList.add("row-tr");
+
+            let time_format = data.maxTData.time[i].startTime.split(" ");
+            let timeyymmdd = time_format[0].split("-");
+
+            let oneDayData = `
+                <div class = "cell-th" data-title = "時間">
+                    <p>${timeyymmdd[1]}/${timeyymmdd[2]}</p>
+                    <p>${dayNames[new Date(time_format[0].split(" ")[0]).getDay()]}</p>
+                </div>
+                <div class = "cell-td" data-title = "早上">
+                    <div>
+                        <img class = "weatherIcon" src = "./assets/svg/weatherDescription/${Converter.getWeatherIcon(data.wxData.time[index].elementValue[0].value)[0]}">
+                        <p>${data.minTData.time[index].elementValue[0].value} ~ ${data.maxTData.time[index].elementValue[0].value} °C</p>
+                    </div>
+                </div>
+                <div class = "cell-td" data-title = "晚上">
+                    <div>
+                        <img class = "weatherIcon" src = "./assets/svg/weatherDescription/${Converter.getWeatherIcon(data.wxData.time[index].elementValue[0].value)[1]}">
+                        <p>${data.minTData.time[index + 1].elementValue[0].value} ~ ${data.maxTData.time[index + 1].elementValue[0].value} °C</p>
+                    </div>
+                </div>
+                <div class = "cell-td" data-title = "體感溫度(早)">
+                    <p>${data.minATData.time[index].elementValue[0].value} ~ ${data.maxATData.time[index].elementValue[0].value} °C</p>
+                </div>
+                <div class = "cell-td" data-title = "體感溫度(晚)">
+                    <p>${data.minATData.time[index + 1].elementValue[0].value} ~ ${data.maxATData.time[index + 1].elementValue[0].value} °C</p>
+                </div>
+            `;
+
+            oneDayTr.innerHTML = oneDayData;
+
+            table.appendChild(oneDayTr);
+        }
     }
 };
 
