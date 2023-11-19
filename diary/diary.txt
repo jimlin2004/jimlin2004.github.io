@@ -123,3 +123,11 @@
         -table 動畫
         -line chart
     存檔紀錄version 1.1
+2023/11/19
+    1. 完成table的rwd及動畫
+    2. 初步研究line chart
+    Todo list
+        -經緯度轉行政區
+        -rwd
+        -line chart
+    存檔紀錄version 1.1

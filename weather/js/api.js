@@ -161,14 +161,47 @@ class WeatherSystem
             table.removeChild(table.firstChild);
         }
 
+        let itemCount = 1;
+        let isOddItem = true;
+
+        let isFirst = true;
+
         for (let i = 0; i < 14; i += 2)
         {
             let index = startIndex + i;
             let oneDayTr = document.createElement("div");
             oneDayTr.classList.add("row-tr");
+            if (isFirst)
+            {
+                oneDayTr.classList.add("show");
+            }
+            else
+            {
+                oneDayTr.classList.add("hide");
+            }
+            
+            oneDayTr.classList.add((isOddItem) ? "odd-item" : "even-item");
+            isOddItem = !isOddItem;
+            oneDayTr.setAttribute("data-item-number", `${itemCount++}`);
 
             let time_format = data.maxTData.time[i].startTime.split(" ");
             let timeyymmdd = time_format[0].split("-");
+
+            let oneDayHeader = document.createElement("div");
+            oneDayHeader.classList.add("table-item-header");
+            if (isFirst)
+            {
+                oneDayHeader.classList.add("show");
+                isFirst = false;
+            }
+            else
+            {
+                oneDayHeader.classList.add("hide");
+            }
+            oneDayHeader.innerHTML = `
+                <p>${timeyymmdd[1]}/${timeyymmdd[2]}</p>
+                <p>${dayNames[new Date(time_format[0].split(" ")[0]).getDay()]}</p>
+            `;
 
             let oneDayData = `
                 <div class = "cell-th">
@@ -177,7 +210,7 @@ class WeatherSystem
                 </div>
 
                 <div class = "tr-title">
-                    溫度
+                    <p>溫度</p>
                 </div>
                 <div class = "cell-td">
                     <div>
@@ -195,7 +228,7 @@ class WeatherSystem
                 </div>
             
                 <div class = "tr-title">
-                    體感溫度
+                    <p>體感溫度</p>
                 </div>
                 <div class = "cell-td">
                     <p>${data.minATData.time[index].elementValue[0].value} ~ ${data.maxATData.time[index].elementValue[0].value} °C</p>
@@ -205,7 +238,7 @@ class WeatherSystem
                 </div>
 
                 <div class = "tr-title">
-                    天氣描述
+                    <p>天氣描述</p>
                 </div>
                 <div class = "cell-td">
                     ${data.wxData.time[index].elementValue[0].value}
@@ -217,6 +250,24 @@ class WeatherSystem
 
             oneDayTr.innerHTML = oneDayData;
 
+            oneDayHeader.addEventListener("click", (e) => {
+                if (oneDayTr.classList.contains("show"))
+                {
+                    oneDayTr.classList.remove("show");
+                    oneDayTr.classList.add("hide");
+                    e.target.closest(".table-item-header").classList.remove("show");
+                    e.target.closest(".table-item-header").classList.add("hide");
+                }
+                else
+                {
+                    oneDayTr.classList.remove("hide");
+                    oneDayTr.classList.add("show");
+                    e.target.closest(".table-item-header").classList.remove("hide");
+                    e.target.closest(".table-item-header").classList.add("show");
+                }
+            });
+
+            table.appendChild(oneDayHeader);
             table.appendChild(oneDayTr);
         }
     }
@@ -243,20 +294,6 @@ class TabWidget
             targetContent.classList.add("active");
             //clicked button
             e.target.classList.add("active");
-        });
-
-        $(".tbody .cell-th").on("click", (e) => {
-            let parentTr = e.target.closest(".row-tr");
-            if (parentTr.classList.contains("show"))
-            {
-                parentTr.classList.remove("show");
-                parentTr.classList.add("hide");
-            }
-            else
-            {
-                parentTr.classList.remove("hide");
-                parentTr.classList.add("show");
-            }
         });
     }
 };
@@ -434,20 +471,36 @@ async function main()
     let tabWidgetContent = document.querySelector(".tab-widget .tab-widget-contents");
     
     let tabWidget = new TabWidget();
-    // console.log(document.querySelector(".tab-widget .tab-widget-contents").offsetWidth);
 
-    // let lineChart = new LineChart(Math.round(tabWidgetContent.getBoundingClientRect().width), Math.round(tabWidgetContent.getBoundingClientRect().width));
-    // lineChart.setContainer(".tab-widget .temperature-chart");
-    // lineChart.setData([[1, 1], [2, 3], [5, 1], [8, 9]]);
-    // lineChart.draw();
+    let lineChart = new LineChart(Math.round(tabWidgetContent.getBoundingClientRect().width), Math.round(tabWidgetContent.getBoundingClientRect().width / 2));
+    lineChart.setContainer(".tab-widget #temperature-chart");
 
-    // window.addEventListener("resize", (e) => {
-    //     d3.select(".tab-widget svg").remove();
-    //     lineChart.setWidth(tabWidgetContent.getBoundingClientRect().width);
-    //     lineChart.setHeight(tabWidgetContent.getBoundingClientRect().height);
+    let weatherDatas = weatherSystem.getOneWeekRecord(locationTranslate[WeatherSystem.getSelectedLocationName()]);
+    let tLineChartData = {minT:[], maxT:[]};
+    let startIndex = 0;
+    if (weatherDatas.maxTData.time.length == 15)
+        startIndex = 1;
+    else if (weatherDatas.maxTData.time.length == 14)
+        startIndex = 0;
+    else
+        throw new Error("unkown weather data size");
+    for (let i = 0; i < 14; ++i)
+    {
+        let index = startIndex + i;
+        tLineChartData.minT.push(new Dataset(new Date(weatherDatas.minTData.time[index].startTime), weatherDatas.minTData.time[index].elementValue[0].value));
+        tLineChartData.maxT.push(new Dataset(new Date(weatherDatas.maxTData.time[index].startTime), weatherDatas.maxTData.time[index].elementValue[0].value))
+    }
+    console.log(tLineChartData);
+    lineChart.setData(tLineChartData.minT);
+    lineChart.draw();
 
-    //     lineChart.setContainer(".tab-widget .temperature-chart");
-    //     lineChart.setData(new Dataset([0, 1, 2, 4, 5], [1, 2, 3, 4, 5]));
-    //     lineChart.draw();
-    // });
+    window.addEventListener("resize", (e) => {
+        d3.select(".tab-widget svg").remove();
+        lineChart.setWidth(Math.round(tabWidgetContent.getBoundingClientRect().width));
+        lineChart.setHeight(Math.round(tabWidgetContent.getBoundingClientRect().width / 2));
+
+        lineChart.setContainer(".tab-widget #temperature-chart");
+        // lineChart.setData([new Dataset(new Date(2023, 11, 19), 19), new Dataset(new Date(2023, 11, 20), 23)]);
+        lineChart.draw();
+    });
 }

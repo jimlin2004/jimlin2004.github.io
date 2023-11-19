@@ -40,7 +40,7 @@ class Chart
         this.margin = {
             top: 30,
             right: 30, 
-            bottom: 30, 
+            bottom: 60, 
             left: 30
         };
     }
@@ -104,15 +104,17 @@ class Chart
 
     setXScale()
     {
-        this.xScale = d3.scaleLinear()
-            .domain([0, d3.max(this.data, (d) => d[0])])
+        this.xScale = d3.scaleBand()
+            .domain(this.data.map((d) => {
+                return d.xData;
+            }))
             .range([0, this.width - this.margin.left - this.margin.right]);
     }
 
     setYScale()
     {
         this.yScale = d3.scaleLinear()
-            .domain([0, d3.max(this.data, (d) => d[1])])
+            .domain([0, d3.max(this.data, (d) => {return +d.yData;})])
             .range([this.height - this.margin.top - this.margin.bottom, 0]);
     }
 };

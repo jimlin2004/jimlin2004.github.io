@@ -16,11 +16,6 @@ body {
     height: 100%;
 }
 
-body {
-    display: flex;
-    flex-direction: column;
-}
-
 header {
     position: relative;
     width: 100%;
@@ -65,8 +60,7 @@ header #logo #logo_text .minor{
     display: grid;
     margin-left: 20px;
     margin-right: 20px;
-    flex: 1;
-    grid-template-columns: .4fr .6fr;
+    grid-template-columns: 4fr 6fr;
     grid-column-gap: var(--content-gap);
 }
 
@@ -212,12 +206,16 @@ header #logo #logo_text .minor{
     display: table-row-group;
 }
 
-#oneWeekForecastTable .tbody .row-tr:nth-child(odd) {
+#oneWeekForecastTable .tbody .row-tr.odd-item {
     background-color: rgb(199, 250, 225);
 }
 
-#oneWeekForecastTable .tbody .row-tr:nth-child(even) {
+#oneWeekForecastTable .tbody div.row-tr.even-item {
     background-color: rgb(235, 235, 187);
+}
+
+#oneWeekForecastTable .table-item-header {
+    display: none;
 }
 
 /* tr */
@@ -261,7 +259,7 @@ header #logo #logo_text .minor{
 }
 
 /* 平板以下 */
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1200px) {
 
     .Taiwan {
         display: none;
@@ -298,42 +296,78 @@ header #logo #logo_text .minor{
     #oneWeekForecastTable .row-tr {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: min-content min-content min-content;
+        grid-template-rows: repeat(3, min-content);
         border: none;
     }
 
-    #oneWeekForecastTable .row-tr.hide .cell-td, #oneWeekForecastTable .row-tr.hide .tr-title {
-        display: initial;
-        height: 0;
-        padding: 0;
-        visibility: hidden;
-        transition: 1s;
+    #oneWeekForecastTable .row-tr .cell-td {
+        padding: 10px;
+        border: none;
     }
 
-    #oneWeekForecastTable .row-tr.show .cell-td {
-        visibility: visible;
-        transition: 1s;
-    }
-
-    #oneWeekForecastTable .tr-title, #oneWeekForecastTable .row-tr.show .tr-title {
+    #oneWeekForecastTable .row-tr .tr-title {
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 10px;
         background-color: rgb(224, 175, 78);
-        transition: 1s;
     }
 
     #oneWeekForecastTable .row-tr .cell-th {
-        border: none;
-        grid-column-start: 1;
-        grid-column-end: 4;
+        display: none;
+    }
+
+    #oneWeekForecastTable .table-item-header {
+        position: relative;
+        display: block;
+        text-align: center;
+        background-color: #11897f;
+        color: #fff;
         padding: 10px;
     }
 
-    #oneWeekForecastTable .row-tr .cell-td {
-        border: none;
-        padding: 10px;
+    #oneWeekForecastTable .table-item-header.hide::before {
+        content: "\e145";
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: "Material Icons";
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        background-color: rgb(81, 163, 214);
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    #oneWeekForecastTable .table-item-header.show::before {
+        content: "\e15b";
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: "Material Icons";
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        background-color: rgb(214, 81, 81);
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    #oneWeekForecastTable .row-tr.hide {
+        max-height: 0;
+        overflow-y: hidden;
+        transition: 0.5s;
+    }
+
+    #oneWeekForecastTable .row-tr.show {
+        max-height: 1000px;
+        overflow-y: hidden;
+        transition: 0.5s;
     }
 }
 
