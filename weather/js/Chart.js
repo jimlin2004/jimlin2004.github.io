@@ -31,10 +31,9 @@ class Chart
 {
     constructor(width, height)
     {
-        this.width = width;
-        this.height = height;
         this.svg = null;
-        this.data = null;
+        this.datas = [];
+        this.dataColors = [];
         this.xScale = null;
         this.yScale = null;
         this.margin = {
@@ -43,6 +42,9 @@ class Chart
             bottom: 60, 
             left: 30
         };
+        
+        this.setWidth(width);
+        this.setHeight(height);
     }
 
     /**
@@ -52,7 +54,7 @@ class Chart
      */
     setWidth(w)
     {
-        this.width = w;
+        this.width = w - this.margin.left - this.margin.right;
     }
 
     /**
@@ -62,7 +64,7 @@ class Chart
      */
     setHeight(h)
     {
-        this.height = h;
+        this.height = h - this.margin.top - this.margin.bottom;
     }
 
     /**
@@ -85,8 +87,8 @@ class Chart
     {
         this.svg = d3.select(selector)
                     .append("svg")
-                    .attr("width", this.width)
-                    .attr("height", this.height)
+                    .attr("width", this.width + this.margin.left + this.margin.right)
+                    .attr("height", this.height + this.margin.top + this.margin.bottom)
                     .append("g")
                     .attr("transform", `translate(${this.margin.left}, ${this.margin.top})`);
     }
@@ -95,27 +97,38 @@ class Chart
      * 
      * @param data: Dataset
      */
-    setData(data)
+    addData(data)
     {
-        this.data = data;
-        this.setXScale();
-        this.setYScale();
+        this.datas.push(data);
+    }
+
+    clearData()
+    {
+        this.datas.length = 0; //clear
+    }
+
+    /**
+     * 
+     * @param color: string 
+     */
+    addDataColor(color)
+    {
+        this.dataColors.push(color);
+    }
+
+    clearDataColor()
+    {
+        this.dataColors.length = 0; //clear
     }
 
     setXScale()
     {
-        this.xScale = d3.scaleBand()
-            .domain(this.data.map((d) => {
-                return d.xData;
-            }))
-            .range([0, this.width - this.margin.left - this.margin.right]);
+        throw new Error("You should implement this method");
     }
 
     setYScale()
     {
-        this.yScale = d3.scaleLinear()
-            .domain([0, d3.max(this.data, (d) => {return +d.yData;})])
-            .range([this.height - this.margin.top - this.margin.bottom, 0]);
+        throw new Error("You should implement this method");
     }
 };
 

@@ -130,4 +130,7 @@
         -經緯度轉行政區
         -rwd
         -line chart
-    存檔紀錄version 1.1
+    存檔紀錄version 1.0
+2023/11/20
+    1. 繼續研究line chart
+    存檔紀錄version 1.0

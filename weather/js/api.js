@@ -419,6 +419,21 @@ async function main()
     
     await weatherSystem.getOneWeekRecords();
 
+    let tabWidgetContent = document.querySelector(".tab-widget .tab-widget-contents");
+    
+    let tabWidget = new TabWidget();
+
+    let lineChart = new LineChart(Math.round(tabWidgetContent.getBoundingClientRect().width), Math.round(tabWidgetContent.getBoundingClientRect().width / 2));
+
+    window.addEventListener("resize", (e) => {
+        d3.select(".tab-widget svg").remove();
+        lineChart.setWidth(Math.round(tabWidgetContent.getBoundingClientRect().width));
+        lineChart.setHeight(Math.round(tabWidgetContent.getBoundingClientRect().width / 2));
+
+        lineChart.setContainer(".tab-widget #temperature-chart");
+        lineChart.draw();
+    });
+    
     $(".Taiwan path").on("mouseenter", (e) => {
         tooltipFactory(e.target, e.clientX, e.clientY, weatherSystem.get36hrRecord(locationTranslate[e.target.dataset.tooltip]));
     });
@@ -460,6 +475,33 @@ async function main()
         }
         
         weatherSystem.createOneWeekForecastTable();
+        
+        let weatherDatas = weatherSystem.getOneWeekRecord(locationTranslate[WeatherSystem.getSelectedLocationName()]);
+        let tLineChartData = {minT:[], maxT:[]};
+        let startIndex = 0;
+        if (weatherDatas.maxTData.time.length == 15)
+            startIndex = 1;
+        else if (weatherDatas.maxTData.time.length == 14)
+            startIndex = 0;
+        else
+            throw new Error("unkown weather data size");
+        for (let i = 0; i < 14; ++i)
+        {
+            let index = startIndex + i;
+            tLineChartData.minT.push(new Dataset(new Date(weatherDatas.minTData.time[index].startTime), weatherDatas.minTData.time[index].elementValue[0].value));
+            tLineChartData.maxT.push(new Dataset(new Date(weatherDatas.maxTData.time[index].startTime), weatherDatas.maxTData.time[index].elementValue[0].value))
+        }
+
+        d3.select(".tab-widget svg").remove();
+        lineChart.clearData();
+        lineChart.clearDataColor();
+
+        lineChart.setContainer(".tab-widget #temperature-chart");
+        lineChart.addData(tLineChartData.minT);
+        lineChart.addDataColor("#1f77b4");
+        lineChart.addData(tLineChartData.maxT);
+        lineChart.addDataColor("#ff7f0e");
+        lineChart.draw();
     });
 
     document.getElementById("city-select").addEventListener("change", (e) => {
@@ -467,40 +509,4 @@ async function main()
     });
 
     document.querySelector(`.Taiwan path[name="New Taipei City"]`).dispatchEvent(new Event("click"));
-
-    let tabWidgetContent = document.querySelector(".tab-widget .tab-widget-contents");
-    
-    let tabWidget = new TabWidget();
-
-    let lineChart = new LineChart(Math.round(tabWidgetContent.getBoundingClientRect().width), Math.round(tabWidgetContent.getBoundingClientRect().width / 2));
-    lineChart.setContainer(".tab-widget #temperature-chart");
-
-    let weatherDatas = weatherSystem.getOneWeekRecord(locationTranslate[WeatherSystem.getSelectedLocationName()]);
-    let tLineChartData = {minT:[], maxT:[]};
-    let startIndex = 0;
-    if (weatherDatas.maxTData.time.length == 15)
-        startIndex = 1;
-    else if (weatherDatas.maxTData.time.length == 14)
-        startIndex = 0;
-    else
-        throw new Error("unkown weather data size");
-    for (let i = 0; i < 14; ++i)
-    {
-        let index = startIndex + i;
-        tLineChartData.minT.push(new Dataset(new Date(weatherDatas.minTData.time[index].startTime), weatherDatas.minTData.time[index].elementValue[0].value));
-        tLineChartData.maxT.push(new Dataset(new Date(weatherDatas.maxTData.time[index].startTime), weatherDatas.maxTData.time[index].elementValue[0].value))
-    }
-    console.log(tLineChartData);
-    lineChart.setData(tLineChartData.minT);
-    lineChart.draw();
-
-    window.addEventListener("resize", (e) => {
-        d3.select(".tab-widget svg").remove();
-        lineChart.setWidth(Math.round(tabWidgetContent.getBoundingClientRect().width));
-        lineChart.setHeight(Math.round(tabWidgetContent.getBoundingClientRect().width / 2));
-
-        lineChart.setContainer(".tab-widget #temperature-chart");
-        // lineChart.setData([new Dataset(new Date(2023, 11, 19), 19), new Dataset(new Date(2023, 11, 20), 23)]);
-        lineChart.draw();
-    });
 }
