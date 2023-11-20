@@ -423,14 +423,17 @@ async function main()
     
     let tabWidget = new TabWidget();
 
-    let lineChart = new LineChart(Math.round(tabWidgetContent.getBoundingClientRect().width), Math.round(tabWidgetContent.getBoundingClientRect().width / 2));
+    let chartWidth = Math.max(Math.round(tabWidgetContent.getBoundingClientRect().width), 640);
+
+    let lineChart = new LineChart(chartWidth, Math.round(chartWidth / 2));
 
     window.addEventListener("resize", (e) => {
         d3.select(".tab-widget svg").remove();
-        lineChart.setWidth(Math.round(tabWidgetContent.getBoundingClientRect().width));
-        lineChart.setHeight(Math.round(tabWidgetContent.getBoundingClientRect().width / 2));
+        let chartWidth = Math.max(Math.round(tabWidgetContent.getBoundingClientRect().width), 640);
+        lineChart.setWidth(chartWidth);
+        lineChart.setHeight(Math.round(chartWidth / 2));
 
-        lineChart.setContainer(".tab-widget #temperature-chart");
+        lineChart.setContainer(".tab-widget #temperature-chart .chartWrap");
         lineChart.draw();
     });
     
@@ -496,7 +499,7 @@ async function main()
         lineChart.clearData();
         lineChart.clearDataColor();
 
-        lineChart.setContainer(".tab-widget #temperature-chart");
+        lineChart.setContainer(".tab-widget #temperature-chart .chartWrap");
         lineChart.addData(tLineChartData.minT);
         lineChart.addDataColor("#1f77b4");
         lineChart.addData(tLineChartData.maxT);

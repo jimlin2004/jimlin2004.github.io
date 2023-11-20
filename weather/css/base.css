@@ -180,6 +180,7 @@ header #logo #logo_text .minor{
 }
 
 .tab-widget .tab-widget-contents {
+    /* display: block; */
     position: relative;
     width: 100%;
 }
@@ -256,6 +257,17 @@ header #logo #logo_text .minor{
 #oneWeekForecastTable .cell-td img {
     width: 40px;
     height: 40px;
+}
+
+#temperature-chart {
+    position: relative;
+    width: 100%;
+}
+
+#temperature-chart .chartWrap {
+    width: fit-content;
+    max-width: 100%;
+    overflow: auto;
 }
 
 /* 平板以下 */

@@ -87,8 +87,8 @@ class Chart
     {
         this.svg = d3.select(selector)
                     .append("svg")
-                    .attr("width", this.width + this.margin.left + this.margin.right)
-                    .attr("height", this.height + this.margin.top + this.margin.bottom)
+                    .attr("width", `${this.width + this.margin.left + this.margin.right}px`)
+                    .attr("height", `${this.height + this.margin.top + this.margin.bottom}px`)
                     .append("g")
                     .attr("transform", `translate(${this.margin.left}, ${this.margin.top})`);
     }
