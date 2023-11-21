@@ -423,15 +423,15 @@ async function main()
     
     let tabWidget = new TabWidget();
 
-    let chartWidth = Math.max(Math.round(tabWidgetContent.getBoundingClientRect().width), 640);
+    let chartWidth = Math.max(tabWidgetContent.getBoundingClientRect().width, 640);
 
-    let lineChart = new LineChart(chartWidth, Math.round(chartWidth / 2));
+    let lineChart = new LineChart(chartWidth, 400);
 
     window.addEventListener("resize", (e) => {
         d3.select(".tab-widget svg").remove();
-        let chartWidth = Math.max(Math.round(tabWidgetContent.getBoundingClientRect().width), 640);
+        let chartWidth = Math.max(tabWidgetContent.getBoundingClientRect().width, 640);
         lineChart.setWidth(chartWidth);
-        lineChart.setHeight(Math.round(chartWidth / 2));
+        lineChart.setHeight(400);
 
         lineChart.setContainer(".tab-widget #temperature-chart .chartWrap");
         lineChart.draw();
@@ -499,12 +499,16 @@ async function main()
         lineChart.clearData();
         lineChart.clearDataColor();
 
+        console.log(`前: ${$(".tab-widget").width()}`);
+
         lineChart.setContainer(".tab-widget #temperature-chart .chartWrap");
         lineChart.addData(tLineChartData.minT);
         lineChart.addDataColor("#1f77b4");
         lineChart.addData(tLineChartData.maxT);
         lineChart.addDataColor("#ff7f0e");
         lineChart.draw();
+
+        console.log(`後: ${$(".tab-widget").width()}`);
     });
 
     document.getElementById("city-select").addEventListener("change", (e) => {

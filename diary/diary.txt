@@ -140,3 +140,10 @@
         -rwd
         -line chart
     存檔紀錄version 1.1
+2023/11/21
+    1. 將line chart的高度限制在400px
+    Todo list
+        -經緯度轉行政區
+        -rwd
+        -line chart
+    存檔紀錄version 1.1

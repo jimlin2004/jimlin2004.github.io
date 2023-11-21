@@ -61,7 +61,8 @@ header #logo #logo_text .minor{
     margin-left: 20px;
     margin-right: 20px;
     grid-template-columns: 4fr 6fr;
-    grid-column-gap: var(--content-gap);
+    grid-template-rows: 1fr;
+    column-gap: var(--content-gap);
 }
 
 .Taiwan {
@@ -261,42 +262,66 @@ header #logo #logo_text .minor{
 
 #temperature-chart {
     position: relative;
+    display: block;
     width: 100%;
+    height: 400px;
 }
 
 #temperature-chart .chartWrap {
-    width: fit-content;
+    position: relative;
     max-width: 100%;
     overflow: auto;
 }
 
+/* 以下是svg的class */
+.gridline {
+    stroke: black;
+    shape-rendering: crispEdges;
+    stroke-width: 1px;
+    stroke-opacity: .2;
+}
+
+
 /* 平板以下 */
 @media screen and (max-width: 1200px) {
 
-    .Taiwan {
+    .left {
         display: none;
     }
 
-    body {
+    .right {
         display: flex;
         flex-direction: column;
-        height: 100%;
-        position: relative;
     }
+
+    /* #input-panel {
+        display: none;
+    }
+
+    #info-cards {
+        display: none;
+    }
+
+    #panel-title {
+        display: none;
+    } */
 
     #content {
-        flex: 1;
+        display: block;
+        /* column-gap: 0px; */
+        /* grid-template-columns: 1fr; */
+        /* flex: 1;
         position: relative;
         display: flex;
-        flex-direction: column;
+        flex-direction: column; */
     }
 
-    #content .right {
+    /* #content .right {
         position: relative;
         /* margin-left: var(--content-gap); */
-        flex: 1;
+        /* flex: 1; */
         /* height: 100%; */
-    }
+    /* } */
 }
 
 /* 大手機 */

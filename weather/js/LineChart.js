@@ -66,8 +66,6 @@ class LineChart extends Chart
             .attr("class", "gridline")
             .attr("x1", 0).attr("y1", -this.height)
             .attr("x2", 0).attr("y2", 0)
-            .attr("stroke", "#9ca5aecf")
-            .attr("stroke-width", 1);
 
         this.svg.append("g")
             .attr("class", "y-axis")
@@ -78,13 +76,13 @@ class LineChart extends Chart
             .attr("class", "gridline")
             .attr("x1", 0).attr("y1", 0)
             .attr("x2", this.width).attr("y2", 0)
-            .attr("stroke", "#9ca5aecf")
-            .attr("stroke-width", 1);
     }
 
     draw()
     {
         this.drawAxis();
+
+        let dataNames = ["minT","maxT"];
 
         for (let i = 0; i < this.datas.length; ++i)
         {
@@ -111,8 +109,22 @@ class LineChart extends Chart
                     })
                     .attr("r", 3)
                     .attr("fill", "#fff")
-                    .attr("stroke", "red");
+                    .attr("stroke", "red")
+                    .attr("class", `circle-${dataNames[i]}`);
         }
+        this.svg.selectAll("circle.circle-minT")
+            .data(this.datas[0])
+            .enter()
+            .append("text")
+                .attr("x", (d) => {
+                    return d.xData;
+                })
+                .attr("y", (d) => {
+                    return this.height - d.yData;
+                })
+                .text((d) => {
+                    return `${d.yData}`;
+                })
     }
 };
 
