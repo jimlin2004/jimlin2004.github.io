@@ -61,7 +61,7 @@ class LineChart extends Chart
                 }
             })
 
-        d3.selectAll("g.x-axis g.tick")
+        this.svg.selectAll("g.x-axis g.tick")
             .append("line")
             .attr("class", "gridline")
             .attr("x1", 0).attr("y1", -this.height)
@@ -71,7 +71,7 @@ class LineChart extends Chart
             .attr("class", "y-axis")
             .call(d3.axisLeft(this.yScale));
 
-        d3.selectAll("g.y-axis g.tick")
+        this.svg.selectAll("g.y-axis g.tick")
             .append("line")
             .attr("class", "gridline")
             .attr("x1", 0).attr("y1", 0)
@@ -82,7 +82,9 @@ class LineChart extends Chart
     {
         this.drawAxis();
 
-        let dataNames = ["minT","maxT"];
+        const dataNames = ["minT","maxT"];
+        const circleTextOffset = [6, -6];
+        const circleTextAlignment = ["hanging", "baseline"];
 
         for (let i = 0; i < this.datas.length; ++i)
         {
@@ -96,35 +98,37 @@ class LineChart extends Chart
                 .attr("stroke", this.dataColors[i])
                 .attr("stroke-width", 3);
 
-            this.svg.append("g")
+            let circle_g = this.svg
                 .selectAll("dot")
                 .data(this.datas[i])
                 .enter()
-                .append("circle")
-                    .attr("cx", (d) => {
-                        return this.xScale(d.xData) + this.xScale.bandwidth() / 2;
-                    })
-                    .attr("cy", (d) => {
-                        return this.yScale(d.yData);
-                    })
-                    .attr("r", 3)
-                    .attr("fill", "#fff")
-                    .attr("stroke", "red")
-                    .attr("class", `circle-${dataNames[i]}`);
-        }
-        this.svg.selectAll("circle.circle-minT")
-            .data(this.datas[0])
-            .enter()
-            .append("text")
+                .append("g")
+
+            circle_g.append("circle")
+                .attr("cx", (d) => {
+                    return this.xScale(d.xData) + this.xScale.bandwidth() / 2;
+                })
+                .attr("cy", (d) => {
+                    return this.yScale(d.yData);
+                })
+                .attr("r", 3)
+                .attr("fill", "#fff")
+                .attr("stroke", "red")
+                .attr("class", `circle-${dataNames[i]}`);
+            
+            circle_g.append("text")
                 .attr("x", (d) => {
-                    return d.xData;
+                    return this.xScale(d.xData) + this.xScale.bandwidth() / 2;
                 })
                 .attr("y", (d) => {
-                    return this.height - d.yData;
+                    return this.yScale(d.yData) + circleTextOffset[i];
                 })
+                .attr("text-anchor", "middle")
+                .attr("alignment-baseline", circleTextAlignment[i])
                 .text((d) => {
                     return `${d.yData}`;
-                })
+                });
+        }
     }
 };
 

@@ -2,6 +2,7 @@ import { InfoCard } from "./InfoCard.js";
 import { Dataset } from "./Chart.js";
 import { LineChart } from "./LineChart.js";
 import { Converter } from "./Converter.js";
+import { MapParser } from "./MapParser.js";
 
 class Weather
 {
@@ -303,14 +304,15 @@ class User
     constructor()
     {
         this.location = null;
+        this.userArgeed = true;
     }
 
     async init()
     {
-        await this.getUserLocation();
+        await this.__getUserLocation();
     }
 
-    async getUserLocation()
+    async __getUserLocation()
     {
         if (navigator.geolocation)
         {
@@ -318,7 +320,11 @@ class User
                 navigator.geolocation.getCurrentPosition(resolve, reject);
             });
         }
-        return this.location;
+        else
+        {
+            //使用者不同意
+            this.userArgeed = false;
+        }
     }
 };
 
@@ -411,10 +417,13 @@ function tooltipFactory(node, mouseX, mouseY, weatherData)
 async function main()
 {
     let weatherSystem = new WeatherSystem();
-    // let user = new User();
-    // await user.init();
+
+    let mapParser = new MapParser();
+    let user = new User();
+    await user.init();
+
     weatherSystem.setupTooltips();
-    // console.log(user.location);
+
     weatherSystem.get36hrRecords();
     
     await weatherSystem.getOneWeekRecords();
@@ -425,16 +434,23 @@ async function main()
 
     let chartWidth = Math.max(tabWidgetContent.getBoundingClientRect().width, 640);
 
-    let lineChart = new LineChart(chartWidth, 400);
+    let tLineChart = new LineChart(chartWidth, 400);
+    let atLineChart = new LineChart(chartWidth, 400);
 
     window.addEventListener("resize", (e) => {
-        d3.select(".tab-widget svg").remove();
-        let chartWidth = Math.max(tabWidgetContent.getBoundingClientRect().width, 640);
-        lineChart.setWidth(chartWidth);
-        lineChart.setHeight(400);
+        d3.selectAll(".tab-widget svg").remove();
 
-        lineChart.setContainer(".tab-widget #temperature-chart .chartWrap");
-        lineChart.draw();
+        let chartWidth = Math.max(tabWidgetContent.getBoundingClientRect().width, 640);
+        
+        tLineChart.setWidth(chartWidth);
+        tLineChart.setHeight(400);
+        tLineChart.setContainer(".tab-widget #temperature-chart .chartWrap");
+        tLineChart.draw();
+
+        atLineChart.setWidth(chartWidth);
+        atLineChart.setHeight(400);
+        atLineChart.setContainer(".tab-widget #apparent-temperature-chart .chartWrap");
+        atLineChart.draw();
     });
     
     $(".Taiwan path").on("mouseenter", (e) => {
@@ -480,7 +496,8 @@ async function main()
         weatherSystem.createOneWeekForecastTable();
         
         let weatherDatas = weatherSystem.getOneWeekRecord(locationTranslate[WeatherSystem.getSelectedLocationName()]);
-        let tLineChartData = {minT:[], maxT:[]};
+        let tLineChartData = {minT: [], maxT: []};
+        let atLineChartData = {minT: [], maxT: []};
         let startIndex = 0;
         if (weatherDatas.maxTData.time.length == 15)
             startIndex = 1;
@@ -493,27 +510,40 @@ async function main()
             let index = startIndex + i;
             tLineChartData.minT.push(new Dataset(new Date(weatherDatas.minTData.time[index].startTime), weatherDatas.minTData.time[index].elementValue[0].value));
             tLineChartData.maxT.push(new Dataset(new Date(weatherDatas.maxTData.time[index].startTime), weatherDatas.maxTData.time[index].elementValue[0].value))
+            atLineChartData.minT.push(new Dataset(new Date(weatherDatas.minATData.time[index].startTime), weatherDatas.minATData.time[index].elementValue[0].value));
+            atLineChartData.maxT.push(new Dataset(new Date(weatherDatas.maxATData.time[index].startTime), weatherDatas.maxATData.time[index].elementValue[0].value))
         }
 
-        d3.select(".tab-widget svg").remove();
-        lineChart.clearData();
-        lineChart.clearDataColor();
+        d3.selectAll(".tab-widget svg").remove();
+        
+        tLineChart.clearData();
+        tLineChart.clearDataColor();
+        tLineChart.setContainer(".tab-widget #temperature-chart .chartWrap");
+        tLineChart.addData(tLineChartData.minT);
+        tLineChart.addDataColor("#1f77b4");
+        tLineChart.addData(tLineChartData.maxT);
+        tLineChart.addDataColor("#ff7f0e");
+        tLineChart.draw();
 
-        console.log(`前: ${$(".tab-widget").width()}`);
-
-        lineChart.setContainer(".tab-widget #temperature-chart .chartWrap");
-        lineChart.addData(tLineChartData.minT);
-        lineChart.addDataColor("#1f77b4");
-        lineChart.addData(tLineChartData.maxT);
-        lineChart.addDataColor("#ff7f0e");
-        lineChart.draw();
-
-        console.log(`後: ${$(".tab-widget").width()}`);
+        atLineChart.clearData();
+        atLineChart.clearDataColor();
+        atLineChart.setContainer(".tab-widget #apparent-temperature-chart .chartWrap");
+        atLineChart.addData(atLineChartData.minT);
+        atLineChart.addDataColor("#1f77b4");
+        atLineChart.addData(atLineChartData.maxT);
+        atLineChart.addDataColor("#ff7f0e");
+        atLineChart.draw();
     });
 
     document.getElementById("city-select").addEventListener("change", (e) => {
         document.querySelector(`.Taiwan path[name="${locationTranslate[e.target.value]}"]`).dispatchEvent(new Event("click"));
     });
 
-    document.querySelector(`.Taiwan path[name="New Taipei City"]`).dispatchEvent(new Event("click"));
+    if (user.userArgeed)
+        document.querySelector(`.Taiwan path[name="${locationTranslate[mapParser.getCityName(user.location)]}"]`).dispatchEvent(new Event("click"));
+    else
+        document.querySelector(`.Taiwan path[name="Taipei City"]`).dispatchEvent(new Event("click"));
+
+    //讓網頁觸發一次resize事件，否則如果第一次載入時已是直式排版svg width 會出錯
+    window.dispatchEvent(new Event("resize"));
 }

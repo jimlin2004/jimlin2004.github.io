@@ -146,4 +146,8 @@
         -經緯度轉行政區
         -rwd
         -line chart
-    存檔紀錄version 1.1
+    存檔紀錄version 1.0
+2023/11/26
+    1. line chart添加資料點文字
+    2. 添加定位功能
+    存檔紀錄version 1.0
