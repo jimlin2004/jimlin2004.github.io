@@ -82,7 +82,7 @@ class WeatherSystem
     {
         return new Promise((resolve, reject) => {
             WeatherSystem.ajax({
-                // url: https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-091?Authorization=CWA-EA6E5A12-B52C-4D2A-A0C9-A91BC237056C&format=JSON&elementName=MinT,MaxT,PoP12h,Wx,MinAT,MaxAT
+                // url: "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-091?Authorization=CWA-EA6E5A12-B52C-4D2A-A0C9-A91BC237056C&format=JSON&elementName=MinT,MaxT,PoP12h,Wx,MinAT,MaxAT",
                 url: "../weather/assets/F-D0047-091.json",
                 method: "GET",
                 dataType: "json",
@@ -409,7 +409,7 @@ function tooltipFactory(node, mouseX, mouseY, weatherData)
         `;
         tooltipDiv.id = "tooltip";
         tooltipDiv.style = `
-            background-color: #ffffff;
+            background-color: #ffffffc0;
             border: 2px solid #000;
             border-radius: 5px;
             box-shadow: 0 0 3px;

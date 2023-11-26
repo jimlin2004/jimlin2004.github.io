@@ -29,6 +29,10 @@ class Dataset
 
 class Chart
 {
+    //用於得到svg文字Metrics
+    static __canvas = document.createElement("canvas");
+    static __ctx = this.__canvas.getContext("2d");
+
     constructor(width, height)
     {
         this.svg = null;
@@ -40,7 +44,7 @@ class Chart
             top: 30,
             right: 30, 
             bottom: 60, 
-            left: 30
+            left: 60
         };
         
         this.setWidth(width);
@@ -129,6 +133,13 @@ class Chart
     setYScale()
     {
         throw new Error("You should implement this method");
+    }
+
+    //得到svg文字Metrics
+    static getTextMetrics(text, font)
+    {
+        Chart.__ctx.font = font;
+        return Chart.__ctx.measureText(text);
     }
 };
 

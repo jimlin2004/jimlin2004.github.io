@@ -7,6 +7,47 @@ class LineChart extends Chart
         super(width, height);
     }
 
+    /**
+     * 
+     * @param selector: string
+     * @description: 
+     *      設定svg的容器html element，並create svg
+     */
+    setContainer(selector)
+    {
+        this._createSvg(selector);
+
+        this.svg.append("rect")
+            .attr("class", "hintRect")
+            .attr("width", 0)
+            .attr("height", this.height)
+            .attr("fill-opacity", "0.1")
+
+        this.svg.append("rect")
+            .attr("class", "mouseListeningRect")
+            .attr("width", this.width)
+            .attr("height", this.height)
+            .attr("fill-opacity", "0")
+            .style("z-index", 1)
+            .on("mousemove", (e) => {
+                const mouseX = d3.pointer(e)[0];
+                const mouseY = d3.pointer(e)[1];
+
+                // const target = this.xScale.invert(mouseX);
+                //scaleBand()沒有invert
+                let bandIndex = Math.floor((mouseX) / (this.xScale.bandwidth()));
+                
+                if (bandIndex > 13)
+                    bandIndex = 13;
+                if (bandIndex < 0)
+                    bandIndex = 0;
+
+                this.svg.select(".hintRect")
+                    .attr("width", this.xScale.bandwidth())
+                    .attr("x", this.xScale.bandwidth() * bandIndex);
+            });
+    }
+
     setXScale()
     {
         this.xScale = d3.scaleBand()
@@ -76,6 +117,51 @@ class LineChart extends Chart
             .attr("class", "gridline")
             .attr("x1", 0).attr("y1", 0)
             .attr("x2", this.width).attr("y2", 0)
+
+        let legend = this.svg.append("g")
+            .attr("class", "legend");
+
+        let legendLineWidth = 20;
+        let legendLineHeight = 3;
+
+        let minTText = legend.append("text")
+            .attr("class", "minTText")
+            .attr("x", legendLineWidth)
+            .text("最低溫度");
+
+        let textMetrics = Chart.getTextMetrics("最低溫度", minTText.style("font"));
+        let textHeight = textMetrics.fontBoundingBoxAscent + textMetrics.fontBoundingBoxDescent;
+
+        legend.append("rect")
+            .attr("width", legendLineWidth)
+            .attr("height", legendLineHeight)
+            .attr("x", 0)
+            .attr("y", -textHeight / 2 + legendLineHeight)
+            .attr("fill", this.dataColors[0]);
+        
+        legend.append("rect")
+            .attr("width", legendLineWidth)
+            .attr("height", legendLineHeight)
+            .attr("x", legendLineWidth + textMetrics.width)
+            .attr("y", -textHeight / 2 + legendLineHeight)
+            .attr("fill", this.dataColors[1])
+
+        legend.append("text")
+            .attr("class", "maxTText")
+            .attr("x", 2 * legendLineWidth + textMetrics.width)
+            .text("最高溫度");
+
+        let legendWidth = 2 * (legendLineWidth + textMetrics.width);
+
+        legend.attr("transform", `translate(${this.width / 2 - legendWidth / 2}, ${this.height + this.margin.top + 20})`)
+        
+        this.svg.append("text")
+            .attr("class", "y-axis-title")
+            .attr("x", -this.height / 2)
+            .attr("y", -this.margin.left + 20)
+            .attr("text-anchor", "midden")
+            .attr("transform", "rotate(-90)")
+            .text("溫度(°C)");
     }
 
     draw()

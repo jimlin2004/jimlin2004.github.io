@@ -16,6 +16,11 @@ body {
     height: 100%;
 }
 
+body {
+    display: grid;
+    grid-template-rows: min-content 1fr auto;
+}
+
 header {
     position: relative;
     width: 100%;
@@ -53,6 +58,20 @@ header #logo #logo_text .minor{
     position: relative;
     font-size: 14px;
     font-weight: 500;
+}
+
+footer {
+    border-top: 3px solid #0000002d;
+    margin-top: 40px;
+    margin-left: 20px;
+    margin-right: 20px;
+    
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+footer a {
+    color: #000;
 }
 
 #content {
@@ -268,7 +287,7 @@ header #logo #logo_text .minor{
 }
 
 #temperature-chart .chartWrap, #apparent-temperature-chart .chartWrap {
-    position: relative;
+    position: absolute;
     max-width: 100%;
     overflow: auto;
 }

@@ -155,3 +155,8 @@
     存檔紀錄version 1.1
     4. 修復當使用者不同意定位時的處理(預設地區在臺北，有alert提醒使用者)
     存檔紀錄version 1.2
+    5. 添加footer
+    6. lineChart添加mousemove事件
+    Todo list
+        -line chart的tooltip
+    存檔紀錄version 1.3
