@@ -309,10 +309,10 @@ class User
 
     async init()
     {
-        await this.__getUserLocation();
+        await this.getUserLocation();
     }
 
-    async __getUserLocation()
+    async getUserLocation()
     {
         if (navigator.geolocation)
         {
@@ -417,16 +417,17 @@ function tooltipFactory(node, mouseX, mouseY, weatherData)
 async function main()
 {
     let weatherSystem = new WeatherSystem();
-
-    let mapParser = new MapParser();
-    let user = new User();
-    await user.init();
-
     weatherSystem.setupTooltips();
 
     weatherSystem.get36hrRecords();
     
     await weatherSystem.getOneWeekRecords();
+    
+    let mapParser = new MapParser();
+    await mapParser.parseTopoJson();
+
+    let user = new User();
+    await user.init();
 
     let tabWidgetContent = document.querySelector(".tab-widget .tab-widget-contents");
     

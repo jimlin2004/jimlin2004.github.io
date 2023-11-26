@@ -151,3 +151,5 @@
     1. line chart添加資料點文字
     2. 添加定位功能
     存檔紀錄version 1.0
+    3. 修復定位功能未用await出錯的問題
+    存檔紀錄version 1.1
