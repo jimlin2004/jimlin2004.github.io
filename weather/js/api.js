@@ -318,12 +318,22 @@ class User
         {
             this.location = await new Promise((resolve, reject) => {
                 navigator.geolocation.getCurrentPosition(resolve, reject);
-            });
+            })
+            .catch((reason) => {
+                //使用者不同意
+                this.userArgeed = false;
+            })
+            ;
         }
         else
         {
             //使用者不同意
             this.userArgeed = false;
+        }
+
+        if (!this.userArgeed)
+        {
+            alert("若使用者不同意提供定位資訊，此工具將預設提供臺北天氣資訊，請使用者自行選擇所在地區，感謝");
         }
     }
 };
