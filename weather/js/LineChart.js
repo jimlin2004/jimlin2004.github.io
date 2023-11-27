@@ -22,6 +22,8 @@ class LineChart extends Chart
             .attr("width", 0)
             .attr("height", this.height)
             .attr("fill-opacity", "0.1")
+            .style("user-select", "none")
+            .style("pointer-events", "none");
 
         this.svg.append("rect")
             .attr("class", "mouseListeningRect")
@@ -29,6 +31,7 @@ class LineChart extends Chart
             .attr("height", this.height)
             .attr("fill-opacity", "0")
             .style("z-index", 1)
+            .style("pointer-events", "all")
             .on("mousemove", (e) => {
                 const mouseX = d3.pointer(e)[0];
                 const mouseY = d3.pointer(e)[1];
@@ -45,6 +48,29 @@ class LineChart extends Chart
                 this.svg.select(".hintRect")
                     .attr("width", this.xScale.bandwidth())
                     .attr("x", this.xScale.bandwidth() * bandIndex);
+                
+                let tooltip = d3.select(".lineChartTooltip");
+                let toolTipWidth = tooltip.node().getBoundingClientRect().width;
+                let tooltipXOffset = 0;
+                if (e.pageX > (d3.select("body").node().getBoundingClientRect().width / 2))
+                {
+                    tooltipXOffset = -toolTipWidth;
+                }
+
+                tooltip.style("visibility", "visible")
+                    .style("top", `${e.pageY + 20}px`)
+                    .style("left", `${e.pageX + tooltipXOffset}px`);
+                tooltip.select(".tooltipMinTText").node().textContent = `${this.datas[0][bandIndex].yData}°C`;
+                tooltip.select(".tooltipMaxTText").node().textContent = `${this.datas[1][bandIndex].yData}°C`;
+            })
+            .on("mouseout", (e) => {
+                d3.select(".lineChartTooltip")
+                    .style("visibility", "hidden")
+                    .style("top", `0`)
+                    .style("left", `0`);
+
+                this.svg.select(".hintRect")
+                    .attr("width", 0);
             });
     }
 
@@ -54,7 +80,7 @@ class LineChart extends Chart
             .domain(this.datas[0].map((d) => {
                 return d.xData;
             }))
-            .range([0, this.width]);
+            .range([0, this.width])
     }
 
     setYScale()

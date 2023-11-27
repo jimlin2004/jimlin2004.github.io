@@ -160,3 +160,8 @@
     Todo list
         -line chart的tooltip
     存檔紀錄version 1.3
+2023/11/27
+    1. 完成tooltip功能
+    Todo list
+        -tooltip在手機上的事件效果要考慮
+    存檔紀錄version 1.0

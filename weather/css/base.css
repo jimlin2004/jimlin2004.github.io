@@ -61,17 +61,19 @@ header #logo #logo_text .minor{
 }
 
 footer {
-    border-top: 3px solid #0000002d;
     margin-top: 40px;
-    margin-left: 20px;
-    margin-right: 20px;
     
+    padding-left: 20px;
+    padding-right: 20px;
     padding-top: 10px;
     padding-bottom: 10px;
+
+    background-color: var(--main-bule);
+    color: #fff;
 }
 
 footer a {
-    color: #000;
+    color: #fff;
 }
 
 #content {
@@ -286,19 +288,37 @@ footer a {
     height: 400px;
 }
 
-#temperature-chart .chartWrap, #apparent-temperature-chart .chartWrap {
+#temperature-chart .chartWrap,
+#apparent-temperature-chart .chartWrap {
     position: absolute;
     max-width: 100%;
     overflow: auto;
 }
 
+#temperature-chart .chartWrap svg,
+#apparent-temperature-chart .chartWrap svg {
+    pointer-events: none;
+}
+
 /* 以下是svg的class */
 .gridline {
+    pointer-events: none;
     stroke: black;
     stroke-width: 1px;
     stroke-opacity: .2;
 }
 
+.lineChartTooltip {
+    position: absolute;
+    z-index: 1;
+    user-select: none;
+    pointer-events: none;
+    padding: 5px;
+    border: 1px solid #000;
+    border-radius: 8px;
+    background-color: #109fe250;
+    visibility: hidden;
+}
 
 /* 平板以下 */
 @media screen and (max-width: 1200px) {
