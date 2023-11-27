@@ -123,15 +123,16 @@ class WeatherSystem
         }
     }
 
-    static get36hrTimeDescription(startTime)
+    //用startTime會有問題(太多種)
+    static get36hrTimeDescription(endTime)
     {
-        if (startTime === "06:00:00")
-        {
-            return ["今日白天", "今夜明晨", "明日白天"];
-        }
-        else if (startTime == "18:00:00")
+        if (endTime === "06:00:00")
         {
             return ["今夜明晨", "明日白天", "明日晚上"];
+        }
+        else if (endTime == "18:00:00")
+        {
+            return ["今日白天", "今夜明晨", "明日白天"];
         }
 
         throw new Error("unknow startTime");
@@ -477,14 +478,14 @@ async function main()
 
         let weatherData = weatherSystem.get36hrRecord(locationTranslate[WeatherSystem.getSelectedLocationName()]);
         
-        let startTime = weatherData.minTData.time[0].startTime.split(" ")[1];
+        let endTime = weatherData.minTData.time[0].endTime.split(" ")[1];
 
-        let timeDescriptions = WeatherSystem.get36hrTimeDescription(startTime);
+        let timeDescriptions = WeatherSystem.get36hrTimeDescription(endTime);
         let isNight = 0;
-        if (startTime == "06:00:00")
-            isNight = 0;
-        else
+        if (endTime == "06:00:00")
             isNight = 1;
+        else
+            isNight = 0;
         
         let infoCards = document.querySelectorAll(".info-card");
 

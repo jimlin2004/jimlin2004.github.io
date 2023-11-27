@@ -168,6 +168,8 @@
     2. footer添加更多資訊
     3. 將資料改成上線最新資料
     4. 網頁宣告暫時完工
+    存檔紀錄version 1.1
+    5. 發現用startTime會有太多種，改用endTime判斷白天晚上
     Todo list
         -tooltip在手機上的事件效果發現只有iphone會有點其他地方不消失的問題
-    存檔紀錄version 1.1
+    存檔紀錄version 1.2
