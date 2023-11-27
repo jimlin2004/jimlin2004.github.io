@@ -82,8 +82,8 @@ class WeatherSystem
     {
         return new Promise((resolve, reject) => {
             WeatherSystem.ajax({
-                // url: "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-091?Authorization=CWA-EA6E5A12-B52C-4D2A-A0C9-A91BC237056C&format=JSON&elementName=MinT,MaxT,PoP12h,Wx,MinAT,MaxAT",
-                url: "../weather/assets/F-D0047-091.json",
+                url: "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-091?Authorization=CWA-EA6E5A12-B52C-4D2A-A0C9-A91BC237056C&format=JSON&elementName=MinT,MaxT,PoP12h,Wx,MinAT,MaxAT",
+                // url: "../weather/assets/F-D0047-091.json",
                 method: "GET",
                 dataType: "json",
             })
@@ -185,7 +185,7 @@ class WeatherSystem
             isOddItem = !isOddItem;
             oneDayTr.setAttribute("data-item-number", `${itemCount++}`);
 
-            let time_format = data.maxTData.time[i].startTime.split(" ");
+            let time_format = data.maxTData.time[index].startTime.split(" ");
             let timeyymmdd = time_format[0].split("-");
 
             let oneDayHeader = document.createElement("div");
@@ -339,8 +339,8 @@ class User
 };
 
 $.ajax({
-    // url: "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWA-EA6E5A12-B52C-4D2A-A0C9-A91BC237056C&format=JSON",
-    url: "../weather/assets/F-C0032-001.json",
+    url: "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWA-EA6E5A12-B52C-4D2A-A0C9-A91BC237056C&format=JSON",
+    // url: "../weather/assets/F-C0032-001.json",
     method: "GET",
     dataType: "json",
     success: (res) => {

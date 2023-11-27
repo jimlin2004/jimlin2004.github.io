@@ -165,3 +165,9 @@
     Todo list
         -tooltip在手機上的事件效果要考慮
     存檔紀錄version 1.0
+    2. footer添加更多資訊
+    3. 將資料改成上線最新資料
+    4. 網頁宣告暫時完工
+    Todo list
+        -tooltip在手機上的事件效果發現只有iphone會有點其他地方不消失的問題
+    存檔紀錄version 1.1
