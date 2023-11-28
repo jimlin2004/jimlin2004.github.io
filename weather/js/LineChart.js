@@ -106,10 +106,12 @@ class LineChart extends Chart
             .attr("transform", `translate(0, ${this.height})`)
             .call(d3.axisBottom(this.xScale)
                     .tickFormat((d) => {
+                        //以下為endTIme
+                        //到06:00的是晚上，到18:00的是早上
                         if (d.getHours() === 6)
-                            return d3.timeFormat("早上<br/>%m/%d")(d);
-                        else if (d.getHours() === 18)
                             return d3.timeFormat("晚上<br/>%m/%d")(d);
+                        else if (d.getHours() === 18)
+                            return d3.timeFormat("早上<br/>%m/%d")(d);
                         else
                             throw new Error("unknow time");
             }))

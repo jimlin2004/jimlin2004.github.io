@@ -173,3 +173,10 @@
     Todo list
         -tooltip在手機上的事件效果發現只有iphone會有點其他地方不消失的問題
     存檔紀錄version 1.2
+2023/11/28
+    1. 將網頁判斷日期時間白天晚上統一改用endTime，因為經觀察startTime有06:00、12:00、18:00、00:00，
+       而endTime只有06:00、18:00兩種
+    2. 發現Taiwan的tooltip定位有問題，現在已修正成pageX、pageY，問題解決
+    Todo list
+        -tooltip在手機上的事件效果發現只有iphone會有點其他地方不消失的問題(暫時擱置)
+    存檔紀錄version 1.0

@@ -135,7 +135,7 @@ class WeatherSystem
             return ["今日白天", "今夜明晨", "明日白天"];
         }
 
-        throw new Error("unknow startTime");
+        throw new Error("unknow endTime");
     }
 
     createOneWeekForecastTable()
@@ -466,7 +466,7 @@ async function main()
     });
     
     $(".Taiwan path").on("mouseenter", (e) => {
-        tooltipFactory(e.target, e.clientX, e.clientY, weatherSystem.get36hrRecord(locationTranslate[e.target.dataset.tooltip]));
+        tooltipFactory(e.target, e.pageX, e.pageY, weatherSystem.get36hrRecord(locationTranslate[e.target.dataset.tooltip]));
     });
 
     $(".Taiwan path").on("mouseleave", (e) => {
@@ -520,10 +520,11 @@ async function main()
         for (let i = 0; i < 14; ++i)
         {
             let index = startIndex + i;
-            tLineChartData.minT.push(new Dataset(new Date(weatherDatas.minTData.time[index].startTime), weatherDatas.minTData.time[index].elementValue[0].value));
-            tLineChartData.maxT.push(new Dataset(new Date(weatherDatas.maxTData.time[index].startTime), weatherDatas.maxTData.time[index].elementValue[0].value))
-            atLineChartData.minT.push(new Dataset(new Date(weatherDatas.minATData.time[index].startTime), weatherDatas.minATData.time[index].elementValue[0].value));
-            atLineChartData.maxT.push(new Dataset(new Date(weatherDatas.maxATData.time[index].startTime), weatherDatas.maxATData.time[index].elementValue[0].value))
+            //以下用endTime判斷，startTime太多種
+            tLineChartData.minT.push(new Dataset(new Date(weatherDatas.minTData.time[index].endTime), weatherDatas.minTData.time[index].elementValue[0].value));
+            tLineChartData.maxT.push(new Dataset(new Date(weatherDatas.maxTData.time[index].endTime), weatherDatas.maxTData.time[index].elementValue[0].value))
+            atLineChartData.minT.push(new Dataset(new Date(weatherDatas.minATData.time[index].endTime), weatherDatas.minATData.time[index].elementValue[0].value));
+            atLineChartData.maxT.push(new Dataset(new Date(weatherDatas.maxATData.time[index].endTime), weatherDatas.maxATData.time[index].elementValue[0].value))
         }
 
         d3.selectAll(".tab-widget svg").remove();
