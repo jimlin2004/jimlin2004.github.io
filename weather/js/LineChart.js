@@ -110,9 +110,10 @@ class LineChart extends Chart
                         //到06:00的是晚上，到18:00的是早上
                         if (d.getHours() === 6)
                         {
-                            console.log(d.getDate() - 1);
-                            d.setDate(d.getDate() - 1);
-                            return d3.timeFormat("晚上<br/>%m/%d")(d);
+                            let newD = new Date();
+                            newD.setDate(d.getDate() - 1);
+                            console.log(newD);
+                            return d3.timeFormat("晚上<br/>%m/%d")(newD);
                         }
                         else if (d.getHours() === 18)
                             return d3.timeFormat("早上<br/>%m/%d")(d);
