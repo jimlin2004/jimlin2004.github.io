@@ -112,7 +112,6 @@ class LineChart extends Chart
                         {
                             let newD = new Date();
                             newD.setDate(d.getDate() - 1);
-                            console.log(newD);
                             return d3.timeFormat("晚上<br/>%m/%d")(newD);
                         }
                         else if (d.getHours() === 18)
