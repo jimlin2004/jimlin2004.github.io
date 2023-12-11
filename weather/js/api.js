@@ -82,7 +82,7 @@ class WeatherSystem
     {
         return new Promise((resolve, reject) => {
             WeatherSystem.ajax({
-                url: "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-091?Authorization=CWA-EA6E5A12-B52C-4D2A-A0C9-A91BC237056C&format=JSON&elementName=MinT,MaxT,PoP12h,Wx,MinAT,MaxAT",
+                url: "https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-091?Authorization=CWA-EA6E5A12-B52C-4D2A-A0C9-A91BC237056C&format=JSON&elementName=MinT,MaxT,PoP12h,Wx,MinAT,MaxAT",
                 // url: "../weather/assets/F-D0047-091.json",
                 method: "GET",
                 dataType: "json",
@@ -340,7 +340,7 @@ class User
 };
 
 $.ajax({
-    url: "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWA-EA6E5A12-B52C-4D2A-A0C9-A91BC237056C&format=JSON",
+    url: "https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWA-EA6E5A12-B52C-4D2A-A0C9-A91BC237056C&format=JSON",
     // url: "../weather/assets/F-C0032-001.json",
     method: "GET",
     dataType: "json",
