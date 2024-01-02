@@ -80,20 +80,25 @@ class LineChart extends Chart
             .domain(this.datas[0].map((d) => {
                 return d.xData;
             }))
-            .range([0, this.width])
+            .range([0, this.width]);
     }
 
     setYScale()
     {
-        let maxY = d3.max(this.datas[0], (d) => {return +d.yData;});
-        for (let i = 1; i < this.datas.length; ++i)
-        {
-            maxY = d3.max(this.datas[i], (d) => {return +d.yData;});
-        }
+        let maxY = d3.max(this.datas[1], (d) => {return +d.yData;});
+        let minY = d3.min(this.datas[0], (d) => {return +d.yData;});
+
+        //讓資料中沒有負的還是從0開始
+        minY = Math.min(0, minY);
+
+        //讓y axis大一點，讓資料數字不要重疊到x axis
+        if (minY - 0 < 5 && minY != 0)
+            minY -= 5;
 
         this.yScale = d3.scaleLinear()
-            .domain([0, maxY])
-            .range([this.height, 0]);
+            .domain([minY, maxY])
+            .range([this.height, 0])
+            .nice();
     }
 
     drawAxis()
@@ -210,7 +215,7 @@ class LineChart extends Chart
                 .datum(this.datas[i])
                 .attr("d", d3.line()
                     .x((d) => {return this.xScale(d.xData) + this.xScale.bandwidth() / 2;})
-                    .y((d) => {return this.yScale(d.yData);})
+                    .y((d) => {return this.yScale(d.yData)})
                 )
                 .attr("fill", "none")
                 .attr("stroke", this.dataColors[i])
