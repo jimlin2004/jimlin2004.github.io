@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<head>
+    <meta lang = "zh-Hant-TW">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>Jim's Website</title>
+    <link rel = "stylesheet" href = "./css/home.css">
+    <script type = "module" src = "./js/home.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class = "logo">
+            Jim's Website
+            <img src = "./assets/svg/logo.svg">
+        </div>
+        <div></div>
+        <a class = "burger-btn">
+            <img src = "./assets/svg/burger.svg">
+        </a>
+    </header>
+    <div id = "main">
+        <h2 class = "main-subtitle">推薦功能</h2>
+        <div class = "tool-cards">
+            <a href = "https://github.com/jimlin2004/GameEngine/tree/develop">
+                <div class = "tool-card">
+                    <p class = "title">Game Engine</p>
+                    <img class = "demo-img" src = "./assets/img/GameEngineDemo.png">
+                    <div class = "content">
+                        GameEngine是利用C++作為基礎，利用SDL2、OpenGL 4.0建構引擎，內部應用ECS架構管理遊戲邏輯，並且使用Lua作為主要Script語言，專注於幫助開發2D遊戲。
+                    </div>
+                </div>
+            </a>
+            <a href = "../GameEngineDocumentation/index.html">
+                <div class = "tool-card">
+                    <p class = "title">Game Engine Documentation</p>
+                    <img class = "demo-img" src = "./assets/img/GameEngineDocumentationDemo.png">
+                    <div class = "content">
+                        Game Engine的教學文檔，主要說明Game Engine的Lua撰寫。
+                    </div>
+                </div>
+            </a>
+            <a href = "../NotesViewer/NoteTop.html">
+                <div class = "tool-card">
+                    <p class = "title">Notes</p>
+                    <div class = content>
+                        這裡有我在程式領域、大學課程內容的筆記，包含AI、演算法等。
+                    </div>
+                </div>
+            </a>
+            <a href = "../weather/weather.html">
+                <div class = "tool-card">
+                    <p class = "title">天氣預報小幫手</p>
+                    <img class = "demo-img" src = "./assets/img/weatherTool.png">
+                    <div class = content>
+                        運用臺灣中央氣象署的資料API，利用網頁方式呈現的工具，支持手機、平板、電腦。
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <footer>
+        <p class = "copyright">Copyright © 2024 CHUN-CHENG LIN. All rights reserved.</p>
+        <div class="footer-body">
+            <div class = "about-me">
+                <h2>About me</h2>
+                <a>關於我</a>
+            </div>
+            <div class = "contact-us">
+                <h2>聯絡方式</h2>
+                <div class = "icon-group">
+                    <img src = "assets/svg/gmail.svg" style="background-color: #fff; border-radius: 5px;">
+                    <a>jim.lin2004@gmail.com</a>
+                </div>
+                <div class = "icon-group">
+                    <img src = "assets/svg/github.svg">
+                    <a href = "https://github.com/jimlin2004">Github</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
