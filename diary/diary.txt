@@ -195,3 +195,6 @@
     1. 開始寫新首頁
     2. 整合筆記、markdown功能
     存檔紀錄version 1.0
+2024/06/27
+    1. 切一點Markdown viewer的版
+    存檔紀錄version 1.0
