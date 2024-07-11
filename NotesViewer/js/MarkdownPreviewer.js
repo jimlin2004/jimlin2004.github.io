@@ -50,9 +50,11 @@ class MarkdownPreviewer
         
         if (workspace != null)
         {
-            console.log(workspace)
+            // console.log(workspace)
+            let baseUrl = window.location.origin;
             document.querySelectorAll(".markdown-previewer-body img").forEach((img) => {
-                if (!img.src.includes("https"))
+                //如果圖片在這個網址下，要改Url
+                if (img.src.includes(baseUrl))
                 {
                     let imgFilename = img.src.substring(img.src.lastIndexOf('/') + 1);
                     img.src = workspace + '/' + imgFilename;
