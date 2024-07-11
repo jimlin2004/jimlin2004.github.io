@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel = "stylesheet" href = "./css/MarkdownPreviewer.css">
+        <link rel = "stylesheet" href = "./lib/prism/prism.css">
+        <link rel = "stylesheet" href = "./lib/katex/katex.min.css">
+        <link rel = "stylesheet" href = "./lib/markdown-it-texmath/css/texmath.css">
+        <link rel = "stylesheet" href = "./css/viewer.css">
+        <script src = "./lib/katex/katex.min.js" defer></script>
+        <script src = "./lib/prism/prism.js" defer></script>
+        <script src = "./lib/markdown-it.min.js" defer></script>
+        <script src = "./lib/markdown-it-texmath/texmath.js"></script>
+
+        <script type = "module" src = "./js/MarkdownPreviewer.js" defer></script>
+        <script type = "module" src = "./js/viewer.js" defer></script>
+    </head>
+    <body>
+        <header>
+            <div class = "logo">筆記區</div>
+        </header>
+        <div class = "main">
+            <div class = "outline"></div>
+            <div class = "viewer-wrap">
+                <div class = "markdown-previewer-body"></div>
+            </div>
+        </div>
+    </body>
+</html>

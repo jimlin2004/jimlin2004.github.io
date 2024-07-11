@@ -1,0 +1,51 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+header {
+    padding: 8px;
+    border-bottom: 3px #000 solid;
+}
+
+header .logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+html {
+    position: relative;
+    height: 100%;
+}
+
+body {
+    position: relative;
+    min-height: 100%;
+    max-width: 100%;
+    display: grid;
+    grid-template-rows: min-content auto;
+}
+
+.main {
+    display: grid;
+    grid-template-columns: 200px auto;
+    grid-template-rows: 1fr;
+}
+
+.outline {
+    border-right: 1px #000 solid;
+}
+
+.viewer-wrap {
+    position: relative;
+}
+
+.viewer-wrap .markdown-previewer-body {
+    position: absolute;
+    box-sizing: border-box;
+    min-width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    overflow-y: auto;
+    /* overflow-x: auto; */
+}

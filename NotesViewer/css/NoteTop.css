@@ -1,0 +1,57 @@
+:root {
+    --line-color: #4a4a4a7b;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Microsoft JhengHei;
+    list-style: none;
+}
+
+header {
+    padding: 8px;
+    border-bottom: 1px var(--line-color) solid;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#main {
+    padding: 20px;
+}
+
+#main h2.subtitle {
+    border-bottom: 1px var(--line-color) solid;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+#main h3.subtitle {
+    margin-bottom: 10px;
+}
+
+#main h4.subtitle {
+    margin-bottom: 10px;
+}
+
+#main ul, #main ul > li {
+    margin-left: 10px;
+    list-style: initial;
+}
+
+#main .a-group {
+    margin-bottom: 10px;
+}
+
+#main .a-group a {
+    color: #000;
+    text-decoration: none;
+}
+
+#main .a-group ol, #main .a-group li {
+    margin-left: 10px;
+    list-style: decimal;
+}
