@@ -1,3 +1,6 @@
 [submodule "GameEngineDocumentation"]
 	path = GameEngineDocumentation
 	url = https://github.com/jimlin2004/GameEngineDocumentation.git
+[submodule "NotesViewer/Notes"]
+	path = NotesViewer/Notes
+	url = https://github.com/jimlin2004/CodeNote.git
