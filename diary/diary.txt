@@ -198,3 +198,7 @@
 2024/06/27
     1. 切一點Markdown viewer的版
     存檔紀錄version 1.0
+2024/07/11
+    1. 開始切首頁的下拉式menu
+    2. 修復Markdown的渲染功能
+    存檔紀錄version 1.0

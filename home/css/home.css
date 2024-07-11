@@ -17,7 +17,7 @@ html {
 body {
     position: relative;
     display: grid;
-    grid-template-rows: min-content auto min-content;
+    grid-template-rows: min-content min-content auto min-content;
     min-height: 100%;
 }
 
@@ -44,10 +44,30 @@ header .logo img {
 header .burger-btn {
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 header .burger-btn img {
     width: 40px;
+}
+
+.menu-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .3s ease;
+}
+
+.menu-panel.active {
+    grid-template-rows: 1fr;
+}
+
+.menu-panel > div {
+    overflow: hidden;
+}
+
+.menu-panel .menu-panel-content {
+    padding: 10px;
+    background-color: #f1efef;
 }
 
 #main {
