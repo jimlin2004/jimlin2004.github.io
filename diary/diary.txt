@@ -202,3 +202,8 @@
     1. 開始切首頁的下拉式menu
     2. 修復Markdown的渲染功能
     存檔紀錄version 1.0
+2024/07/17
+    1. 寫markdown viewer的頁面
+    2. 寫viewer的outline
+    3. 合併RL-policy gradient的筆記
+    存檔紀錄version 1.0

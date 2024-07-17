@@ -1,4 +1,3 @@
-
 class MarkdownPreviewer
 {
     static getCodeLang(lang)
@@ -61,7 +60,7 @@ class MarkdownPreviewer
                 }
             });
         }
-    };
+    }
 };
 
 export { MarkdownPreviewer };

@@ -120,5 +120,6 @@
     position: relative;
     display: block;
     margin: 0 auto;
-    max-width: 100%;
+    /* 為了不讓圖片太大影響閱讀 */
+    max-width: 640px;
 }
