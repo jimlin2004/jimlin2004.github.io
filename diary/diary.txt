@@ -207,3 +207,7 @@
     2. 寫viewer的outline
     3. 合併RL-policy gradient的筆記
     存檔紀錄version 1.0
+2024/07/22
+    1. 寫markdown viewer的RWD
+    2. 合併RL-PPO離散動作空間的筆記
+    存檔紀錄version 1.0
