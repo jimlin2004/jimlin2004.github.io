@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>筆記區</title>
+
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel = "stylesheet" href = "./css/MarkdownPreviewer.css">
         <link rel = "stylesheet" href = "./lib/prism/prism.css">
@@ -25,7 +27,13 @@
                     <ul class = "outline-list-body"></ul>
                 </div>
                 <div class = "tools">
-                    <button class = "expand-btn">>></button>
+                    <div>
+                        <!-- 這一層div不放的話btn會被flex拉長 -->
+                        <button class = "expand-btn">>></button>
+                    </div>
+                    <div class = "tools-btn">
+                        <a class = "home-page-btn" href = "./NoteTop.html"><img src = "./assets/icons/home.svg"></a>
+                    </div>
                 </div>
             </div>
             <div class = "viewer-wrap">

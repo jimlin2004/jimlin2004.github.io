@@ -211,3 +211,7 @@
     1. 寫markdown viewer的RWD
     2. 合併RL-PPO離散動作空間的筆記
     存檔紀錄version 1.0
+2024/07/24
+    1. 寫首頁的板(小工具、小遊戲區)
+    2. markdown viewer新增回到選擇頁的功能
+    存檔紀錄version 1.0

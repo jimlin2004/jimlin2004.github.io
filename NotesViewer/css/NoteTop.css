@@ -9,6 +9,15 @@
     list-style: none;
 }
 
+html, body {
+    height: 100%;
+}
+
+body {
+    display: grid;
+    grid-template-rows: min-content auto;
+}
+
 header {
     padding: 8px;
     border-bottom: 1px var(--line-color) solid;
