@@ -91,5 +91,10 @@ if (urlParams.has("path"))
 }
 
 document.querySelector(".outline .expand-btn").addEventListener("click", (e) => {
-    e.target.closest(".outline").classList.toggle("expanded");
+    let outline = e.target.closest(".outline");
+    outline.classList.toggle("expanded");
+    if (outline.classList.contains("expanded"))
+        e.target.textContent = "<<";
+    else
+    e.target.textContent = ">>";
 });
