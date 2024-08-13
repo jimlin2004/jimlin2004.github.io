@@ -122,7 +122,6 @@
     margin: 0 auto;
     /* 為了不讓圖片太大影響閱讀 */
     max-width: 640px;
-    width: 100%;
 }
 
 /* 數學式 */
@@ -130,10 +129,11 @@
 .markdown-previewer-body .katex {
     position: relative;
     overflow-x: auto;
+    font-size: 25px !important;
 }
 
 .markdown-previewer-body .katex-html {
-    min-width: 480px;
+    min-width: 640px;
     /* margin是因為發現當外層與內層的width or height一樣時會出現不應該有的scroll */
-    margin: 8px;
+    margin: 10px;
 } 

@@ -219,3 +219,8 @@
     1. 合併A2C的筆記
     2. NoteTop頁面補上回首頁功能
     存檔紀錄version 1.0
+2024/08/13
+    1. 合併DDPG的筆記
+    2. markdown viewer修復圖片被放太大的問題
+    3. 將latex字體由1em調為25px
+    存檔紀錄version 1.0
