@@ -224,3 +224,6 @@
     2. markdown viewer修復圖片被放太大的問題
     3. 將latex字體由1em調為25px
     存檔紀錄version 1.0
+2024/09/23
+    1. 添加未完工的SAC筆記
+    存檔紀錄version 1.0
