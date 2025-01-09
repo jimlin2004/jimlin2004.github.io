@@ -94,10 +94,10 @@ class WeatherSystem
                 }
                 
                 this.weatherOneWeekMap = new Map();
-                for (let weather of res["records"]["locations"][0]["location"])
+                for (let weather of res["records"]["Locations"][0]["Location"])
                 {
-                    this.weatherOneWeekMap.set(weather["locationName"], new Weather(weather["weatherElement"][2], weather["weatherElement"][0], 
-                        weather["weatherElement"][3], weather["weatherElement"][5], weather["weatherElement"][4], weather["weatherElement"][1]));
+                    this.weatherOneWeekMap.set(weather["LocationName"], new Weather(weather["WeatherElement"][12], weather["WeatherElement"][1], 
+                        weather["WeatherElement"][2], weather["WeatherElement"][1], weather["WeatherElement"][6], weather["WeatherElement"][5]));
                 }
                 console.log(this.weatherOneWeekMap);
             })
@@ -147,9 +147,9 @@ class WeatherSystem
 
         let data = this.getOneWeekRecord(locationTranslate[WeatherSystem.getSelectedLocationName()]);
         let startIndex = 0;
-        if (data.maxTData.time.length == 15)
+        if (data.maxTData.Time.length == 15)
             startIndex = 1;
-        else if (data.maxTData.time.length == 14)
+        else if (data.maxTData.Time.length == 14)
             startIndex = 0;
         else
             throw new Error("unkown weather data size");
@@ -186,7 +186,7 @@ class WeatherSystem
             isOddItem = !isOddItem;
             oneDayTr.setAttribute("data-item-number", `${itemCount++}`);
 
-            let time_format = data.maxTData.time[index].startTime.split(" ");
+            let time_format = data.maxTData.Time[index].StartTime.split("T");
             let timeyymmdd = time_format[0].split("-");
 
             let oneDayHeader = document.createElement("div");
@@ -202,13 +202,13 @@ class WeatherSystem
             }
             oneDayHeader.innerHTML = `
                 <p>${timeyymmdd[1]}/${timeyymmdd[2]}</p>
-                <p>${dayNames[new Date(time_format[0].split(" ")[0]).getDay()]}</p>
+                <p>${dayNames[new Date(time_format[0].split("T")[0]).getDay()]}</p>
             `;
 
             let oneDayData = `
                 <div class = "cell-th">
                     <p>${timeyymmdd[1]}/${timeyymmdd[2]}</p>
-                    <p>${dayNames[new Date(time_format[0].split(" ")[0]).getDay()]}</p>
+                    <p>${dayNames[new Date(time_format[0].split("T")[0]).getDay()]}</p>
                 </div>
 
                 <div class = "tr-title">
@@ -217,15 +217,15 @@ class WeatherSystem
                 <div class = "cell-td">
                     <div>
                         <p>早上</p>
-                        <img class = "weatherIcon" src = "./assets/svg/weatherDescription/${Converter.getWeatherIcon(data.wxData.time[index].elementValue[0].value)[0]}">
-                        <p>${data.minTData.time[index].elementValue[0].value} ~ ${data.maxTData.time[index].elementValue[0].value} °C</p>
+                        <img class = "weatherIcon" src = "./assets/svg/weatherDescription/${Converter.getWeatherIcon(data.wxData.Time[index].ElementValue[0].Weather)[0]}">
+                        <p>${data.minTData.Time[index].ElementValue[0].MinTemperature} ~ ${data.maxTData.Time[index].ElementValue[0].MaxTemperature} °C</p>
                     </div>
                 </div> 
                 <div class = "cell-td">
                     <div>
                         <p>晚上</p>
-                        <img class = "weatherIcon" src = "./assets/svg/weatherDescription/${Converter.getWeatherIcon(data.wxData.time[index].elementValue[0].value)[1]}">
-                        <p>${data.minTData.time[index + 1].elementValue[0].value} ~ ${data.maxTData.time[index + 1].elementValue[0].value} °C</p>
+                        <img class = "weatherIcon" src = "./assets/svg/weatherDescription/${Converter.getWeatherIcon(data.wxData.Time[index].ElementValue[0].Weather)[1]}">
+                        <p>${data.minTData.Time[index + 1].ElementValue[0].MinTemperature} ~ ${data.maxTData.Time[index + 1].ElementValue[0].MaxTemperature} °C</p>
                     </div>
                 </div>
             
@@ -233,20 +233,20 @@ class WeatherSystem
                     <p>體感溫度</p>
                 </div>
                 <div class = "cell-td">
-                    <p>${data.minATData.time[index].elementValue[0].value} ~ ${data.maxATData.time[index].elementValue[0].value} °C</p>
+                    <p>${data.minATData.Time[index].ElementValue[0].MinApparentTemperature} ~ ${data.maxATData.Time[index].ElementValue[0].MaxApparentTemperature} °C</p>
                 </div>
                 <div class = "cell-td">
-                    <p>${data.minATData.time[index + 1].elementValue[0].value} ~ ${data.maxATData.time[index + 1].elementValue[0].value} °C</p>
+                    <p>${data.minATData.Time[index + 1].ElementValue[0].MinApparentTemperature} ~ ${data.maxATData.Time[index + 1].ElementValue[0].MaxApparentTemperature} °C</p>
                 </div>
 
                 <div class = "tr-title">
                     <p>天氣描述</p>
                 </div>
                 <div class = "cell-td">
-                    ${data.wxData.time[index].elementValue[0].value}
+                    ${data.wxData.Time[index].ElementValue[0].Weather}
                 </div>
                 <div class = "cell-td">
-                    ${data.wxData.time[index + 1].elementValue[0].value}
+                    ${data.wxData.Time[index + 1].ElementValue[0].Weather}
                 </div>
             `;
 
@@ -511,9 +511,9 @@ async function main()
         let tLineChartData = {minT: [], maxT: []};
         let atLineChartData = {minT: [], maxT: []};
         let startIndex = 0;
-        if (weatherDatas.maxTData.time.length == 15)
+        if (weatherDatas.maxTData.Time.length == 15)
             startIndex = 1;
-        else if (weatherDatas.maxTData.time.length == 14)
+        else if (weatherDatas.maxTData.Time.length == 14)
             startIndex = 0;
         else
             throw new Error("unkown weather data size");
@@ -521,10 +521,10 @@ async function main()
         {
             let index = startIndex + i;
             //以下用endTime判斷，startTime太多種
-            tLineChartData.minT.push(new Dataset(new Date(weatherDatas.minTData.time[index].endTime), weatherDatas.minTData.time[index].elementValue[0].value));
-            tLineChartData.maxT.push(new Dataset(new Date(weatherDatas.maxTData.time[index].endTime), weatherDatas.maxTData.time[index].elementValue[0].value))
-            atLineChartData.minT.push(new Dataset(new Date(weatherDatas.minATData.time[index].endTime), weatherDatas.minATData.time[index].elementValue[0].value));
-            atLineChartData.maxT.push(new Dataset(new Date(weatherDatas.maxATData.time[index].endTime), weatherDatas.maxATData.time[index].elementValue[0].value))
+            tLineChartData.minT.push(new Dataset(new Date(weatherDatas.minTData.Time[index].EndTime), weatherDatas.minTData.Time[index].ElementValue[0].MinTemperature));
+            tLineChartData.maxT.push(new Dataset(new Date(weatherDatas.maxTData.Time[index].EndTime), weatherDatas.maxTData.Time[index].ElementValue[0].MaxTemperature))
+            atLineChartData.minT.push(new Dataset(new Date(weatherDatas.minATData.Time[index].EndTime), weatherDatas.minATData.Time[index].ElementValue[0].MinApparentTemperature));
+            atLineChartData.maxT.push(new Dataset(new Date(weatherDatas.maxATData.Time[index].EndTime), weatherDatas.maxATData.Time[index].ElementValue[0].MaxApparentTemperature))
         }
 
         d3.selectAll(".tab-widget svg").remove();
