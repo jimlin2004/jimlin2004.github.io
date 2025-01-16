@@ -8,6 +8,8 @@ class MarkdownPreviewer
                 return Prism.languages.cpp;
             case "py":
                 return Prism.languages.py;
+            case "sh":
+                return Prism.languages.bash;
             default:
                 throw new Error(`Unkonw language ${lang}`);
         }
