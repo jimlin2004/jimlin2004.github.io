@@ -236,3 +236,4 @@
     存檔紀錄version 1.0
 2025/07/21
     1. 將Notes改成不是submodule
+    2. 寫了一點RL筆記

@@ -2,7 +2,8 @@
 
 .markdown-previewer-body {
     font-family: "Roboto Mono";
-    font-size: 20px;
+    font-size: 16px;
+    line-height: 2;
     padding-left: 20px;
     padding-right: 20px;
 }
@@ -14,8 +15,6 @@
 .markdown-previewer-body h5,
 .markdown-previewer-body h6 {
     line-height: 1.2;
-    /* margin-top: 1em;
-    margin-bottom: 16px; */
     padding-top: 10px;
     padding-bottom: 10px;
     color: #000
@@ -116,24 +115,39 @@
     padding: 6px 13px
 }
 
-.markdown-previewer-body img {
+.markdown-previewer-body .img-wrapper {
     position: relative;
     display: block;
-    margin: 0 auto;
-    /* 為了不讓圖片太大影響閱讀 */
-    max-width: 640px;
+    max-width: 600px; /* 讓圖片不要太大 */
+    width: 100%;
+    overflow-x: auto;
+    margin: 0 auto;           /* 讓容器左右置中 */
+    text-align: center;       /* 讓內部 inline(-block) 圖片置中 */
+}
+
+.markdown-previewer-body .img-wrapper img {
+    position: relative;
+    display: inline-block;      /* 保持 inline-block 方便置中 */
+    max-width: 100%;
+    height: auto;               /* 建議加上防止變形 */
 }
 
 /* 數學式 */
 
 .markdown-previewer-body .katex {
-    position: relative;
-    overflow-x: auto;
-    font-size: 25px !important;
+    font-size: 20px !important;
+    display: inline-block;
+    line-height: 1.2;
 }
 
-.markdown-previewer-body .katex-html {
-    min-width: 640px;
-    /* margin是因為發現當外層與內層的width or height一樣時會出現不應該有的scroll */
-    margin: 10px;
-} 
+.markdown-previewer-body .katex-display {
+    font-size: 30px !important;
+    display: block;
+    padding: 10px 10px; /* 避免有錯誤的y軸scoller */
+    margin: 0;
+    overflow-x: auto;
+}
+
+.markdown-previewer-body .katex-display .katex-html {
+    min-width: 600px;
+}

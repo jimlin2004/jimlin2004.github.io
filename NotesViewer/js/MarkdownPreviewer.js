@@ -51,15 +51,20 @@ class MarkdownPreviewer
         
         if (workspace != null)
         {
-            // console.log(workspace)
             let baseUrl = window.location.origin;
             document.querySelectorAll(".markdown-previewer-body img").forEach((img) => {
-                //如果圖片在這個網址下，要改Url
+                // 如果圖片在這個網址下，要改Url
                 if (img.src.includes(baseUrl))
                 {
                     let imgFilename = img.src.substring(img.src.lastIndexOf('/') + 1);
                     img.src = workspace + '/' + imgFilename;
                 }
+
+                const wrapper = document.createElement("div");
+                wrapper.className = "img-wrapper";
+                // 插入 wrapper 在 img 原本的位置
+                img.parentNode.insertBefore(wrapper, img);
+                wrapper.appendChild(img); // 把 img 放進 wrapper 裡
             });
         }
     }
